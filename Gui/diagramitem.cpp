@@ -21,6 +21,7 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 	setFlag(QGraphicsItem::ItemIsMovable, true);
 	setFlag(QGraphicsItem::ItemIsFocusable, true);
 	setFlag(QGraphicsItem::ItemIsSelectable, true);
+	setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 }
 //! [0]
 
