@@ -1,0 +1,1 @@
+doc($inputDocument)//icCardList/icCardEntry/icCard/concat('"', @icId, '" "', @icName, '" "', @icDescription, '" "', @icIntPattern, '" "', @icMyTask, '" "', @icTimeCriticalCondition, '" "', @icNumberCurrent, '" "', @icNumberTotal, '" "' , icOther/@otherId, '" "', icOther/@icOtherName, '" "', icOther/@icOtherMessage, '" "', icOther/@icOtherTask, '"')

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<icCardList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <icCardEntry icEntryId="277" icEntryName="Picnic">
+        <icCard icId="644" icName="Picnic" icDescription="ask sb to get food" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="7" icNumberTotal="7">
+            <icOther icOtherName="OrganizeFood" icOtherMessage="Go!" icOtherTask="Get some food" otherId="-1" />
+        </icCard>
+        <icCard icId="645" icName="OrganizeFood" icDescription="Get some food" icIntPattern="myselfwith" icMyTask="Get some food" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="4">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="646" icName="OrganizeFood" icDescription="I can't make it" icIntPattern="myselfwith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="4" icNumberTotal="4">
+            <icOther icOtherName="Picnic" icOtherMessage="I can't attend" icOtherTask="find sb else" otherId="644" />
+        </icCard>
+        <icCard icId="647" icName="OrganizeFood" icDescription="GetFruit" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="2" icNumberTotal="4">
+            <icOther icOtherName="GetFruit" icOtherMessage="GetFruit" icOtherTask="GetFruit" otherId="-1" />
+        </icCard>
+        <icCard icId="648" icName="OrganizeFood" icDescription="GetMeat" icIntPattern="quietstate" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="3" icNumberTotal="4">
+            <icOther icOtherName="GetMeat" icOtherMessage="GetMeat" icOtherTask="GetMeat" otherId="-1" />
+        </icCard>
+        <icCard icId="649" icName="GetFruit" icDescription="GetFruit" icIntPattern="myselfwith" icMyTask="GetFruit" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="650" icName="GetMeat" icDescription="GetMeat" icIntPattern="myselfwith" icMyTask="GetMeat" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="651" icName="OrganizeEvents" icDescription="OrganizeFootball" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="3" icNumberTotal="4">
+            <icOther icOtherName="OrganizeFootball" icOtherMessage="Go!" icOtherTask="OrganizeFootball" otherId="643" />
+        </icCard>
+        <icCard icId="597" icName="DecidePlace" icDescription="Find a place for picnic" icIntPattern="myselfwith" icMyTask="find a place" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="643" icName="OrganizeFootball" icDescription="Set up football events" icIntPattern="myselfwith" icMyTask="Set up football events" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="642" icName="OrganizeWaterBall" icDescription="Set up waterball events" icIntPattern="myselfwith" icMyTask="Set up waterball events" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="596" icName="Picnic" icDescription="Ask sb to decide the place" icIntPattern="mixedstate" icMyTask="OrginizePicnic" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="7">
+            <icOther icOtherName="DecidePlace" icOtherMessage="Go!" icOtherTask="DecidePlace" otherId="597" />
+        </icCard>
+        <icCard icId="611" icName="DecideDriver" icDescription="I can't attend" icIntPattern="myselfwith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Picnic" icOtherMessage="I can't attend" icOtherTask="none" otherId="596" />
+        </icCard>
+        <icCard icId="612" icName="Picnic" icDescription="decide the events" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="6" icNumberTotal="7">
+            <icOther icOtherName="OrganizeEvents" icOtherMessage="Go!" icOtherTask="Set the events up" otherId="-1" />
+        </icCard>
+        <icCard icId="613" icName="OrganizeEvents" icDescription="OrganizeEvents" icIntPattern="myselfwith" icMyTask="OrganizeEvents" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="4">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="614" icName="OrganizeEvents" icDescription="I can't make it" icIntPattern="myselfwith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="4" icNumberTotal="4">
+            <icOther icOtherName="Picnic" icOtherMessage="I can't attend" icOtherTask="none" otherId="596" />
+        </icCard>
+        <icCard icId="615" icName="OrganizeEvents" icDescription="OrganizeWaterBall" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="2" icNumberTotal="4">
+            <icOther icOtherName="OrganizeWaterBall" icOtherMessage="Go!" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="616" icName="Everyone" icDescription="OrganizeFootball" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="3" icNumberTotal="4">
+            <icOther icOtherName="OrganizeFootball" icOtherMessage="Go!" icOtherTask="OrganizeFootball" otherId="-1" />
+        </icCard>
+        <icCard icId="609" icName="Picnic" icDescription="Find a driver for picnic" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="5" icNumberTotal="7">
+            <icOther icOtherName="DecideDriver" icOtherMessage="Go!" icOtherTask="Get a driver" otherId="-1" />
+        </icCard>
+        <icCard icId="610" icName="DecideDriver" icDescription="Find a driver for picnic" icIntPattern="myselfwith" icMyTask="find a driver" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="598" icName="DecidePlace" icDescription="Find a place for picnic" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Picnic" icOtherMessage="I can't attend" icOtherTask="none" otherId="596" />
+        </icCard>
+        <icCard icId="599" icName="Rain" icDescription="It begins to rain" icIntPattern="myselfnone" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="Picnic" icOtherMessage="Rain!" icOtherTask="none" otherId="596" />
+        </icCard>
+        <icCard icId="600" icName="Picnic" icDescription="When it rains" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="2" icNumberTotal="7">
+            <icOther icOtherName="Everyone" icOtherMessage="Cancel" icOtherTask="none" otherId="548" />
+        </icCard>
+        <icCard icId="601" icName="Everyone" icDescription="All the people who go to the picnic" icIntPattern="quietstate" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="602" icName="Everyone" icDescription="if some one is late" icIntPattern="myselfwith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Picnic" icOtherMessage="Bob is late" icOtherTask="Send sb to pick me up" otherId="596" />
+        </icCard>
+        <icCard icId="603" icName="Picnic" icDescription="PicnicManager" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="3" icNumberTotal="7">
+            <icOther icOtherName="DecideDate" icOtherMessage="Go!" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="604" icName="DecideDate" icDescription="Pick up the date of picnic" icIntPattern="myselfwith" icMyTask="Pick up a date" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="605" icName="DecideDate" icDescription="I can't attend" icIntPattern="myselfnone" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Picnic" icOtherMessage="I can't attend" icOtherTask="fidn sb else to replace my position" otherId="596" />
+        </icCard>
+        <icCard icId="606" icName="Picnic" icDescription="Ask sb to decide the cook" icIntPattern="otherswith" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="4" icNumberTotal="7">
+            <icOther icOtherName="DecideCook" icOtherMessage="Go!" icOtherTask="find a cook" otherId="-1" />
+        </icCard>
+        <icCard icId="607" icName="DecideCook" icDescription="Find a cool for picnic" icIntPattern="myselfwith" icMyTask="find a cook" icTimeCriticalCondition="none" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="none" icOtherMessage="none" icOtherTask="none" otherId="-1" />
+        </icCard>
+        <icCard icId="608" icName="DecideCook" icDescription="I can't make it" icIntPattern="myselfnone" icMyTask="none" icTimeCriticalCondition="none" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Picnic" icOtherMessage="I can't attend" icOtherTask="find sb else" otherId="596" />
+        </icCard>
+    </icCardEntry>
+</icCardList>

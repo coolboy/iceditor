@@ -12,7 +12,7 @@ namespace boost {
 			const QString& t, 
 			const unsigned int /* version */
 			){
-				std::wstring tmp = t.toStdWString();
+				std::wstring tmp = (wchar_t*)t.utf16();
 				ar << boost::serialization::make_nvp("str", tmp);
 		}
 
@@ -24,7 +24,7 @@ namespace boost {
 			){
 				std::wstring tmp;
 				ar >> boost::serialization::make_nvp("str", tmp);
-				t = QString::fromStdWString(tmp);
+				t = QString::fromUtf16((const ushort*)tmp.c_str());
 		}
 
 		template<class Archive>
