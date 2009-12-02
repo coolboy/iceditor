@@ -686,7 +686,7 @@ void MainWindow::save()
 	}
 
 	// make an archive
-	std::wofstream ofs(icePath.toStdWString().c_str());
+	std::wofstream ofs(icePath.utf16());
 	assert(ofs.good());
 	boost::archive::xml_woarchive oa(ofs);
 	std::vector<ICCardex> scards = cards.toStdVector();
@@ -734,7 +734,7 @@ void MainWindow::open()
 		return;
 
 	// open the archive
-	std::wifstream ifs(icePath.toStdWString().c_str());
+	std::wifstream ifs(icePath.utf16());
 	assert(ifs.good());
 	boost::archive::xml_wiarchive ia(ifs);
 

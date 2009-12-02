@@ -326,6 +326,22 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath="..\bin\debug\icci.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\icci.xq"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\icdb.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\icdb.xq"
+				>
+			</File>
+			<File
 				RelativePath=".\iceditor.qrc"
 				>
 			</File>
