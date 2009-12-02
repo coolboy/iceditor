@@ -204,13 +204,15 @@ bool DiagramScene::isItemChange(int type)
 
 void DiagramScene::AddCards( const ICCard::ICCards& cards )
 {
+	if (Verify(cards) == false)
+		return;
+
 	TreeLayout tl(sceneRect());
 
 	QList<DiagramItem*> ls;
 	Relations rels;
 
-	foreach(const ICCard& ic, cards)
-	{
+	foreach(const ICCard& ic, cards) {
 		DiagramItem* item = new DiagramItem(myItemType, myItemMenu);
 		item->setIC(ic);
 		addItem(item);
@@ -221,8 +223,7 @@ void DiagramScene::AddCards( const ICCard::ICCards& cards )
 
 	tl.setTree(rels);
 
-	foreach(DiagramItem* item, ls)
-	{
+	foreach(DiagramItem* item, ls) {
 		QPointF pos = tl.getPos(item->getId());
 		item->setPos(pos.x(), pos.y());
 	}
@@ -319,5 +320,21 @@ void DiagramScene::AddTexts( const TextExs& texts )
 		textItem->setHtml(te.content_);
 		//emit textInserted(textItem);
 	}
+}
+
+bool DiagramScene::Verify( const ICCard::ICCards& cards )
+{
+	//check if there is no groupname of icindexname
+	foreach(const ICCard& ic, cards) {
+		if (ic.indexCellName.isEmpty() ||
+			ic.groupName.isEmpty())
+		{
+			QString errMsg = ic.getSimpleStr() + " can't find groupname and icindexname!";
+			QMessageBox::critical(0, "Xml format error!", errMsg, QMessageBox::Ok);
+			return false;
+		}
+	}
+
+	return true;
 }
 //! [14]

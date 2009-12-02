@@ -25,6 +25,8 @@ public:
 	ICCard(void);
 	~ICCard(void);
 
+	QString getSimpleStr() const;
+
 //private:
 	int Id;
 	int parentId;
@@ -40,6 +42,9 @@ public:
 	int otherId;
 	QString OtherMessage;
 	QString OtherTask;
+	//ic group
+	QString indexCellName;
+	QString groupName;
 
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version)
@@ -57,5 +62,7 @@ public:
 		ar & BOOST_SERIALIZATION_NVP(otherId);
 		ar & BOOST_SERIALIZATION_NVP(OtherMessage);
 		ar & BOOST_SERIALIZATION_NVP(OtherTask);
+		ar & BOOST_SERIALIZATION_NVP(indexCellName);
+		ar & BOOST_SERIALIZATION_NVP(groupName);
 	}
 };

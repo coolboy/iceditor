@@ -44,9 +44,6 @@ ICCard::ICCards ICCard::Load( QStringList icdb, QStringList icci )
 {
 	ICCards iccards;
 
-	//if (icdb.size() != icci.size())
-		//return iccards;
-
 	foreach (QString str, icdb)
 	{
 		QStringList sls = str.split(regexp);
@@ -70,11 +67,18 @@ ICCard::ICCards ICCard::Load( QStringList icdb, QStringList icci )
 
 	foreach (QString str, icci)
 	{
-		QStringList sls = str.split(regexp, QString::SkipEmptyParts);
+		QStringList sls = str.split(regexp);
 		qDebug()<<sls;
 
-		iccards[sls[0].toInt()].parentId = sls[1].toInt();
+		iccards[sls[1].toInt()].parentId = sls[2].toInt();
+		iccards[sls[1].toInt()].indexCellName = sls[3];
+		iccards[sls[1].toInt()].groupName = sls[4];
 	}
 
 	return iccards;
+}
+
+QString ICCard::getSimpleStr() const
+{
+	return QString("%1 %2").arg(Id).arg(Name);
 }
