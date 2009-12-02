@@ -81,6 +81,7 @@ public:
 	//ic
 	void AddCards(const ICCard::ICCards& cards);
 	void AddCards(const ICCardexs& cards);
+	bool Verify(const ICCard::ICCards& cards);
 	//text
 	void AddTexts(const TextExs& texts);
 
