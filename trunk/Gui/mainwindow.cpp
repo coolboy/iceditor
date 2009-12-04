@@ -792,17 +792,20 @@ void MainWindow::loadFine()
 	IndexSystem::IndexSystems is = IndexSystem::Load(isLs);
 
 	srcFineXmlFile.seek(0);
-	QStringList icLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/fIndexCell.xq"));
-	qDebug()<< icLs;
-
-	IndexCell::IndexCells ics = IndexCell::Load(icLs);
-
-	srcFineXmlFile.seek(0);
 	QStringList tLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
 		qApp->applicationDirPath() + "/fTransition.xq"));
 	qDebug()<< tLs;
 
 	Transition::Transitions trans = Transition::load(tLs);
+
+	srcFineXmlFile.seek(0);
+	QStringList icLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/fIndexCell.xq"));
+	qDebug()<< icLs;
+
+	IndexCell::IndexCells ics = IndexCell::Load(icLs, trans);
+
+	scene->clear();
+	scene->AddIndexCells(ics);
 }
 //! [32]

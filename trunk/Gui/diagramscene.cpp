@@ -337,4 +337,56 @@ bool DiagramScene::Verify( const ICCard::ICCards& cards )
 
 	return true;
 }
+
+void DiagramScene::AddIndexCells( const IndexCell::IndexCells& cells )
+{
+	TreeLayout tl(sceneRect());
+
+	QList<DiagramItem*> ls;
+	Relations rels;
+
+	foreach(const IndexCell& ic, cells) {
+		DiagramItem* item = new DiagramItem(myItemType, myItemMenu);
+		ICCard icc;
+		icc.Id = ic.Id;
+		icc.parentId = ic.parentId;
+		item->setIC(icc);
+		addItem(item);
+
+		ls << item;
+		rels[item->getId()] = item->getParentId();
+	}
+
+	tl.setTree(rels);
+
+	foreach(DiagramItem* item, ls) {
+		QPointF pos = tl.getPos(item->getId());
+		item->setPos(pos.x(), pos.y());
+	}
+
+	foreach (QGraphicsItem *item, items()) {
+		if (item->type() != DiagramItem::Type)
+			continue;
+
+		DiagramItem* currItm = qgraphicsitem_cast<DiagramItem *>(item);
+		if (currItm == 0)
+			continue;
+
+		int parId = currItm->getParentId();
+		if (parId == -1)
+			continue;
+
+		DiagramItem* parItm = ID2Item(parId);
+		if (parItm == 0)
+			continue;
+
+		Arrow *arrow = new Arrow(currItm, parItm);
+		arrow->setColor(myLineColor);
+		currItm->addArrow(arrow);
+		parItm->addArrow(arrow);
+		arrow->setZValue(-1000.0);
+		addItem(arrow);
+		arrow->updatePosition();
+	}
+}
 //! [14]

@@ -21,9 +21,9 @@
 #include "diagramtextitem.hxx"
 
 #include "ICCard.h"
+#include "IndexCell.h"
 
 #include <boost/serialization/nvp.hpp>
-#include <boost/serialization/split_member.hpp>
 
 class ICCardex{
 public:
@@ -55,6 +55,21 @@ public:
 
 typedef QVector<TextEx> TextExs;
 
+class IndexCellex{
+public:
+	IndexCell ic_;
+	QPointF pos_;
+
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version)
+	{
+		ar & BOOST_SERIALIZATION_NVP(ic_);
+		ar & BOOST_SERIALIZATION_NVP(pos_);
+	}
+};
+
+typedef QVector<IndexCellex> IndexCellExs;
+
 //! [0]
 class DiagramScene : public QGraphicsScene
 {
@@ -84,6 +99,9 @@ public:
 	bool Verify(const ICCard::ICCards& cards);
 	//text
 	void AddTexts(const TextExs& texts);
+	//icindex
+	void AddIndexCells(const IndexCell::IndexCells& cells);
+	//void AddIndexCells(const IndexCellExs& cells);
 
 protected:
 	DiagramItem* ID2Item(int id);
