@@ -7,7 +7,7 @@
 #include "ICCard.h"
 
 CardEditor::CardEditor( QWidget* parent ) 
-	:QDialog(parent, Qt::Dialog | Qt::CustomizeWindowHint | Qt::WindowTitleHint)
+	:ItemWidgetBase(parent)
 {
 	ui = new Ui_CardEditor;
 	ui->setupUi(this);
@@ -21,7 +21,7 @@ CardEditor::~CardEditor( void )
 
 void CardEditor::setIC( const ICCard& icc )
 {
-	hideDetail();
+	//hideDetail();
 
 	ui->name->setText(icc.Name);
 	ui->description->setText(icc.Description);
@@ -108,11 +108,6 @@ void CardEditor::reject()
 	rejected();
 }
 
-ICCard &CardEditor::getIC()
-{
-	return icc_;
-}
-
 void CardEditor::showAll( bool bShow )
 {
 	ui->label->setVisible(bShow);
@@ -145,6 +140,11 @@ void CardEditor::showAll( bool bShow )
 	adjustSize();
 }
 
+void CardEditor::showAll()
+{
+	showAll(true);
+}
+
 void CardEditor::hideDetail()
 {
 	showAll(false);
@@ -153,4 +153,34 @@ void CardEditor::hideDetail()
 	ui->label_2->setVisible(true);
 	ui->label_3->setVisible(true);
 	adjustSize();
+}
+
+void CardEditor::setData( const boost::any& adata )
+{
+	setIC(boost::any_cast<ICCard>(adata));
+}
+
+boost::any CardEditor::getData()
+{
+	return icc_;
+}
+
+int CardEditor::getParentId()
+{
+	return icc_.parentId;
+}
+
+void CardEditor::setParentId( int val )
+{
+	icc_.parentId = val;
+}
+
+int CardEditor::getId()
+{
+	return icc_.Id;
+}
+
+void CardEditor::setId( int val )
+{
+	icc_.Id = val;
 }
