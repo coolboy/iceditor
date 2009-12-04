@@ -222,6 +222,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IndexCell.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IndexSystem.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -248,6 +256,10 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Transition.cpp"
+				>
 			</File>
 			<File
 				RelativePath=".\TreeLayout.cpp"
@@ -292,6 +304,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IndexCell.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IndexSystem.h"
+				>
+			</File>
+			<File
 				RelativePath=".\mainwindow.hxx"
 				>
 			</File>
@@ -312,6 +332,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Transition.h"
+				>
+			</File>
+			<File
 				RelativePath=".\TreeLayout.h"
 				>
 			</File>
@@ -325,6 +349,22 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath="..\bin\debug\fIndexCell.xq"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\FineGrained.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\fTransition.xq"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\GrossGrained.xml"
+				>
+			</File>
 			<File
 				RelativePath="..\bin\debug\icci.xml"
 				>
@@ -343,6 +383,10 @@
 			</File>
 			<File
 				RelativePath=".\iceditor.qrc"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\indexSystem.xq"
 				>
 			</File>
 		</Filter>
