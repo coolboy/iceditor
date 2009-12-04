@@ -184,3 +184,13 @@ void CardEditor::setId( int val )
 {
 	icc_.Id = val;
 }
+
+void CardEditor::onHoverEnter()
+{
+	showAll();
+}
+
+void CardEditor::onHoverLeave()
+{
+	hideDetail();
+}

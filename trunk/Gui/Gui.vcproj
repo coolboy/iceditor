@@ -226,6 +226,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IndexCellEditor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\IndexSystem.cpp"
 				>
 			</File>
@@ -309,6 +313,10 @@
 			</File>
 			<File
 				RelativePath=".\IndexCell.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IndexCellEditor.hxx"
 				>
 			</File>
 			<File

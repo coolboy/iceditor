@@ -213,7 +213,7 @@ void DiagramScene::AddCards( const ICCard::ICCards& cards )
 	Relations rels;
 
 	foreach(const ICCard& ic, cards) {
-		DiagramItem* item = new DiagramItem(myItemType, myItemMenu);
+		DiagramItem* item = new DiagramItem(DiagramItem::D_ICCard, myItemMenu);
 		item->setData(ic);
 		addItem(item);
 
@@ -258,7 +258,7 @@ void DiagramScene::AddCards( const ICCardexs& cards )
 {
 	foreach(const ICCardex& ice, cards)
 	{
-		DiagramItem* item = new DiagramItem(myItemType, myItemMenu);
+		DiagramItem* item = new DiagramItem(DiagramItem::D_ICCard, myItemMenu);
 		item->setData(ice.ic_);
 		addItem(item);
 		item->setPos(ice.pos_);
@@ -346,11 +346,13 @@ void DiagramScene::AddIndexCells( const IndexCell::IndexCells& cells )
 	Relations rels;
 
 	foreach(const IndexCell& ic, cells) {
-		DiagramItem* item = new DiagramItem(myItemType, myItemMenu);
-		ICCard icc;
-		icc.Id = ic.Id;
-		icc.parentId = ic.parentId;
-		item->setData(icc);
+		DiagramItem* item = new DiagramItem(DiagramItem::D_IndexCell, myItemMenu);
+		//IndexCell icc = ic;
+		//IndexCell icc;
+		//icc.Id = ic.Id;
+		//icc.parentId = ic.parentId;
+		//icc.Name = ic.Name;
+		item->setData(ic);
 		addItem(item);
 
 		ls << item;
