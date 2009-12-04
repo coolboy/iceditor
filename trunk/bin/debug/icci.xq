@@ -1,1 +1,1 @@
-doc($inputDocument)//icInteractions/icInteraction/icCard[@parentId!="-1" and @parentId!=""]/concat('"', @id, '" "', @parentId, '"')
+doc($inputDocument)//icInteractions/icInteraction/icCard[@parentId!="-1" and @parentId!=""]/concat('"', @id, '" "', @parentId, '" "', @scenario, '" "', @icSystem, '"')
