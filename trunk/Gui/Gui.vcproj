@@ -230,6 +230,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ItemWidgetBase.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -309,6 +313,10 @@
 			</File>
 			<File
 				RelativePath=".\IndexSystem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ItemWidgetBase.hxx"
 				>
 			</File>
 			<File

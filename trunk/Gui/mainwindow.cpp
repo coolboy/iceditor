@@ -289,9 +289,12 @@ void MainWindow::createToolBox()
 	buttonGroup->setExclusive(false);
 	connect(buttonGroup, SIGNAL(buttonClicked(int)),
 		this, SLOT(buttonGroupClicked(int)));
+
 	QGridLayout *layout = new QGridLayout;
 	layout->addWidget(createCellWidget(tr("ICCard"),
-		DiagramItem::Conditional), 0, 0);
+		DiagramItem::D_ICCard), 0, 0);
+	layout->addWidget(createCellWidget(tr("IndexCell"),
+		DiagramItem::D_IndexCell), 0, 1);
 
 	QToolButton *textButton = new QToolButton;
 	textButton->setCheckable(true);
@@ -304,7 +307,7 @@ void MainWindow::createToolBox()
 	textLayout->addWidget(new QLabel(tr("Text")), 1, 0, Qt::AlignCenter);
 	QWidget *textWidget = new QWidget;
 	textWidget->setLayout(textLayout);
-	layout->addWidget(textWidget, 0, 1);
+	layout->addWidget(textWidget, 1, 0);
 
 	layout->setRowStretch(3, 10);
 	layout->setColumnStretch(2, 10);
@@ -569,8 +572,21 @@ QWidget *MainWindow::createBackgroundCellWidget(const QString &text,
 QWidget *MainWindow::createCellWidget(const QString &text,
 																			DiagramItem::DiagramType type)
 {
+	QIcon icon;
 
-	QIcon icon(":/images/iccard.png");
+	switch (type)
+	{
+	case DiagramItem::D_ICCard:
+		icon = QIcon(":/images/iccard.png");
+		break;
+
+	case DiagramItem::D_IndexCell:
+		icon = QIcon(":/images/indexcell.png");
+		break;
+
+	default:
+		break;
+	}
 
 	QToolButton *button = new QToolButton;
 	button->setIcon(icon);
@@ -677,7 +693,7 @@ void MainWindow::save()
 				continue;
 
 			ICCardex ice;
-			ice.ic_ = currItm->getIC();
+			ice.ic_ = boost::any_cast<ICCard>(currItm->getData());
 			ice.pos_ = currItm->scenePos();
 
 			cards<<ice;

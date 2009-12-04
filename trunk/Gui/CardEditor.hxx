@@ -3,20 +3,23 @@
 class Ui_CardEditor;
 
 #include "ICCard.h"
+#include "ItemWidgetBase.hxx"
 
-class CardEditor : public QDialog
+class CardEditor : public ItemWidgetBase
 {
 	Q_OBJECT
 public:
 	CardEditor(QWidget* parent);
 	~CardEditor(void);
 
-	void setIC(const ICCard& icc);
-	ICCard &getIC();
+	virtual void setData(const boost::any& adata);
+	virtual boost::any getData();
 
-//private:
-	void showAll(bool bShow);
-	void hideDetail();
+	virtual int getParentId();
+	virtual void setParentId(int val);
+
+	virtual int getId();
+	virtual void setId(int val);
 
 signals:
 	void accepted();
@@ -25,6 +28,18 @@ signals:
 private slots:
 	void accept();
 	void reject();
+
+protected slots:
+	virtual void onHoverEnter(){showAll();}
+	virtual void onHoverLeave(){hideDetail();}
+
+private:
+	void showAll(bool bShow);
+	void showAll();
+	void hideDetail();
+
+private:
+	void setIC(const ICCard& icc);
 
 private:
 	Ui_CardEditor* ui;

@@ -16,8 +16,11 @@
 */
 #pragma once
 
+#include <boost/any.hpp>
+
 class Arrow;
 class CardEditor;
+class ItemWidgetBase;
 
 #include "ICCard.h"
 
@@ -27,7 +30,7 @@ class DiagramItem : public QGraphicsProxyWidget
 	Q_OBJECT
 public:
 	enum { Type = UserType + 15 };
-	enum DiagramType { Step, Conditional, StartEnd, Io };
+	enum DiagramType { D_ICCard, D_IndexCell, StartEnd, Io };
 
 	DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 		QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
@@ -43,9 +46,9 @@ public:
 	int type() const
 	{ return Type;}
 
-	//ic
-	void setIC(const ICCard& icc);
-	ICCard getIC();
+	void setData(const boost::any& adata);
+	boost::any getData();
+
 	int getParentId();
 	int getId();
 
@@ -56,11 +59,15 @@ protected:
 	void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
 	void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
+signals:
+	void sigHoverEnter();
+	void sigHoverLeave();
+
 private:
 	DiagramType myDiagramType;
 	QMenu *myContextMenu;
 	QList<Arrow *> arrows;
 
-private://icinfo
-	CardEditor* ce_;
+private:
+	ItemWidgetBase* wig_;
 };

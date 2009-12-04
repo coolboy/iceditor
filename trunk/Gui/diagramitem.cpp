@@ -11,12 +11,28 @@
 //! [0]
 DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 												 QGraphicsItem *parent, QGraphicsScene *scene)
-												 : QGraphicsProxyWidget(parent, Qt::Window), ce_(0)
+												 : QGraphicsProxyWidget(parent, Qt::Window), wig_(0)
 {
 	myDiagramType = diagramType;
 	myContextMenu = contextMenu;
-	ce_ = new CardEditor(0);
-	setWidget(ce_);
+
+	switch (myDiagramType)
+	{
+	case D_ICCard:
+		wig_ = new CardEditor(0);
+		setWidget(wig_);
+		break;
+
+	case D_IndexCell:
+		break;
+
+	default:
+		assert(0);
+		break;
+	}
+
+	QConnect(this, sigHoverEnter(), wig_, onHoverEnter());
+	QConnect(this, sigHoverLeave(), wig_, onHoverLeave());
 
 	setFlag(QGraphicsItem::ItemIsMovable, true);
 	setFlag(QGraphicsItem::ItemIsFocusable, true);
@@ -34,7 +50,8 @@ void DiagramItem::removeArrow(Arrow *arrow)
 	{
 		arrows.removeAt(index);
 		if (arrow->startItem() == this)
-			ce_->getIC().parentId = -1;
+			wig_->setParentId(-1);
+			//wig_->getIC().parentId = -1;
 	}
 }
 //! [1]
@@ -55,7 +72,7 @@ void DiagramItem::removeArrows()
 void DiagramItem::addArrow(Arrow *arrow)
 {
 	if (arrow->startItem() == this)
-		ce_->getIC().parentId = arrow->endItem()->getId();
+		wig_->setParentId(arrow->endItem()->getId());
 	arrows.append(arrow);
 }
 //! [3]
@@ -85,19 +102,19 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change,
 DiagramItem::~DiagramItem()
 { }
 
-void DiagramItem::setIC( const ICCard& icc )
+void DiagramItem::setData( const boost::any& adata )
 {
-	ce_->setIC(icc);
+	wig_->setData(adata);
 }
 
 int DiagramItem::getParentId()
 {
-	return ce_->getIC().parentId;
+	return wig_->getParentId();
 }
 
 int DiagramItem::getId()
 {
-	return ce_->getIC().Id;
+	return wig_->getId();
 }
 
 void DiagramItem::hoverEnterEvent( QGraphicsSceneHoverEvent *event )
@@ -105,20 +122,22 @@ void DiagramItem::hoverEnterEvent( QGraphicsSceneHoverEvent *event )
 	QGraphicsProxyWidget::hoverEnterEvent(event);
 	scene()->setActiveWindow(this);
 	QPointF cPos = pos();
-	ce_->showAll(true);
-	ce_->setGeometry(cPos.x(), cPos.y(), ce_->width(), ce_->height());
+	//wig_->showAll(true);
+	sigHoverEnter();
+	wig_->setGeometry(cPos.x(), cPos.y(), wig_->width(), wig_->height());
 }
 
 void DiagramItem::hoverLeaveEvent( QGraphicsSceneHoverEvent *event )
 {
 	QGraphicsProxyWidget::hoverLeaveEvent(event);
 	QPointF cPos = pos();
-	ce_->hideDetail();
-	ce_->setGeometry(cPos.x(), cPos.y(), ce_->width(), ce_->height());
+	//wig_->hideDetail();
+	sigHoverLeave();
+	wig_->setGeometry(cPos.x(), cPos.y(), wig_->width(), wig_->height());
 }
 
-ICCard DiagramItem::getIC()
+boost::any DiagramItem::getData()
 {
-	return ce_->getIC();
+	return wig_->getData();
 }
 //! [6]

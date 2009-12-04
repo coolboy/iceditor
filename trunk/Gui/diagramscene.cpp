@@ -13,7 +13,7 @@ DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
 {
 	myItemMenu = itemMenu;
 	myMode = MoveItem;
-	myItemType = DiagramItem::Step;
+	myItemType = DiagramItem::D_ICCard;
 	line = 0;
 	textItem = 0;
 	myItemColor = Qt::white;
@@ -214,7 +214,7 @@ void DiagramScene::AddCards( const ICCard::ICCards& cards )
 
 	foreach(const ICCard& ic, cards) {
 		DiagramItem* item = new DiagramItem(myItemType, myItemMenu);
-		item->setIC(ic);
+		item->setData(ic);
 		addItem(item);
 
 		ls << item;
@@ -259,7 +259,7 @@ void DiagramScene::AddCards( const ICCardexs& cards )
 	foreach(const ICCardex& ice, cards)
 	{
 		DiagramItem* item = new DiagramItem(myItemType, myItemMenu);
-		item->setIC(ice.ic_);
+		item->setData(ice.ic_);
 		addItem(item);
 		item->setPos(ice.pos_);
 	}
@@ -350,7 +350,7 @@ void DiagramScene::AddIndexCells( const IndexCell::IndexCells& cells )
 		ICCard icc;
 		icc.Id = ic.Id;
 		icc.parentId = ic.parentId;
-		item->setIC(icc);
+		item->setData(icc);
 		addItem(item);
 
 		ls << item;
