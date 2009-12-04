@@ -7,6 +7,7 @@
 #include "arrow.h"
 
 #include "CardEditor.hxx"
+#include "IndexCellEditor.hxx"
 
 //! [0]
 DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
@@ -20,10 +21,10 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 	{
 	case D_ICCard:
 		wig_ = new CardEditor(0);
-		setWidget(wig_);
 		break;
 
 	case D_IndexCell:
+		wig_ = new IndexCellEditor(0);
 		break;
 
 	default:
@@ -31,6 +32,7 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 		break;
 	}
 
+	setWidget(wig_);
 	QConnect(this, sigHoverEnter(), wig_, onHoverEnter());
 	QConnect(this, sigHoverLeave(), wig_, onHoverLeave());
 
@@ -51,7 +53,6 @@ void DiagramItem::removeArrow(Arrow *arrow)
 		arrows.removeAt(index);
 		if (arrow->startItem() == this)
 			wig_->setParentId(-1);
-			//wig_->getIC().parentId = -1;
 	}
 }
 //! [1]
@@ -122,7 +123,6 @@ void DiagramItem::hoverEnterEvent( QGraphicsSceneHoverEvent *event )
 	QGraphicsProxyWidget::hoverEnterEvent(event);
 	scene()->setActiveWindow(this);
 	QPointF cPos = pos();
-	//wig_->showAll(true);
 	sigHoverEnter();
 	wig_->setGeometry(cPos.x(), cPos.y(), wig_->width(), wig_->height());
 }
@@ -131,7 +131,6 @@ void DiagramItem::hoverLeaveEvent( QGraphicsSceneHoverEvent *event )
 {
 	QGraphicsProxyWidget::hoverLeaveEvent(event);
 	QPointF cPos = pos();
-	//wig_->hideDetail();
 	sigHoverLeave();
 	wig_->setGeometry(cPos.x(), cPos.y(), wig_->width(), wig_->height());
 }

@@ -29,9 +29,9 @@ private slots:
 	void accept();
 	void reject();
 
-protected slots:
-	virtual void onHoverEnter(){showAll();}
-	virtual void onHoverLeave(){hideDetail();}
+protected:
+	virtual void onHoverEnter();
+	virtual void onHoverLeave();
 
 private:
 	void showAll(bool bShow);
