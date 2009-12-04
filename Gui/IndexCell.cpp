@@ -3,7 +3,7 @@
 
 extern QRegExp regexp/*("((\"\\s+\")|\")")*/;
 
-IndexCell::IndexCell(void):Id(-1)
+IndexCell::IndexCell(void):Id(-1), parentId(-1)
 {
 }
 
@@ -11,7 +11,7 @@ IndexCell::~IndexCell(void)
 {
 }
 
-IndexCell::IndexCells IndexCell::Load( QStringList strLs )
+IndexCell::IndexCells IndexCell::Load( QStringList strLs, Transition::Transitions trans )
 {
 	IndexCells ret;
 
@@ -20,13 +20,14 @@ IndexCell::IndexCells IndexCell::Load( QStringList strLs )
 		QStringList sls = str.split(regexp);
 		qDebug()<<sls;
 
-		IndexCell ic;
+		ret[sls[1].toInt()].Id = sls[1].toInt();
+		ret[sls[1].toInt()].MaxLifeTime = sls[2];
+		ret[sls[1].toInt()].Name = sls[3];
+	}
 
-		ic.Id = sls[1].toInt();
-		ic.MaxLifeTime = sls[2];
-		ic.Name = sls[3];
-
-		ret.push_back(ic);
+	foreach (Transition tran, trans)
+	{
+		ret[tran.targetId].parentId = tran.srcId; 
 	}
 
 	return ret;
