@@ -377,6 +377,12 @@ void MainWindow::createActions()
 	loadAction->setStatusTip(tr("Load icdb and icci xml file"));
 	connect(loadAction, SIGNAL(triggered()), this, SLOT(load()));
 
+	grossAction = new QAction(tr("Gross"), this);
+	connect(grossAction, SIGNAL(triggered()), this, SLOT(loadGross()));
+
+	fineAction = new QAction(tr("Fine"), this);
+	connect(fineAction, SIGNAL(triggered()), this, SLOT(loadFine()));
+
 	saveAction = new QAction(tr("S&ave"), this);
 	saveAction->setShortcut(tr("Ctrl+S"));
 	saveAction->setStatusTip(tr("Save the project"));
@@ -421,6 +427,8 @@ void MainWindow::createMenus()
 	fileMenu = menuBar()->addMenu(tr("&File"));
 	fileMenu->addAction(openAction);
 	fileMenu->addAction(loadAction);
+	fileMenu->addAction(fineAction);
+	fileMenu->addAction(grossAction);
 	fileMenu->addAction(saveAction);
 	fileMenu->addAction(exitAction);
 
@@ -750,5 +758,51 @@ void MainWindow::open()
 	scene->clear();
 	scene->AddCards(cards);
 	scene->AddTexts(texts);
+}
+
+#include "IndexSystem.h"
+#include "IndexCell.h"
+#include "Transition.h"
+
+void MainWindow::loadGross()
+{
+	QString grossPath = QFileDialog::getOpenFileName(this, "Where is the gross.xml?", 
+		"",  tr("Xml (*.xml)"));
+	if (grossPath.isEmpty())
+		return;
+
+	QFile srcGrossFile(grossPath);
+	QStringList icCards = XQuery2(srcGrossFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/gross.xq"));
+	qDebug()<< icCards;
+}
+
+void MainWindow::loadFine()
+{
+	QString finePath = QFileDialog::getOpenFileName(this, "Where is the fine.xml?", 
+		"",  tr("Xml (*.xml)"));
+	if (finePath.isEmpty())
+		return;
+
+	QFile srcFineXmlFile(finePath);
+	QStringList isLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/indexSystem.xq"));
+	qDebug()<< isLs;
+
+	IndexSystem::IndexSystems is = IndexSystem::Load(isLs);
+
+	srcFineXmlFile.seek(0);
+	QStringList icLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/fIndexCell.xq"));
+	qDebug()<< icLs;
+
+	IndexCell::IndexCells ics = IndexCell::Load(icLs);
+
+	srcFineXmlFile.seek(0);
+	QStringList tLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/fTransition.xq"));
+	qDebug()<< tLs;
+
+	Transition::Transitions trans = Transition::load(tLs);
 }
 //! [32]

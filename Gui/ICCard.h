@@ -1,7 +1,6 @@
 #pragma once
 
 #include <boost/serialization/nvp.hpp>
-#include <boost/serialization/split_member.hpp>
 
 class ICCard
 {
