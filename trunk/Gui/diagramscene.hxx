@@ -38,7 +38,7 @@ public:
 	}
 };
 
-typedef QVector<ICCardex> ICCardexs;
+typedef QVector<ICCardex> ICCardExs;
 
 class TextEx{
 public:
@@ -95,13 +95,13 @@ public:
 public:
 	//ic
 	void AddCards(const ICCard::ICCards& cards);
-	void AddCards(const ICCardexs& cards);
+	void AddCards(const ICCardExs& cards);
 	bool Verify(const ICCard::ICCards& cards);
 	//text
 	void AddTexts(const TextExs& texts);
 	//icindex
 	void AddIndexCells(const IndexCell::IndexCells& cells);
-	//void AddIndexCells(const IndexCellExs& cells);
+	void AddIndexCells(const IndexCellExs& cells);
 
 protected:
 	DiagramItem* ID2Item(int id);

@@ -682,7 +682,8 @@ void MainWindow::save()
 	if (file.open(QIODevice::WriteOnly) == false)
 		return;
 
-	ICCardexs cards;
+	ICCardExs cards;
+	IndexCellExs cells;
 	TextExs texts;
 
 	foreach (QGraphicsItem *item, scene->items()) {
@@ -692,11 +693,22 @@ void MainWindow::save()
 			if (currItm == 0)
 				continue;
 
-			ICCardex ice;
-			ice.ic_ = boost::any_cast<ICCard>(currItm->getData());
-			ice.pos_ = currItm->scenePos();
+			if (currItm->diagramType() == DiagramItem::D_ICCard)
+			{
+				ICCardex ice;
+				ice.ic_ = boost::any_cast<ICCard>(currItm->getData());
+				ice.pos_ = currItm->scenePos();
 
-			cards<<ice;
+				cards<<ice;
+			}
+			else if (currItm->diagramType() == DiagramItem::D_IndexCell)
+			{
+				IndexCellex ice;
+				ice.ic_ = boost::any_cast<IndexCell>(currItm->getData());
+				ice.pos_ = currItm->scenePos();
+
+				cells<<ice;
+			}
 		}
 		else if (item->type() == DiagramTextItem::Type)
 		{
@@ -713,9 +725,13 @@ void MainWindow::save()
 	std::wofstream ofs(icePath.utf16());
 	assert(ofs.good());
 	boost::archive::xml_woarchive oa(ofs);
+
 	std::vector<ICCardex> scards = cards.toStdVector();
+	std::vector<IndexCellex> scells = cells.toStdVector();
 	std::vector<TextEx> stexts = texts.toStdVector();
+
 	oa << BOOST_SERIALIZATION_NVP(scards);
+	oa << BOOST_SERIALIZATION_NVP(scells);
 	oa << BOOST_SERIALIZATION_NVP(stexts);
 }
 
@@ -763,16 +779,20 @@ void MainWindow::open()
 	boost::archive::xml_wiarchive ia(ifs);
 
 	std::vector<ICCardex> scards;
+	std::vector<IndexCellex> scells;
 	std::vector<TextEx> stexts;
 	// restore the schedule from the archive
 	ia >> BOOST_SERIALIZATION_NVP(scards);
+	ia >> BOOST_SERIALIZATION_NVP(scells);
 	ia >> BOOST_SERIALIZATION_NVP(stexts);
 
-	ICCardexs cards = ICCardexs::fromStdVector(scards);
+	ICCardExs cards = ICCardExs::fromStdVector(scards);
+	IndexCellExs cells = IndexCellExs::fromStdVector(scells);
 	TextExs texts = TextExs::fromStdVector(stexts);
 	
 	scene->clear();
 	scene->AddCards(cards);
+	scene->AddIndexCells(cells);
 	scene->AddTexts(texts);
 }
 
