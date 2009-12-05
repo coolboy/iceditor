@@ -808,9 +808,35 @@ void MainWindow::loadGross()
 		return;
 
 	QFile srcGrossFile(grossPath);
-	QStringList icCards = XQuery2(srcGrossFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/gross.xq"));
-	qDebug()<< icCards;
+	QStringList isLs = XQuery2(srcGrossFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/indexSystem.xq"));
+	qDebug()<< isLs;
+
+	IndexSystem::IndexSystems is = IndexSystem::Load(isLs);
+
+	srcGrossFile.seek(0);
+	QStringList tLs = XQuery2(srcGrossFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/gTransition.xq"));
+	qDebug()<< tLs;
+
+	Transition::Transitions trans = Transition::load(tLs);
+
+	srcGrossFile.seek(0);
+	QStringList stLs = XQuery2(srcGrossFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/gState.xq"));
+	qDebug()<< stLs;
+
+	IndexCell::State::States states = IndexCell::State::Load(stLs);
+
+	srcGrossFile.seek(0);
+	QStringList icLs = XQuery2(srcGrossFile, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/gIndexCell.xq"));
+	qDebug()<< icLs;
+
+	IndexCell::IndexCells ics = IndexCell::Load(icLs, trans, states);
+
+	scene->clear();
+	scene->AddIndexCells(ics);
 }
 
 void MainWindow::loadFine()
