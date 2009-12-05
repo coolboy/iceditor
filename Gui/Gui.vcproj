@@ -378,7 +378,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\bin\debug\gIndexCell.xq"
+				>
+			</File>
+			<File
 				RelativePath="..\bin\debug\GrossGrained.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\gState.xq"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\gTransition.xq"
 				>
 			</File>
 			<File
