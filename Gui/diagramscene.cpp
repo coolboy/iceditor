@@ -254,7 +254,7 @@ void DiagramScene::AddCards( const ICCard::ICCards& cards )
 	}
 }
 
-void DiagramScene::AddCards( const ICCardexs& cards )
+void DiagramScene::AddCards( const ICCardExs& cards )
 {
 	foreach(const ICCardex& ice, cards)
 	{
@@ -347,11 +347,6 @@ void DiagramScene::AddIndexCells( const IndexCell::IndexCells& cells )
 
 	foreach(const IndexCell& ic, cells) {
 		DiagramItem* item = new DiagramItem(DiagramItem::D_IndexCell, myItemMenu);
-		//IndexCell icc = ic;
-		//IndexCell icc;
-		//icc.Id = ic.Id;
-		//icc.parentId = ic.parentId;
-		//icc.Name = ic.Name;
 		item->setData(ic);
 		addItem(item);
 
@@ -364,6 +359,42 @@ void DiagramScene::AddIndexCells( const IndexCell::IndexCells& cells )
 	foreach(DiagramItem* item, ls) {
 		QPointF pos = tl.getPos(item->getId());
 		item->setPos(pos.x(), pos.y());
+	}
+
+	foreach (QGraphicsItem *item, items()) {
+		if (item->type() != DiagramItem::Type)
+			continue;
+
+		DiagramItem* currItm = qgraphicsitem_cast<DiagramItem *>(item);
+		if (currItm == 0)
+			continue;
+
+		int parId = currItm->getParentId();
+		if (parId == -1)
+			continue;
+
+		DiagramItem* parItm = ID2Item(parId);
+		if (parItm == 0)
+			continue;
+
+		Arrow *arrow = new Arrow(currItm, parItm);
+		arrow->setColor(myLineColor);
+		currItm->addArrow(arrow);
+		parItm->addArrow(arrow);
+		arrow->setZValue(-1000.0);
+		addItem(arrow);
+		arrow->updatePosition();
+	}
+}
+
+void DiagramScene::AddIndexCells( const IndexCellExs& cells )
+{
+	foreach(const IndexCellex& ice, cells)
+	{
+		DiagramItem* item = new DiagramItem(DiagramItem::D_IndexCell, myItemMenu);
+		item->setData(ice.ic_);
+		addItem(item);
+		item->setPos(ice.pos_);
 	}
 
 	foreach (QGraphicsItem *item, items()) {
