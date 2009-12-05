@@ -48,3 +48,13 @@ void IndexCellEditor::setId( int val )
 {
 	ic_.Id = val;
 }
+
+void IndexCellEditor::onHoverEnter( QGraphicsSceneHoverEvent* event )
+{
+	ItemWidgetBase::onHoverEnter(event);
+}
+
+void IndexCellEditor::onHoverLeave( QGraphicsSceneHoverEvent* event )
+{
+	ItemWidgetBase::onHoverLeave(event);
+}

@@ -33,8 +33,10 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
 	}
 
 	setWidget(wig_);
-	QConnect(this, sigHoverEnter(), wig_, onHoverEnter());
-	QConnect(this, sigHoverLeave(), wig_, onHoverLeave());
+	QConnect(this, sigHoverEnter(QGraphicsSceneHoverEvent*),
+		wig_, onHoverEnter(QGraphicsSceneHoverEvent*));
+	QConnect(this, sigHoverLeave(QGraphicsSceneHoverEvent*),
+		wig_, onHoverLeave(QGraphicsSceneHoverEvent*));
 
 	setFlag(QGraphicsItem::ItemIsMovable, true);
 	setFlag(QGraphicsItem::ItemIsFocusable, true);
@@ -122,17 +124,13 @@ void DiagramItem::hoverEnterEvent( QGraphicsSceneHoverEvent *event )
 {
 	QGraphicsProxyWidget::hoverEnterEvent(event);
 	scene()->setActiveWindow(this);
-	QPointF cPos = pos();
-	sigHoverEnter();
-	wig_->setGeometry(cPos.x(), cPos.y(), wig_->width(), wig_->height());
+	sigHoverEnter(event);
 }
 
 void DiagramItem::hoverLeaveEvent( QGraphicsSceneHoverEvent *event )
 {
 	QGraphicsProxyWidget::hoverLeaveEvent(event);
-	QPointF cPos = pos();
-	sigHoverLeave();
-	wig_->setGeometry(cPos.x(), cPos.y(), wig_->width(), wig_->height());
+	sigHoverLeave(event);
 }
 
 boost::any DiagramItem::getData()

@@ -19,6 +19,13 @@ public:
 	virtual void setId(int val) = 0;
 
 protected slots:
-	virtual void onHoverEnter() = 0;
-	virtual void onHoverLeave() = 0;
+	virtual void onHoverEnter(QGraphicsSceneHoverEvent* event)
+	{
+		QPointF cPos = pos();
+		setGeometry(cPos.x(), cPos.y(), width(), height());
+	}
+	virtual void onHoverLeave(QGraphicsSceneHoverEvent* event){
+		QPointF cPos = pos();
+		setGeometry(cPos.x(), cPos.y(), width(), height());
+	}
 };

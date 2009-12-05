@@ -60,8 +60,8 @@ protected:
 	void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
 signals:
-	void sigHoverEnter();
-	void sigHoverLeave();
+	void sigHoverEnter(QGraphicsSceneHoverEvent * event);
+	void sigHoverLeave(QGraphicsSceneHoverEvent* event);
 
 private:
 	DiagramType myDiagramType;
