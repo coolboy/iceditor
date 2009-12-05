@@ -30,8 +30,8 @@ private slots:
 	void reject();
 
 protected:
-	virtual void onHoverEnter();
-	virtual void onHoverLeave();
+	virtual void onHoverEnter(QGraphicsSceneHoverEvent* event);
+	virtual void onHoverLeave(QGraphicsSceneHoverEvent* event);
 
 private:
 	void showAll(bool bShow);

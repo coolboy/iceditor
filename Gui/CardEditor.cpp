@@ -185,12 +185,14 @@ void CardEditor::setId( int val )
 	icc_.Id = val;
 }
 
-void CardEditor::onHoverEnter()
+void CardEditor::onHoverEnter(QGraphicsSceneHoverEvent* event)
 {
+	ItemWidgetBase::onHoverEnter(event);
 	showAll();
 }
 
-void CardEditor::onHoverLeave()
+void CardEditor::onHoverLeave(QGraphicsSceneHoverEvent* event)
 {
+	ItemWidgetBase::onHoverLeave(event);
 	hideDetail();
 }

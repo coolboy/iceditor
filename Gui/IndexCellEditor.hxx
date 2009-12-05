@@ -22,8 +22,8 @@ public:
 	virtual void setId(int val);
 
 protected:
-	virtual void onHoverEnter(){}
-	virtual void onHoverLeave(){}
+	virtual void onHoverEnter(QGraphicsSceneHoverEvent* event);
+	virtual void onHoverLeave(QGraphicsSceneHoverEvent* event);
 
 private:
 	IndexCell ic_;
