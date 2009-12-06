@@ -42,8 +42,13 @@ public:
 	QString OtherMessage;
 	QString OtherTask;
 	//ic group
-	QString indexCellName;
-	QString groupName;
+	QString scenario;
+	QString icSystem;
+	QString icGroup;
+	//ic entry
+	QString icEntryId;
+	QString icEntryName;
+
 
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version)
@@ -61,7 +66,10 @@ public:
 		ar & BOOST_SERIALIZATION_NVP(otherId);
 		ar & BOOST_SERIALIZATION_NVP(OtherMessage);
 		ar & BOOST_SERIALIZATION_NVP(OtherTask);
-		ar & BOOST_SERIALIZATION_NVP(indexCellName);
-		ar & BOOST_SERIALIZATION_NVP(groupName);
+		ar & BOOST_SERIALIZATION_NVP(scenario);
+		ar & BOOST_SERIALIZATION_NVP(icSystem);
+		ar & BOOST_SERIALIZATION_NVP(icGroup);
+		ar & BOOST_SERIALIZATION_NVP(icEntryId);
+		ar & BOOST_SERIALIZATION_NVP(icEntryName);
 	}
 };

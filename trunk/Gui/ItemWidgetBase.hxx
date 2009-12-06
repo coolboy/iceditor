@@ -21,11 +21,11 @@ public:
 protected slots:
 	virtual void onHoverEnter(QGraphicsSceneHoverEvent* event)
 	{
-		QPointF cPos = pos();
+		QPointF cPos = event->scenePos();
 		setGeometry(cPos.x(), cPos.y(), width(), height());
 	}
 	virtual void onHoverLeave(QGraphicsSceneHoverEvent* event){
-		QPointF cPos = pos();
+		QPointF cPos = event->scenePos();
 		setGeometry(cPos.x(), cPos.y(), width(), height());
 	}
 };
