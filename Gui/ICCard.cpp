@@ -61,6 +61,9 @@ ICCard::ICCards ICCard::Load( QStringList icdb, QStringList icci )
 		iccard.OtherName = sls[10];
 		iccard.OtherMessage = sls[11];
 		iccard.OtherTask = sls[12];
+		//icentry
+		iccard.icEntryId = sls[13];
+		iccard.icEntryName = sls[14];
 
 		iccards[iccard.Id] = iccard;
 	}
@@ -71,8 +74,9 @@ ICCard::ICCards ICCard::Load( QStringList icdb, QStringList icci )
 		qDebug()<<sls;
 
 		iccards[sls[1].toInt()].parentId = sls[2].toInt();
-		iccards[sls[1].toInt()].indexCellName = sls[3];
-		iccards[sls[1].toInt()].groupName = sls[4];
+		iccards[sls[1].toInt()].scenario = sls[3];
+		iccards[sls[1].toInt()].icSystem = sls[4];
+		iccards[sls[1].toInt()].icGroup = sls[5];
 	}
 
 	return iccards;

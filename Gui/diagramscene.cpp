@@ -204,8 +204,8 @@ bool DiagramScene::isItemChange(int type)
 
 void DiagramScene::AddCards( const ICCard::ICCards& cards )
 {
-	if (Verify(cards) == false)
-		return;
+	//if (Verify(cards) == false)
+		//return;
 
 	TreeLayout tl(sceneRect());
 
@@ -326,8 +326,8 @@ bool DiagramScene::Verify( const ICCard::ICCards& cards )
 {
 	//check if there is no groupname of icindexname
 	foreach(const ICCard& ic, cards) {
-		if (ic.indexCellName.isEmpty() ||
-			ic.groupName.isEmpty())
+		if (ic.scenario.isEmpty() ||
+			ic.icSystem.isEmpty())
 		{
 			QString errMsg = ic.getSimpleStr() + " can't find groupname and icindexname!";
 			QMessageBox::critical(0, "Xml format error!", errMsg, QMessageBox::Ok);

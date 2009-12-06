@@ -370,19 +370,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\bin\debug\FineGrained.xml"
-				>
-			</File>
-			<File
 				RelativePath="..\bin\debug\fTransition.xq"
 				>
 			</File>
 			<File
 				RelativePath="..\bin\debug\gIndexCell.xq"
-				>
-			</File>
-			<File
-				RelativePath="..\bin\debug\GrossGrained.xml"
 				>
 			</File>
 			<File
@@ -394,15 +386,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\bin\debug\icci.xml"
-				>
-			</File>
-			<File
 				RelativePath="..\bin\debug\icci.xq"
-				>
-			</File>
-			<File
-				RelativePath="..\bin\debug\icdb.xml"
 				>
 			</File>
 			<File
@@ -423,6 +407,34 @@
 			>
 			<File
 				RelativePath=".\CardEditor.ui"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Xml"
+			>
+			<File
+				RelativePath="..\bin\debug\FineGrained.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\GrossGrained.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\icci.1.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\icci.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\icdb.1.xml"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\icdb.xml"
 				>
 			</File>
 		</Filter>
