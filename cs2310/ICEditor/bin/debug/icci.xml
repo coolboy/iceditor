@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<icInteractions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="icCardInteractions.xsd">
+    <icInteraction scenario="http://www.cs.pitt.edu/~chang/231/cinder/scenario.htm" icSystem="http://www.cs.pitt.edu/~chang/231/cinder/ICSystemDesign.htm">
+        <icCard id="651" icName="OrganizeEvents" parentId="644" otherIcId="643" scenario="" icSystem="" />
+        <icCard id="608" icName="DecideCook" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="607" icName="DecideCook" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="606" icName="Picnic" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="605" icName="DecideDate" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="604" icName="DecideDate" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="603" icName="Picnic" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="602" icName="Everyone" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="601" icName="Everyone" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="600" icName="Picnic" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="599" icName="Rain" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="598" icName="DecidePlace" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="616" icName="Everyone" parentId="644" otherIcId="643" scenario="" icSystem="" />
+        <icCard id="609" icName="Picnic" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="610" icName="DecideDriver" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="615" icName="OrganizeEvents" parentId="644" otherIcId="642" scenario="" icSystem="" />
+        <icCard id="614" icName="OrganizeEvents" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="613" icName="OrganizeEvents" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="612" icName="Picnic" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="611" icName="DecideDriver" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="596" icName="Picnic" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="642" icName="OrganizeWaterBall" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="643" icName="OrganizeFootball" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="597" icName="DecidePlace" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="650" icName="GetMeat" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="649" icName="GetFruit" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="648" icName="OrganizeFood" parentId="644" otherIcId="650" scenario="" icSystem="" />
+        <icCard id="647" icName="OrganizeFood" parentId="644" otherIcId="649" scenario="" icSystem="" />
+        <icCard id="646" icName="OrganizeFood" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="645" icName="OrganizeFood" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+        <icCard id="644" icName="Picnic" parentId="644" otherIcId="-1" scenario="" icSystem="" />
+    </icInteraction>
+</icInteractions>
