@@ -51,10 +51,10 @@ void IndexCellEditor::setId( int val )
 
 void IndexCellEditor::onHoverEnter( QGraphicsSceneHoverEvent* event )
 {
-	ItemWidgetBase::onHoverEnter(event);
+	//ItemWidgetBase::onHoverEnter(event);
 }
 
 void IndexCellEditor::onHoverLeave( QGraphicsSceneHoverEvent* event )
 {
-	ItemWidgetBase::onHoverLeave(event);
+	//ItemWidgetBase::onHoverLeave(event);
 }

@@ -6,7 +6,7 @@ public:
 	Transition(void);
 	~Transition(void);
 
-	typedef QVector<Transition> Transitions;
+	typedef std::vector<Transition> Transitions;
 	static public Transitions load(QStringList strLs);
 
 	//data

@@ -38,7 +38,6 @@ private slots:
     void about();
 		void load();
 		void loadGross();
-		void loadFine();
 		void save();
 		void open();
 
@@ -62,8 +61,7 @@ private:
 		QAction *openAction;
 		QAction *saveAction;
 		QAction *loadAction;
-		QAction *grossAction;
-		QAction *fineAction;
+		QAction *idxLoadAction;
     QAction *exitAction;
     QAction *addAction;
     QAction *deleteAction;

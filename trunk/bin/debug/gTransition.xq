@@ -1,1 +1,0 @@
-doc($inputDocument)//indexSystem/indexCell/transition/concat('"', @id, '" "', @type, '" "', @source, '" "', @target, '"')

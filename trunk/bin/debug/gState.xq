@@ -1,1 +1,0 @@
-doc($inputDocument)//indexSystem/indexCell/state/concat('"', @id, '" "', @type, '" "', @name, '"')

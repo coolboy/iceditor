@@ -1,5 +1,7 @@
 #include "StdAfx.h"
+
 #include "IndexCell.h"
+#include "XmlHelper.h"
 
 extern QRegExp regexp/*("((\"\\s+\")|\")")*/;
 
@@ -27,22 +29,49 @@ IndexCell::IndexCells IndexCell::Load( QStringList strLs, Transition::Transition
 
 	foreach (Transition tran, trans)
 	{
-		if (tran.Type == "external")
+		if (tran.Type == "internal")//betwenn indexcell inside the index system
 			ret[tran.targetId].parentId = tran.srcId; 
 	}
 
 	return ret;
 }
 
-IndexCell::IndexCells IndexCell::Load( QStringList strLs, 
-																			Transition::Transitions trans, 
-																			State::States states )
+IndexCell::IndexCells IndexCell::Load( QIODevice& src )
 {
-	assert (strLs.size() == 1);
-	IndexCells ret = Load(strLs, trans);
-	assert (ret.size() == 1);
-	ret.begin().value().states = states;
-	return ret;
+	bool ret = src.open(QIODevice::ReadOnly);
+	assert (ret);
+
+	QStringList cellLst = XQuery2(src, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/IndexCell.xq"));
+	qDebug()<< cellLst;
+
+	src.seek(0);
+	QStringList tLs = XQuery2(src, QUrl::fromLocalFile(
+		qApp->applicationDirPath() + "/CellTransition.xq"));
+	qDebug()<< tLs;
+
+	Transition::Transitions trans = Transition::load(tLs);
+
+	IndexCells cells = Load(cellLst, trans);
+
+	for (IndexCells::iterator iter = cells.begin(); iter != cells.end(); ++iter)
+	{
+		src.seek(0);
+		QString xq4tran = QString("doc($inputDocument)//indexSystem/indexCell[@id=\"%1\"]/transition/concat('\"', @id, '\" \"', @type, '\" \"', @source, '\" \"', @target, '\"')").arg(iter->Id);
+		QString xq4state = QString("doc($inputDocument)//indexSystem/indexCell[@id=\"%1\"]/state/concat('\"', @id, '\" \"', @type, '\" \"', @name, '\"')").arg(iter->Id);
+		QStringList ctLs = XQuery2(src, xq4tran);
+		qDebug()<< ctLs;
+
+		iter->strans = Transition::load(ctLs);
+
+		src.seek(0);
+		QStringList cstLs = XQuery2(src, xq4state);
+		qDebug()<< cstLs;
+
+		iter->states = State::Load(cstLs);
+	}
+
+	return cells;
 }
 
 IndexCell::State::States IndexCell::State::Load( QStringList strLs )

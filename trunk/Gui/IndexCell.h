@@ -35,12 +35,10 @@ public:
 
 	//static
 	typedef QMap<int, IndexCell> IndexCells;
+	//for all
+	static IndexCells Load(QIODevice& src);
 	//for fine
 	static IndexCells Load(QStringList strLs, Transition::Transitions trans);
-	//for gross
-	static IndexCells Load(QStringList strLs, 
-		Transition::Transitions trans,
-		State::States states);
 
 	//data
 	int Id;
@@ -48,6 +46,7 @@ public:
 	QString Name;
 	QString MaxLifeTime;
 	State::States states;
+	Transition::Transitions strans;
 
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version)
@@ -57,5 +56,6 @@ public:
 		ar & BOOST_SERIALIZATION_NVP(Name);
 		ar & BOOST_SERIALIZATION_NVP(MaxLifeTime);
 		ar & BOOST_SERIALIZATION_NVP(states);
+		ar & BOOST_SERIALIZATION_NVP(strans);
 	}
 };

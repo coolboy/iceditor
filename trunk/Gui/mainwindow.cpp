@@ -380,11 +380,10 @@ void MainWindow::createActions()
 	loadAction->setStatusTip(tr("Load icdb and icci xml file"));
 	connect(loadAction, SIGNAL(triggered()), this, SLOT(load()));
 
-	grossAction = new QAction(tr("Gross"), this);
-	connect(grossAction, SIGNAL(triggered()), this, SLOT(loadGross()));
-
-	fineAction = new QAction(tr("Fine"), this);
-	connect(fineAction, SIGNAL(triggered()), this, SLOT(loadFine()));
+	idxLoadAction = new QAction(tr("Index"), this);
+	idxLoadAction->setShortcut(tr("Ctrl+I"));
+	idxLoadAction->setStatusTip(tr("Load the ICIndex xml file"));
+	connect(idxLoadAction, SIGNAL(triggered()), this, SLOT(loadGross()));
 
 	saveAction = new QAction(tr("S&ave"), this);
 	saveAction->setShortcut(tr("Ctrl+S"));
@@ -430,8 +429,7 @@ void MainWindow::createMenus()
 	fileMenu = menuBar()->addMenu(tr("&File"));
 	fileMenu->addAction(openAction);
 	fileMenu->addAction(loadAction);
-	fileMenu->addAction(fineAction);
-	fileMenu->addAction(grossAction);
+	fileMenu->addAction(idxLoadAction);
 	fileMenu->addAction(saveAction);
 	fileMenu->addAction(exitAction);
 
@@ -808,66 +806,9 @@ void MainWindow::loadGross()
 		return;
 
 	QFile srcGrossFile(grossPath);
-	QStringList isLs = XQuery2(srcGrossFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/indexSystem.xq"));
-	qDebug()<< isLs;
 
-	IndexSystem::IndexSystems is = IndexSystem::Load(isLs);
-
-	srcGrossFile.seek(0);
-	QStringList tLs = XQuery2(srcGrossFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/gTransition.xq"));
-	qDebug()<< tLs;
-
-	Transition::Transitions trans = Transition::load(tLs);
-
-	srcGrossFile.seek(0);
-	QStringList stLs = XQuery2(srcGrossFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/gState.xq"));
-	qDebug()<< stLs;
-
-	IndexCell::State::States states = IndexCell::State::Load(stLs);
-
-	srcGrossFile.seek(0);
-	QStringList icLs = XQuery2(srcGrossFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/gIndexCell.xq"));
-	qDebug()<< icLs;
-
-	IndexCell::IndexCells ics = IndexCell::Load(icLs, trans, states);
+	IndexCell::IndexCells ics = IndexCell::Load(srcGrossFile);
 
 	scene->clear();
 	scene->AddIndexCells(ics);
 }
-
-void MainWindow::loadFine()
-{
-	QString finePath = QFileDialog::getOpenFileName(this, "Where is the fine.xml?", 
-		"",  tr("Xml (*.xml)"));
-	if (finePath.isEmpty())
-		return;
-
-	QFile srcFineXmlFile(finePath);
-	QStringList isLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/indexSystem.xq"));
-	qDebug()<< isLs;
-
-	IndexSystem::IndexSystems is = IndexSystem::Load(isLs);
-
-	srcFineXmlFile.seek(0);
-	QStringList tLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/fTransition.xq"));
-	qDebug()<< tLs;
-
-	Transition::Transitions trans = Transition::load(tLs);
-
-	srcFineXmlFile.seek(0);
-	QStringList icLs = XQuery2(srcFineXmlFile, QUrl::fromLocalFile(
-		qApp->applicationDirPath() + "/fIndexCell.xq"));
-	qDebug()<< icLs;
-
-	IndexCell::IndexCells ics = IndexCell::Load(icLs, trans);
-
-	scene->clear();
-	scene->AddIndexCells(ics);
-}
-//! [32]
