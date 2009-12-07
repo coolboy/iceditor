@@ -1,0 +1,18 @@
+<indexSystem id="0" name="PicnicSystem" description="A system to organize a picnic">
+	<indexCell id="758" maxLifeTime="infinity" name="Food">
+	</indexCell>
+	<indexCell id="778" maxLifeTime="infinity" name="Games">
+	</indexCell>
+	<indexCell id="785" maxLifeTime="infinity" name="Schedule">
+	</indexCell>
+	<indexCell id="323" maxLifeTime="infinity" name="Picnic">
+	</indexCell>
+	<transition id="40" type="external" source="0" target="1">
+	</transition>
+	<transition id="41" type="internal" source="323" target="758">
+	</transition>
+	<transition id="42" type="internal" source="323" target="778">
+	</transition>
+	<transition id="43" type="internal" source="323" target="785">
+	</transition>
+</indexSystem>

@@ -1,0 +1,10 @@
+<icInteractions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="icCardInteractions.xsd">
+    <icInteraction scenario="http://www.cs.pitt.edu/~chang/231/cinder/scenario.htm" icSystem="http://www.cs.pitt.edu/~chang/231/cinder/ICSystemDesign.htm">
+        <icCard id="758" icName="Food" parentId="754" otherIcId="-1" scenario="Picnic" icSystem="ic0" icGroup="ig0"/>
+        <icCard id="754" icName="Picnic" parentId="-1" otherIcId="-1" scenario="Picnic" icSystem="ic0" icGroup="ig0"/>
+        <icCard id="756" icName="Picnic" parentId="-1" otherIcId="-1" scenario="Picnic" icSystem="ic0" icGroup="ig0"/>
+        <icCard id="757" icName="Picnic" parentId="-1" otherIcId="-1" scenario="Picnic" icSystem="ic0" icGroup="ig0"/>
+        <icCard id="778" icName="Games" parentId="" otherIcId="-1" scenario="Picnic" icSystem="ic0" icGroup="ig0"/>
+        <icCard id="785" icName="Schedule" parentId="754" otherIcId="-1" scenario="Picnic" icSystem="ic0" icGroup="ig0"/>
+    </icInteraction>
+</icInteractions>

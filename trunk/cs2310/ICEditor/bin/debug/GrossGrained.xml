@@ -1,0 +1,16 @@
+<indexSystem id="0" name="PicnicSystem" description="A system to organize a picnic">
+<indexCell id="323" maxLifeTime="infinity" name="Picnic">
+	<!--<state id="757" type="Entering" name="Picnic" />-->
+	<!--<state id="756" type="Entering" name="Picnic" />-->
+	<state id="754" type="Entering" name="Picnic" />
+	<state id="758" type="Internal" name="Food" />
+	<state id="778" type="Internal" name="Games" />
+	<state id="785" type="Internal" name="Schedule" />
+	<transition id="10" type="Internal" source="754" target="758"/>
+	<!--<transition/>-->
+	<transition id="11" type="Internal" source="754" target="778"/>
+	<!--<transition/>-->
+	<transition id="12" type="Internal" source="754" target="785"/>
+	<!--<transition/>-->
+</indexCell>
+</indexSystem>

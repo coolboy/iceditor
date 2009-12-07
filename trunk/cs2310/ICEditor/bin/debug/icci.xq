@@ -1,0 +1,1 @@
+doc($inputDocument)//icInteractions/icInteraction/icCard/concat('"', @id, '" "', @parentId, '" "', @scenario, '" "', @icSystem, '" "', @icGroup, '"')
