@@ -1,1 +1,0 @@
-doc($inputDocument)//indexSystem/concat('"', @id, '" "', @name, '" "', @description, '"')
