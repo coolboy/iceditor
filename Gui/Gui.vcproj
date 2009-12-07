@@ -366,23 +366,7 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\bin\debug\fIndexCell.xq"
-				>
-			</File>
-			<File
-				RelativePath="..\bin\debug\fTransition.xq"
-				>
-			</File>
-			<File
-				RelativePath="..\bin\debug\gIndexCell.xq"
-				>
-			</File>
-			<File
-				RelativePath="..\bin\debug\gState.xq"
-				>
-			</File>
-			<File
-				RelativePath="..\bin\debug\gTransition.xq"
+				RelativePath="..\bin\debug\CellTransition.xq"
 				>
 			</File>
 			<File
@@ -395,6 +379,10 @@
 			</File>
 			<File
 				RelativePath=".\iceditor.qrc"
+				>
+			</File>
+			<File
+				RelativePath="..\bin\debug\IndexCell.xq"
 				>
 			</File>
 			<File
@@ -413,6 +401,10 @@
 		<Filter
 			Name="Xml"
 			>
+			<File
+				RelativePath="..\bin\debug\CustomGrained.xml"
+				>
+			</File>
 			<File
 				RelativePath="..\bin\debug\FineGrained.xml"
 				>

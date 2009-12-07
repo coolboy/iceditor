@@ -11,7 +11,7 @@ CardEditor::CardEditor( QWidget* parent )
 {
 	ui = new Ui_CardEditor;
 	ui->setupUi(this);
-	hideDetail();
+	//hideDetail();
 }
 
 CardEditor::~CardEditor( void )
@@ -187,12 +187,12 @@ void CardEditor::setId( int val )
 
 void CardEditor::onHoverEnter(QGraphicsSceneHoverEvent* event)
 {
-	ItemWidgetBase::onHoverEnter(event);
-	showAll();
+	//ItemWidgetBase::onHoverEnter(event);
+	//showAll();
 }
 
 void CardEditor::onHoverLeave(QGraphicsSceneHoverEvent* event)
 {
-	ItemWidgetBase::onHoverLeave(event);
-	hideDetail();
+	//ItemWidgetBase::onHoverLeave(event);
+	//hideDetail();
 }

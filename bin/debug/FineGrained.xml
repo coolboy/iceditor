@@ -7,12 +7,12 @@
 	</indexCell>
 	<indexCell id="323" maxLifeTime="infinity" name="Picnic">
 	</indexCell>
-	<!--<transition id="40" type="external" source="ic0" target="ic1">
-	</transition>-->
-	<transition id="41" type="external" source="323" target="758">
+	<transition id="40" type="external" source="0" target="1">
 	</transition>
-	<transition id="42" type="external" source="323" target="778">
+	<transition id="41" type="internal" source="323" target="758">
 	</transition>
-	<transition id="43" type="external" source="323" target="785">
+	<transition id="42" type="internal" source="323" target="778">
+	</transition>
+	<transition id="43" type="internal" source="323" target="785">
 	</transition>
 </indexSystem>

@@ -1,1 +1,0 @@
-doc($inputDocument)//indexSystem/indexCell/concat('"', @id, '" "', @maxLifeTime, '" "', @name, '"')
