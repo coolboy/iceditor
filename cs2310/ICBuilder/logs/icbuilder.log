@@ -1,0 +1,646 @@
+INFO 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:25:20 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:32:23 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:32:36 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:32:49 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:34:24 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:35:11 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:37:31 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.commandLine:151] Verification complete!
+INFO 07-Dec-2009 16:38:34 [com.pitt.softengr.icbuilder.commandLine:154] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.commandLine:148] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.commandLine:151] Verification complete!
+INFO 07-Dec-2009 16:39:24 [com.pitt.softengr.icbuilder.commandLine:154] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.commandLine:148] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.commandLine:151] Verification complete!
+INFO 07-Dec-2009 16:40:00 [com.pitt.softengr.icbuilder.commandLine:154] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:40:53 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.commandLine:147] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.commandLine:150] Verification complete!
+INFO 07-Dec-2009 16:41:14 [com.pitt.softengr.icbuilder.commandLine:153] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:43:34 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.commandLine:78] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.commandLine:148] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.commandLine:151] Verification complete!
+INFO 07-Dec-2009 16:43:43 [com.pitt.softengr.icbuilder.commandLine:154] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.commandLine:79] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.commandLine:149] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.commandLine:152] Verification complete!
+INFO 07-Dec-2009 16:45:34 [com.pitt.softengr.icbuilder.commandLine:155] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.commandLine:79] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.commandLine:149] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.commandLine:152] Verification complete!
+INFO 07-Dec-2009 16:48:34 [com.pitt.softengr.icbuilder.commandLine:155] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.commandLine:79] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.commandLine:149] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.commandLine:152] Verification complete!
+INFO 07-Dec-2009 16:51:52 [com.pitt.softengr.icbuilder.commandLine:155] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.commandLine:79] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.commandLine:149] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.commandLine:152] Verification complete!
+INFO 07-Dec-2009 16:52:26 [com.pitt.softengr.icbuilder.commandLine:155] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.commandLine:79] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.commandLine:149] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.commandLine:152] Verification complete!
+INFO 07-Dec-2009 16:53:16 [com.pitt.softengr.icbuilder.commandLine:155] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.commandLine:79] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.commandLine:149] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.commandLine:152] Verification complete!
+INFO 07-Dec-2009 16:53:36 [com.pitt.softengr.icbuilder.commandLine:155] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.commandLine:79] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 16:54:15 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.commandLine:79] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 16:54:37 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = standard
+DEBUG 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:103] Loading ICDB data file....\data\icdb.xml
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:119] Successfully loaded ICDB!
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:124] Loading icCardInteractions data file....\data\icCardInteractions.xml
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:141] Merging data from both files...
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:147] Merging Complete!
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:165] Convertion process complete!
+INFO 07-Dec-2009 16:55:14 [com.pitt.softengr.icbuilder.commandLine:166] Writing XML system file...
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = standard
+DEBUG 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:103] Loading ICDB data file....\data\icdb.xml
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:119] Successfully loaded ICDB!
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:124] Loading icCardInteractions data file....\data\icCardInteractions.xml
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:141] Merging data from both files...
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:147] Merging Complete!
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:165] Convertion process complete!
+INFO 07-Dec-2009 16:55:50 [com.pitt.softengr.icbuilder.commandLine:166] Writing XML system file...
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = standard
+DEBUG 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:104] Loading ICDB data file....\data\icdb.xml
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:120] Successfully loaded ICDB!
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:125] Loading icCardInteractions data file....\data\icCardInteractions.xml
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:142] Merging data from both files...
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:148] Merging Complete!
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:151] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:154] Verification complete!
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:157] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:166] Convertion process complete!
+INFO 07-Dec-2009 16:57:02 [com.pitt.softengr.icbuilder.commandLine:167] Writing XML system file...
+INFO 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.commandLine:81] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.commandLine:151] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.commandLine:154] Verification complete!
+INFO 07-Dec-2009 16:57:16 [com.pitt.softengr.icbuilder.commandLine:157] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.commandLine:82] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.commandLine:152] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.commandLine:155] Verification complete!
+INFO 07-Dec-2009 16:57:31 [com.pitt.softengr.icbuilder.commandLine:158] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.commandLine:82] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.commandLine:152] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.commandLine:155] Verification complete!
+INFO 07-Dec-2009 16:57:43 [com.pitt.softengr.icbuilder.commandLine:158] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = lou.ice
+DEBUG 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.commandLine:80] Loading ICE data file... lou.ice
+INFO 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.commandLine:152] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.commandLine:155] Verification complete!
+INFO 07-Dec-2009 16:57:55 [com.pitt.softengr.icbuilder.commandLine:158] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:80] Loading ICE data file... .\data\lou.ice
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:91] Successfully loaded parser... 
+DEBUG 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:98] Successfully parsed file .\data\lou.ice
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:152] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:155] Verification complete!
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:158] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:167] Convertion process complete!
+INFO 07-Dec-2009 16:58:35 [com.pitt.softengr.icbuilder.commandLine:168] Writing XML system file...
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:80] Loading ICE data file... .\data\lou.ice
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:91] Successfully loaded parser... 
+DEBUG 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:98] Successfully parsed file .\data\lou.ice
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:152] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:155] Verification complete!
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:158] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:167] Convertion process complete!
+INFO 07-Dec-2009 16:58:54 [com.pitt.softengr.icbuilder.commandLine:168] Writing XML system file...
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:80] Loading ICE data file... .\data\lou.ice
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:91] Successfully loaded parser... 
+DEBUG 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:98] Successfully parsed file .\data\lou.ice
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:152] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:155] Verification complete!
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:158] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:167] Convertion process complete!
+INFO 07-Dec-2009 16:59:23 [com.pitt.softengr.icbuilder.commandLine:168] Writing XML system file...
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:80] Loading ICE data file... .\data\lou.ice
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:89] Successfully loaded parser... 
+DEBUG 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:96] Successfully parsed file .\data\lou.ice
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:165] Convertion process complete!
+INFO 07-Dec-2009 16:59:36 [com.pitt.softengr.icbuilder.commandLine:166] Writing XML system file...
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = gross
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:80] Loading ICE data file... .\data\lou.ice
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:89] Successfully loaded parser... 
+DEBUG 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:96] Successfully parsed file .\data\lou.ice
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:165] Convertion process complete!
+INFO 07-Dec-2009 17:00:26 [com.pitt.softengr.icbuilder.commandLine:166] Writing XML system file...
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = fine
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:80] Loading ICE data file... .\data\lou.ice
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:89] Successfully loaded parser... 
+DEBUG 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:96] Successfully parsed file .\data\lou.ice
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:165] Convertion process complete!
+INFO 07-Dec-2009 17:01:04 [com.pitt.softengr.icbuilder.commandLine:166] Writing XML system file...
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = custom
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = ice
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:80] Loading ICE data file... .\data\lou.ice
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:89] Successfully loaded parser... 
+DEBUG 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:96] Successfully parsed file .\data\lou.ice
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:165] Convertion process complete!
+INFO 07-Dec-2009 17:01:17 [com.pitt.softengr.icbuilder.commandLine:166] Writing XML system file...
+INFO 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = custom
+DEBUG 07-Dec-2009 17:01:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = null
+INFO 07-Dec-2009 17:02:51 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 17:02:51 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 17:02:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 17:02:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 17:02:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 17:02:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 17:02:51 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = null
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:43] Logging initialized.
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:52] Reading Configuration File
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:49] Current working directory is C:\Documents and Settings\angelula\My Documents\workspace\ICBuilder\.
+DEBUG 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:106] Loading properties from config file
+DEBUG 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: output.dir = ./output
+DEBUG 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.interactions = ./data/icCardInteractions.xml
+DEBUG 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.database = ./data/icdb.xml
+DEBUG 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: input.data.ic.ice = ./data/lou.ice
+DEBUG 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:90] Loaded config property: system.indexcell.type = custom
+DEBUG 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:97] Loaded config property: input.data.ic.format = standard
+DEBUG 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.config.icbuilderConfig:118] Configuration settings loaded successfully.
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:59] Configuration File Import Complete!
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:103] Loading ICDB data file....\data\icdb.xml
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:119] Successfully loaded ICDB!
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:124] Loading icCardInteractions data file....\data\icCardInteractions.xml
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:141] Merging data from both files...
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:147] Merging Complete!
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:150] Verifiying all index card data is available...
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:153] Verification complete!
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:156] Converting Index Card Data to Finite State Machine
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:165] Convertion process complete!
+INFO 07-Dec-2009 17:02:59 [com.pitt.softengr.icbuilder.commandLine:166] Writing XML system file...

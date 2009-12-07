@@ -1,0 +1,352 @@
+<!-- ANT configuration for sim util project. -->
+<project name="MigrationSuitePrototype1" basedir="." default="migration-jar">
+    
+    <!-- Project-specific settings -->
+    <property file="project.properties"/>
+	
+	<!-- Compile DCS Map Tool. -->
+    <target name="map-compile" depends="map-init"
+    	description="Compile DCS Map Tool." >
+      <javac destdir="${dir.output.bin}/map" debug="true" debuglevel="lines,vars,source" >
+        <src path="${dir.src}"/>
+        <classpath refid="map-classpath.compile"/>
+      	<exclude name="com/wec/sim/migration/**" />
+      </javac>
+      <copy todir="${dir.output.bin}/map" verbose="true">
+        <fileset dir="${dir.src}">
+          <exclude name="**/*.java" />
+          <exclude name="com/wec/sim/migration/**" />
+          <include name="map.log4j.properties" />
+          <include name="com/wec/sim/common/license/*.*" />
+          <include name="com/wec/sim/common/config/io_modules_config.xml" />
+          <include name="com/wec/sim/map/output/lc_alg.properties" />        	
+        </fileset>
+      </copy>
+      <!-- Rename map.log4j.properties to log4j.properties so log4j picks it up at runtime -->
+      <move file="${dir.output.bin}/map/map.log4j.properties" tofile="${dir.output.bin}/map/log4j.properties" />
+    </target>
+	
+	<!-- Compilation target for release of DCS Map Tool. -->
+    <target name="map-compile-release" depends="map-init"
+    	description="Compilation target for release of DCS Map Tool." >
+      <javac destdir="${dir.output.bin}/map" debug="false" >
+        <src path="${dir.src}"/>
+        <classpath refid="map-classpath.compile"/>
+        <exclude name="com/wec/sim/migration/**" />      	
+      </javac>
+      <copy todir="${dir.output.bin}/map" verbose="false">
+        <fileset dir="${dir.src}">
+          <exclude name="**/*.java" />
+          <exclude name="com/wec/sim/migration/**" />        	
+          <include name="map.log4j.properties" />
+          <include name="com/wec/sim/common/license/*.*" />
+      	  <include name="com/wec/sim/common/config/io_modules_config.xml" />
+          <include name="com/wec/sim/map/output/lc_alg.properties" />        	
+        </fileset>
+      </copy>
+      <!-- Rename map.log4j.properties to log4j.properties so log4j picks it up at runtime -->
+      <move file="${dir.output.bin}/map/map.log4j.properties" tofile="${dir.output.bin}/map/log4j.properties" />     	
+    </target>
+	
+    <!-- Compile DCS Logic Migration Tool -->
+    <target name="migration-compile" depends="migration-init"
+    	description="Compile DCS Logic Migration Tool" >
+      <javac destdir="${dir.output.bin}/migration" debug="true" debuglevel="lines,vars,source">
+        <src path="${dir.src}"/>
+        <classpath refid="migration-classpath.compile"/>
+      </javac>
+      <copy todir="${dir.output.bin}/migration" verbose="true">
+        <fileset dir="${dir.src}">
+	      <exclude name="**/*.java" />
+	      <include name="migration.log4j.properties" />
+	      <include name="com/wec/sim/common/license/*.*" />
+	      <include name="com/wec/sim/common/config/io_modules_config.xml" />
+	      <include name="com/wec/sim/migration/license/*.*" />
+	      <include name="com/wec/sim/migration/config/algoffsets.properties" />
+	      <include name="com/wec/sim/migration/config/wes_alg_ovation_3_1.csv" /> 
+        </fileset>
+      </copy>
+      <!-- Rename migration.log4j.properties to log4j.properties so log4j picks it up at runtime -->
+      <move file="${dir.output.bin}/migration/migration.log4j.properties" tofile="${dir.output.bin}/migration/log4j.properties" />    	
+    </target>
+	
+	<!-- Compilation target for release of DCS Logic Migration Tool. -->
+    <target name="migration-compile-release" depends="migration-init"
+    	description="Compilation target for release of DCS Logic Migration Tool." >
+      <javac destdir="${dir.output.bin}/migration" debug="false" >
+        <src path="${dir.src}"/>
+        <classpath refid="migration-classpath.compile"/>
+      </javac>
+      <copy todir="${dir.output.bin}/migration" verbose="false">
+        <fileset dir="${dir.src}">
+          <exclude name="**/*.java" />
+          <include name="migration.log4j.properties" />
+          <include name="com/wec/sim/common/license/*.*" />
+       	  <include name="com/wec/sim/common/config/io_modules_config.xml" />
+       	  <include name="com/wec/sim/migration/license/*.*" />
+          <include name="com/wec/sim/migration/config/algoffsets.properties" />
+          <include name="com/wec/sim/migration/config/wes_alg_ovation_3_1.csv" />        	
+        </fileset>
+      </copy>
+      <!-- Rename migration.log4j.properties to log4j.properties so log4j picks it up at runtime -->
+      <move file="${dir.output.bin}/migration/migration.log4j.properties" tofile="${dir.output.bin}/migration/log4j.properties" />     	
+    </target>
+    
+    <!-- Compile the unit test classes into the build directory. -->
+    <target name="migration-compile-test" depends="migration-compile">
+      <javac destdir="${dir.output.bin}/migration" debug="true" debuglevel="lines,vars,source">
+        <src path="${test.dir.src}"/>
+        <classpath refid="classpath.compile"/>
+      </javac>
+    </target>
+	
+	<!-- Create a JAR file with debug settings for the DCS Map Tool. -->
+	<target name="map-jar-dev" depends="map-compile"
+		description="Create a JAR file with debug settings for the DCS Map Tool.">
+      <tstamp>
+        <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+      </tstamp>
+      <jar destfile="${dir.output.dist}/wec-map-${map.project.version}.jar">
+        <manifest>
+          <!-- Who is building this jar? -->
+          <attribute name="Built-By" value="${user.name}"/>
+          <!-- Information about the program itself -->
+          <attribute name="Implementation-Vendor" value="${project.vendor}"/>
+          <attribute name="Implementation-Title" value="${map.project.title}"/>
+          <attribute name="Implementation-Version" value="${map.project.version}-dev"/>
+          <attribute name="Build-Date" value="${TODAY}"/>
+          <!-- Executable class name -->
+          <attribute name="Main-Class" value="${map.project.mainclass}" />
+        </manifest>
+        <fileset dir="${dir.output.bin}/map">
+          <!-- Exclude unit tests from the JAR. -->        	
+          <exclude name="*Test.class" />
+          <exclude name="*TestSuite.class" />
+        </fileset>
+      </jar>
+	</target>	
+	
+	<!-- Create a JAR file for the DCS Map Tool. -->
+	<target name="map-jar" depends="map-compile-release"
+		description="Create a JAR file for the DCS Map Tool.">
+      <tstamp>
+        <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+      </tstamp>
+      <jar destfile="${dir.output.dist}/wec-map-${map.project.version}.jar">
+        <manifest>
+          <!-- Who is building this jar? -->
+          <attribute name="Built-By" value="${user.name}"/>
+          <!-- Information about the program itself -->
+          <attribute name="Implementation-Vendor" value="${project.vendor}"/>
+          <attribute name="Implementation-Title" value="${map.project.title}"/>
+          <attribute name="Implementation-Version" value="${map.project.version}"/>
+          <attribute name="Build-Date" value="${TODAY}"/>
+          <!-- Executable class name -->
+          <attribute name="Main-Class" value="${map.project.mainclass}" />
+        </manifest>
+        <fileset dir="${dir.output.bin}/map">
+          <!-- Exclude unit tests from the JAR. -->        	
+          <exclude name="*Test.class" />
+          <exclude name="*TestSuite.class" />
+        </fileset>
+      </jar>
+	</target>		
+	
+	<!-- Create a JAR file with debug settings for the DCS Logic Migration Tool. -->
+	<target name="migration-jar-dev" depends="migration-compile"
+		description="Create a JAR file with debug settings for the DCS Logic Migration Tool.">
+      <tstamp>
+        <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+      </tstamp>
+      <jar destfile="${dir.output.dist}/wec-migration-${migration.project.version}.jar">
+        <manifest>
+          <!-- Who is building this jar? -->
+          <attribute name="Built-By" value="${user.name}"/>
+          <!-- Information about the program itself -->
+          <attribute name="Implementation-Vendor" value="${project.vendor}"/>
+          <attribute name="Implementation-Title" value="${migration.project.title}"/>
+          <attribute name="Implementation-Version" value="${migration.project.version}-dev"/>
+          <attribute name="Build-Date" value="${TODAY}"/>
+          <!-- Executable class name -->
+          <attribute name="Main-Class" value="${migration.project.mainclass}" />
+        </manifest>
+        <fileset dir="${dir.output.bin}/migration">
+          <!-- Exclude executable Map Tool classes from the JAR. -->
+          <exclude name="com/wec/sim/map/CommandLine.class" />
+          <exclude name="com/wec/sim/map/SwingUI.class" />
+    	  <!-- Exclude unit tests from the JAR. -->
+          <exclude name="*Test.class" />
+          <exclude name="*TestSuite.class" />
+        </fileset>
+      </jar>
+	</target>
+
+    <!-- Create a JAR file for the DCS Logic Migration Tool. -->
+    <target name="migration-jar" depends="migration-compile-release" 
+            description="Create a JAR file for the DCS Logic Migration Tool.">
+      <tstamp>
+        <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+      </tstamp>
+      <jar destfile="${dir.output.dist}/wec-migration-${migration.project.version}.jar">
+        <manifest>
+          <!-- Who is building this jar? -->
+          <attribute name="Built-By" value="${user.name}"/>
+          <!-- Information about the program itself -->
+          <attribute name="Implementation-Vendor" value="${project.vendor}"/>
+          <attribute name="Implementation-Title" value="${migration.project.title}"/>
+          <attribute name="Implementation-Version" value="${migration.project.version}"/>
+          <attribute name="Build-Date" value="${TODAY}"/>
+          <!-- Executable class name -->
+          <attribute name="Main-Class" value="${migration.project.mainclass}" />
+        </manifest>
+        <fileset dir="${dir.output.bin}/migration">
+          <!-- Exclude executable Map Tool classes from the JAR. -->
+          <exclude name="com/wec/sim/map/CommandLine.class" />
+          <exclude name="com/wec/sim/map/SwingUI.class" />
+  	      <!-- Exclude unit tests from the JAR. -->
+          <exclude name="*Test.class" />
+          <exclude name="*TestSuite.class" />
+        </fileset>
+      </jar>
+    </target>
+
+	<!-- Run obfuscator on release and create obfuscated JAR. -->
+	<target name="migration-obfuscate" depends="migration-jar" description="Obfuscates JAR file before release">
+		<taskdef resource="proguard/ant/task.properties"
+	    	     classpath="lib/proguard.jar" />
+		<proguard>
+			-injars dist/wec-migration-${project.version}.jar
+			-outjars dist/obf-wec-migration-${project.version}.jar
+			-libraryjars ${java.home}/lib/rt.jar
+			-libraryjars lib/wec-simutil-1.0.0.jar
+			-libraryjars lib/log4j-1.2.15.jar
+			-libraryjars lib/junit-4.6.jar
+			-libraryjars lib/glazedlists-1.8.0_java15.jar
+			-libraryjars lib/freemarker.jar
+
+			-printmapping dist/mapping-${project.version}.txt
+			-dontoptimize
+
+			-keepclasseswithmembers public class * {
+			    public static void main(java.lang.String[]);
+			}
+		</proguard>
+	</target>
+	
+	<!-- Create Map and Migration Tool JAR files -->
+	<target name="all-jar-dev" depends="map-jar-dev,migration-jar-dev"
+		description="Create JAR files with debug settings for the
+		DCS Map Tool and DCS Logic Migration Tool." >
+	</target>
+
+    <!-- Remove all compiled files. -->
+    <target name="migration-clean">
+      <delete dir="${dir.output.bin}/migration" />
+      <delete file="${dir.output.dist}/wec-migration-${migration.project.version}.jar" />
+    </target>
+	
+    <target name="map-clean">
+      <delete dir="${dir.output.bin}/map" />
+        <delete file="${dir.output.dist}/wec-map-${map.project.version}.jar" />
+    </target>	
+
+	<!-- Create directory for compiled files. -->
+    <target name="migration-init" depends="migration-clean">
+      <mkdir dir="${dir.output.bin}/migration" />
+      <mkdir dir="${dir.output.dist}" />
+      <antcall target="get-dependencies">
+      </antcall>
+    </target>
+	
+	<target name="map-init" depends="map-clean">
+      <mkdir dir="${dir.output.bin}/map" />
+      <mkdir dir="${dir.output.dist}" />
+      <antcall target="get-dependencies">
+      </antcall>
+    </target>
+	
+	<target name="get-dependencies" if="project.dependency.SimUtil">
+		<!-- Copy the built JAR into the lib folder. -->
+        <copy todir="${dir.lib}" verbose="true">
+          <fileset dir="${project.dependency.SimUtil}/dist">
+            <include name="*.jar" />
+          </fileset>
+        </copy>
+	</target>
+	
+    <!-- Defines JARs needed on the classpath at compile-time for the DCS Map Tool. -->
+    <path id="map-classpath.compile">
+      <pathelement location="${dir.lib}/wec-simutil-1.0.0.jar" />
+      <pathelement location="${dir.lib}/log4j-1.2.15.jar" />
+    </path>
+	
+	<path id="map-classpath.run">
+	  <pathelement location="${dir.output.dist}/wec-migration-1.0.0.jar" />
+	  <pathelement location="${dir.lib}/wec-simutil-1.0.0.jar" />
+	  <pathelement location="${dir.lib}/log4j-1.2.15.jar" />
+	</path>
+	
+	<!-- Defines JARs needed on the classpath at compile-time for the DCS Logic Migration Tool. -->
+    <path id="migration-classpath.compile">
+      <pathelement location="${dir.lib}/wec-simutil-1.0.0.jar" />
+      <pathelement location="${dir.lib}/log4j-1.2.15.jar" />
+      <pathelement location="${dir.lib}/junit-4.6.jar" />
+      <pathelement location="${dir.lib}/freemarker.jar" />
+      <pathelement location="${dir.lib}/glazedlists-1.8.0_java15.jar" />
+    </path>
+	
+	<path id="migration-classpath.run">
+	  <pathelement location="${dir.output.dist}/wec-migration-1.0.0.jar" />
+	  <pathelement location="${dir.lib}/wec-simutil-1.0.0.jar" />
+	  <pathelement location="${dir.lib}/log4j-1.2.15.jar" />
+      <pathelement location="${dir.lib}/glazedlists-1.8.0_java15.jar" />
+      <pathelement location="${dir.lib}/jlfgr-1_0.jar" />
+	</path>	
+
+    <!-- Defines classpath for unit testing. -->
+    <path id="migration-classpath.test">
+      <pathelement location="${dir.output.bin}" />
+      <pathelement location="${test.dir.src}" />
+      <pathelement location="${dir.lib}/junit-4.6.jar" />
+    </path>
+	
+    <!-- Produce JavaDoc documentation files in HTML format. -->
+    <target name="javadoc" depends="migration-compile">
+      <javadoc packagenames="com.wec.sim.*"
+               sourcepath="${dir.src}"
+               defaultexcludes="yes"
+               destdir="${dir.output.javadoc}"
+               author="true"
+               version="true"
+               use="true"
+               windowtitle="Simulator Migration API">
+        <doctitle><![CDATA[<h1>Simulator Migration API</h1>]]></doctitle>
+        <bottom><![CDATA[<i>Copyright &#169; 2009 Westinghouse Energy Co. All Rights Reserved.</i>]]></bottom>
+        <tag name="todo" scope="all" description="To do:"/>
+        <group title="Migration Utility" packages="com.wec.sim.migration.*" />
+        <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
+      </javadoc>
+    </target>
+	
+    <!-- Runs unit tests. -->
+    <target name="migration-test-console" depends="migration-compile-test">
+      <junit fork="yes" haltonfailure="no">
+        <test name="${test.class}" />
+        <formatter type="plain" usefile="false" />
+        <classpath refid="classpath.test" />
+      </junit>
+    </target>
+
+    <!-- Runs unit tests and creates an XML report. -->
+    <target name="migration-test-xml" depends="migration-compile-test">
+      <mkdir dir="${project.test.dir.reports}"/>
+      <junit errorProperty="test.failed" failureProperty="test.failed">
+        <test name="${test.class}" todir="${test.dir.reports}" />
+        <formatter type="brief" usefile="false" />
+        <formatter type="xml" />
+        <classpath refid="classpath.test" />
+      </junit>
+      <fail message="Tests failed: check test reports." if="test.failed" />
+    </target>
+
+</project>

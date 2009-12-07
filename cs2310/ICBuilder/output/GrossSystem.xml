@@ -1,0 +1,16 @@
+<indexSystem id="323" name="Picnic" description="n/a">
+<indexCell id="323" maxLifeTime="infinity" name="Picnic">
+<state id="758" type="ENDING" name="Food" />
+<state id="757" type="ENTERING" name="Picnic" />
+<state id="756" type="ENTERING" name="Picnic" />
+<state id="754" type="ENTERING" name="Picnic" />
+<state id="778" type="ENDING" name="Games" />
+<state id="785" type="ENDING" name="Schedule" />
+<transition id="0" type="internal" source="757" target="785" >
+</transition>
+<transition id="1" type="internal" source="756" target="778" >
+</transition>
+<transition id="2" type="internal" source="754" target="758" >
+</transition>
+</indexCell>
+</indexSystem>
