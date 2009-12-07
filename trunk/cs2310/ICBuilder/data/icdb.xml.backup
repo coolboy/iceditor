@@ -1,0 +1,168 @@
+<icCardList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <icCardEntry icEntryId="334" icEntryName="Place Charcol">
+        <icCard icId="777" icName="Place Charcol-1" icDescription="Problem: need cooked food for picnic Context:Prepare cooking instruments Solution: Ask one person to prepare the grill" icIntPattern="myselfnone" icMyTask="Place Charcol in grill" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+        <icCard icId="776" icName="Light Match-1" icDescription="Problem: need cooked food for picnic Context:Prepare cooking instruments Solution: Ask one person to prepare the grill." icIntPattern="myselfnone" icMyTask="Light matches in certain fashion to make even burn" icTimeCriticalCondition="must finish task by picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="331" icEntryName="Butter Corn">
+        <icCard icId="773" icName="Butter Corn-1" icDescription="Problem: need vegetable type food a for picnic Context:Prepare vegetables Solution: Ask one person to prepare the vegetables." icIntPattern="myselfnone" icMyTask="Butter the corn" icTimeCriticalCondition="must finish task by picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="333" icEntryName="Clean Grill">
+        <icCard icId="775" icName="Clean Grill-1" icDescription="Problem: need cooked food for picnic Context:Prepare cooking instruments Solution: Ask one person to prepare the grill." icIntPattern="othersnone" icMyTask="Ask friend to clean the grill" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="329" icEntryName="Ignite Grill">
+        <icCard icId="771" icName="Ignite Grill-2" icDescription="Problem: need cooked food for picnic Context:Prepare cooking instruments Solution: Ask one person to prepare the grill." icIntPattern="myselfwith" icMyTask="Inform other people grill  is heating up " icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Picnic" icOtherMessage="Grill is heating up for even burn" icOtherTask="Schedule new task" otherId="644" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="332" icEntryName="Season Beans">
+        <icCard icId="774" icName="Season Beans-1" icDescription="Problem: need vegetable type food a for picnic Context:Prepare vegetables Solution: Ask one person to prepare the vegetables." icIntPattern="myselfnone" icMyTask="Add seasoning to the beans" icTimeCriticalCondition="must finish task by picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="330" icEntryName="Season Meat">
+        <icCard icId="772" icName="Season Meat-1" icDescription="Problem: need seasoned meats for the picnic Context:season the meat Solution: Ask one person to season the meat." icIntPattern="othersnone" icMyTask="Ask friend to season the meat to be cooked for the picnic" icTimeCriticalCondition="must finish task by picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="328" icEntryName="Ignite Grill">
+        <icCard icId="770" icName="Ignite Grill-1" icDescription="Problem: need cooked food for picnic Context:Prepare cooking instruments Solution: Ask one person to prepare the grill." icIntPattern="myselfwith" icMyTask="Ignite the grill properly for even burn" icTimeCriticalCondition="must finish task by picnic DATE" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="Ignite Grill" icOtherMessage="Please light the grill to make even burn." icOtherTask="Ignite the grill charcol" otherId="771" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="327" icEntryName="Prepare Grill">
+        <icCard icId="769" icName="Prepare Grill-3" icDescription="Problem: need cooked food for picnic Context:Prepare cooking instruments Solution: Ask one person to prepare the grill" icIntPattern="otherswith" icMyTask="Inform other people grill preparation is under way" icTimeCriticalCondition="must finish task by picnic DATE" icNumberCurrent="3" icNumberTotal="3">
+            <icOther icOtherName="Picnic" icOtherMessage="Grill preparation is underway and on time" icOtherTask="Schedule new task" otherId="644" />
+        </icCard>
+        <icCard icId="768" icName="Prepare Grill-2" icDescription="Problem: need cooked food for picnic Context:Prepare cooking instruments Solution: Ask one person to prepare the grill." icIntPattern="otherswith" icMyTask="Ask one person to prepare the grill" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="2" icNumberTotal="3">
+            <icOther icOtherName="Place Charcol" icOtherMessage="Please put the charcol in the grill" icOtherTask="Place new charcol in grill oven" otherId="777" />
+        </icCard>
+        <icCard icId="767" icName="Prepare Grill-1" icDescription="Problem: need cooked food for picnic Context:Prepare cooking instruments Solution: Ask one person to prepare the grill." icIntPattern="otherswith" icMyTask="Ask one person to prepare the grill" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="3">
+            <icOther icOtherName="Clean Grill" icOtherMessage="Please clean the grill" icOtherTask="Clean the grill to cook food" otherId="775" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="326" icEntryName="Prepare Veggies">
+        <icCard icId="766" icName="Prepare Veggies-3" icDescription="Problem: need vegetables Context:Prepare vegetables Solution: Ask one person to prepare the vegetalbes." icIntPattern="myselfwith" icMyTask="Inform other people meat preparation is under way" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="3" icNumberTotal="3">
+            <icOther icOtherName="Picnic" icOtherMessage="Picnic vegetable preparation is under way and on time" icOtherTask="Organize new task" otherId="644" />
+        </icCard>
+        <icCard icId="765" icName="Prepare Veggies-2" icDescription="Problem: need vegetable type food a for picnic Context:Prepare vegetables Solution: Ask one person to prepare the vegetables." icIntPattern="myselfwith" icMyTask="prepare vegetables" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="2" icNumberTotal="3">
+            <icOther icOtherName="Season Beans" icOtherMessage="Please season the beans" icOtherTask="Season the beans" otherId="774" />
+        </icCard>
+        <icCard icId="764" icName="Prepare Veggies-1" icDescription="Problem: need vegetables Context:Prepare vegetables Solution: Ask one person to prepare the vegetables." icIntPattern="myselfwith" icMyTask="prepare vegetables" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="3">
+            <icOther icOtherName="Butter Corn" icOtherMessage="Please butter the corn" icOtherTask="butter the corn for the grill" otherId="773" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="325" icEntryName="Prepare Meat">
+        <icCard icId="763" icName="PrepareMeat-2" icDescription="Problem: need meat type food a for picnic Context:Prepare meat Solution: Ask one person to prepare the meat." icIntPattern="otherswith" icMyTask="Inform other people meat preparation is under way" icTimeCriticalCondition="must finish task by picnic DATE" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Picnic" icOtherMessage="Picnic meat preparation is under way and on time" icOtherTask="Organize new task" otherId="644" />
+        </icCard>
+        <icCard icId="762" icName="Prepare Meat-1" icDescription="Problem: need meat type food a for picnic Context:Prepare meat Solution: Ask one person to prepare the meat." icIntPattern="otherswith" icMyTask="Ask friend to prepare the meat to be cooked for the picnic" icTimeCriticalCondition="must finish task by picnic DATE and picnic start TIME" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="Season Meat" icOtherMessage="Please add seasoning to the meat." icOtherTask="Add seasoning to the meat" otherId="772" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="324" icEntryName="Food">
+        <icCard icId="761" icName="Food-4" icDescription="Organize food for a Picnic Context:A group of people Solution: Ask each person to preform seperate food preparation tasks" icIntPattern="mixedstate" icMyTask="help organize food preparation" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="4" icNumberTotal="4">
+            <icOther icOtherName="IgniteGrill" icOtherMessage="Please ignite the grill to cook food" icOtherTask="Ignite the grills" otherId="-1" />
+        </icCard>
+        <icCard icId="760" icName="Food-3" icDescription="Organize food for a Picnic Context:A group of people Solution: Ask each person to preform seperate food preparation tasks" icIntPattern="mixedstate" icMyTask="help organize food preparation" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="3" icNumberTotal="4">
+            <icOther icOtherName="Prepare Grill" icOtherMessage="Please make grill ready to cook all food" icOtherTask="prepare the cooking grill" otherId="769" />
+        </icCard>
+        <icCard icId="759" icName="Food-2" icDescription="Organize food for a Picnic Context:A group of people Solution: Ask each person to preform seperate food preparation tasks" icIntPattern="mixedstate" icMyTask="help organize food preparation" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="2" icNumberTotal="4">
+            <icOther icOtherName="Prepare Veggies" icOtherMessage="Please make picnic corn on the cob ready to serve" icOtherTask="prepare corn on the cob for picnic" otherId="766" />
+        </icCard>
+        <icCard icId="758" icName="Food-1" icDescription="Problem: Organize food for a Picnic Context:A group of people Solution: Ask each person to preform seperate food preparation tasks" icIntPattern="mixedstate" icMyTask="help organize food preparation" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="4">
+            <icOther icOtherName="Prepare Meat" icOtherMessage="Please get picnic hamburgers ready to serve" icOtherTask="prepare hamburgers for picnic" otherId="762" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="323" icEntryName="Picnic">
+        <icCard icId="757" icName="Picnic-3" icDescription="Problem: Organize A Picnic Context:A group of people Solution: Ask each person to prepare for picnic" icIntPattern="mixedstate" icMyTask="Organize picnic with others" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="3" icNumberTotal="3">
+            <icOther icOtherName="schedular" icOtherMessage="Please organize a schedule for a) sunny day picnic or b) rainy day picnic" icOtherTask="Plan for two different types of days" otherId="-1" />
+        </icCard>
+        <icCard icId="755" icName="Picnic-2" icDescription="Problem: Organize food for a Picnic Context:A group of people Solution: Ask each person to preform seperate food preparation tasks" icIntPattern="mixedstate" icMyTask="help organize food preparation" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="2" icNumberTotal="3">
+            <icOther icOtherName="Games" icOtherMessage="please prepare games to be played at picnic" icOtherTask="prepare games" otherId="-1" />
+        </icCard>
+        <icCard icId="756" icName="Picnic-2" icDescription="Problem: Organize A Picnic Context:A group of people Solution: Ask each person to prepare for picnic" icIntPattern="mixedstate" icMyTask="Organize picnic with others" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="2" icNumberTotal="3">
+            <icOther icOtherName="Games" icOtherMessage="please prepare games to be played at picnic" icOtherTask="prepare games" otherId="-1" />
+        </icCard>
+        <icCard icId="754" icName="Picnic-1" icDescription="Problem: Organize food for a Picnic Context:A group of people Solution: Ask each person to preform seperate food preparation tasks" icIntPattern="mixedstate" icMyTask="help organize food preparation" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="3">
+            <icOther icOtherName="Food" icOtherMessage="please prepare food to be served at picnic" icOtherTask="prepare food" otherId="761" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="335" icEntryName="Games">
+        <icCard icId="778" icName="Games-1" icDescription="Problem: need games for picnic Context:Prepare for game time Solution: Ask each person to help prepare for games" icIntPattern="mixedstate" icMyTask="Help organize games" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="Bring Equipment" icOtherMessage="Please bring needed equipment" icOtherTask="Bring equipment" otherId="683" />
+        </icCard>
+        <icCard icId="779" icName="Games-2" icDescription="Problem: need games for picnic Context:Prepare for game time Solution: Ask each person to help prepare for games" icIntPattern="mixedstate" icMyTask="Help organize games" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Keep Score" icOtherMessage="keep score" icOtherTask="keep score for games" otherId="-1" />
+        </icCard>
+        <icCard icId="780" icName="Games-3" icDescription="Problem: need games for picnic Context:Prepare for game time Solution: Ask each person to help prepare for games" icIntPattern="mixedstate" icMyTask="Inform other people games are almost ready" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="3" icNumberTotal="3">
+            <icOther icOtherName="Picnic" icOtherMessage="Game preparation is underway and ontime" icOtherTask="Schedule new task" otherId="644" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="336" icEntryName="Bring Equipment">
+        <icCard icId="781" icName="Bring Equipment-1" icDescription="Problem: need equipment for games for picnic Context:Prepare for game time Solution: Ask each person to help prepare for games" icIntPattern="othersnone" icMyTask="Ask someone to gather equipment for games" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="337" icEntryName="Keep Score">
+        <icCard icId="782" icName="Keep Score-1" icDescription="Problem: need score kept for games for picnic Context:Prepare for game time Solution: Ask each person to help prepare for games" icIntPattern="myselfwith" icMyTask="Volunteer to track scores for games" icTimeCriticalCondition="must be ready by end game TIME" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="Games" icOtherMessage="Write down scores at game time" icOtherTask="WriteDown" otherId="778" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="338" icEntryName="Keep Score">
+        <icCard icId="783" icName="Keep Score-2" icDescription="Problem: need score kept for games for picnic Context:Prepare for game time Solution: Ask each person to help prepare for games" icIntPattern="myselfwith" icMyTask="Inform other people game score tracking is ready" icTimeCriticalCondition="must be ready by picnic game TIME" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Picnic" icOtherMessage="Game tracking is ready" icOtherTask="Schedule new task" otherId="644" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="339" icEntryName="Write Down">
+        <icCard icId="784" icName="Write Down-1" icDescription="Problem: need tracking tools for games for picnic Context:Prepare for game time Solution: Ask one person to help prepare for games" icIntPattern="myselfnone" icMyTask="Find paper and pencil to track games" icTimeCriticalCondition="must be ready by end game TIME" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="340" icEntryName="Schedule">
+        <icCard icId="785" icName="Schedule-1" icDescription="Problem: need schedule for picnic Context:Prepare schedule for good and bad day Solution: Ask each person to think of alternative schedules" icIntPattern="mixedstate" icMyTask="Help provide alternative schedules" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="Confirm" icOtherMessage="Ask picnic members to confirm attendance" icOtherTask="make confirmation phone call" otherId="-1" />
+        </icCard>
+        <icCard icId="832" icName="Confirm-1" icDescription="Problem: need confirmation of picnic attendance Context: A group of people Solution: Ask each person to confirm attendance." icIntPattern="otherswith" icMyTask="Call friends for picnic confirmation" icTimeCriticalCondition="must be made before picnic DATE" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="Answer-1" icOtherMessage="Are you attending the picnic? a)yes b)no" icOtherTask="Answer " otherId="836" />
+        </icCard>
+        <icCard icId="860" icName="Schedule-2" icDescription="Problem: need schedule for picnic Context:Prepare schedule for good and bad day Solution: Ask each person to think of alternative schedules" icIntPattern="mixedstate" icMyTask="Help cancel picnic due to bad weather" icTimeCriticalCondition="must be ready by picnic DATE" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Cancel" icOtherMessage="Ask friends to help cancel picnic" icOtherTask="make cancellation phone call" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="344" icEntryName="Confirm">
+        <icCard icId="834" icName="Confirm-2" icDescription="Problem: need confirmation of picnic attendance Context: A group of people Solution: Ask each person to confirm attendance." icIntPattern="otherswith" icMyTask="Call friends for picnic confirmation" icTimeCriticalCondition="must be made before picnic DATE" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Answer-2" icOtherMessage="Are you attending the picnic? a)yes b)no" icOtherTask="Answer " otherId="838" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="346" icEntryName="Answer-1">
+        <icCard icId="836" icName="Answer-1" icDescription="Problem: answering Context: A group of people Solution: Answer Yes I am going to picnic." icIntPattern="myselfwith" icMyTask="Send reply" icTimeCriticalCondition="must be performed before picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="Confirm" icOtherMessage="Yes I am coming to the picnic." icOtherTask="Tally confirmations" otherId="832" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="347" icEntryName="Answer-2">
+        <icCard icId="838" icName="Answer-2" icDescription="Problem: answering Context: A group of people Solution: Answer No I am not going to picnic." icIntPattern="myselfwith" icMyTask="Send reply" icTimeCriticalCondition="must be performed before picnic DATE" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="Decline" icOtherMessage="No I can not attend... Sorry" icOtherTask="Tally confirmations" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="348" icEntryName="Cancel">
+        <icCard icId="839" icName="Cancel-1" icDescription="Problem: Tell everyone picnic is cancelled Context: A group of people Solution: Answer Picnic is cancelled due to bad weather." icIntPattern="otherswith" icMyTask="Cancel picnic due to bad weather" icTimeCriticalCondition="must be made before picnic TIME" icNumberCurrent="1" icNumberTotal="2">
+            <icOther icOtherName="Make cancel call" icOtherMessage="Please make cancellation calls" icOtherTask="Make cancellation calls" otherId="-1" />
+        </icCard>
+        <icCard icId="840" icName="Cancel-2" icDescription="Problem: Tell everyone picnic is cancelled Context: A group of people Solution: Answer Picnic is cancelled due to bad weather." icIntPattern="otherswith" icMyTask="Inform other people organizing cancellations that calls are under way" icTimeCriticalCondition="must be made before picnic TIME" icNumberCurrent="2" icNumberTotal="2">
+            <icOther icOtherName="Schedular" icOtherMessage="Cancellations are being sent out." icOtherTask="Schedule new task" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+    <icCardEntry icEntryId="349" icEntryName="MakeCancelCall">
+        <icCard icId="841" icName="MakeCancelCall-1" icDescription="Problem: need make cancellation calls Context: A group of people Solution: Make cancellation phone calls." icIntPattern="othersnone" icMyTask="Make cancellation phone calls." icTimeCriticalCondition="must be made before picnic TIME" icNumberCurrent="1" icNumberTotal="1">
+            <icOther icOtherName="n/a" icOtherMessage="n/a" icOtherTask="n/a" otherId="-1" />
+        </icCard>
+    </icCardEntry>
+</icCardList>
