@@ -728,8 +728,22 @@ void MainWindow::save()
 	std::vector<IndexCellex> scells = cells.toStdVector();
 	std::vector<TextEx> stexts = texts.toStdVector();
 
-	oa << BOOST_SERIALIZATION_NVP(scards);
-	oa << BOOST_SERIALIZATION_NVP(scells);
+	std::wstring iceType;
+	if (scards.empty() == false)
+	{
+		iceType = L"ICCard";
+		oa << BOOST_SERIALIZATION_NVP(iceType);
+		oa << BOOST_SERIALIZATION_NVP(scards);
+	}
+	else if (scells.empty() == false)
+	{
+		iceType = L"ICIndex";
+		oa << BOOST_SERIALIZATION_NVP(iceType);
+		oa << BOOST_SERIALIZATION_NVP(scells);
+	}
+	else
+		assert(0);
+
 	oa << BOOST_SERIALIZATION_NVP(stexts);
 }
 
