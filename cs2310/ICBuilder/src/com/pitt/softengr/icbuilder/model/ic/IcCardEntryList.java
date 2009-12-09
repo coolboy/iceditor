@@ -106,7 +106,6 @@ public class IcCardEntryList {
             Set<String> ids = new HashSet<String>();
             for(IcCardEntry entry : icEntryList){
                 for(IcCard card : entry.getIcCardList()){
-                    System.out.println(card.getGroup());
                     ids.add(card.getGroup());
                 }
             }
