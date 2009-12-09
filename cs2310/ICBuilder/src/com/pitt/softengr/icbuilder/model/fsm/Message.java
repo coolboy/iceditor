@@ -11,9 +11,9 @@ public class Message {
     private String id;
     private String name;
     private String msg;
-//    private String predicate;
-//    private String target;
-//    private List<Parameter> parameters = new ArrayList<Parameter>();
+    private String predicate;
+    private String target;
+    private List<Parameter> parameters = new ArrayList<Parameter>();
     
     public String getType(){
         return this.type;
@@ -21,9 +21,7 @@ public class Message {
     public void setType(String type){
         this.type=type;
     }
-/*
-      public String getPredicate(){
- 
+    public String getPredicate(){
         return this.predicate;
     }
     public void setPredicate(String predicate){
@@ -35,7 +33,6 @@ public class Message {
     public void setTarget(String target){
         this.target=target;
     }
-*/
     public String getID(){
         return this.id;
     }
@@ -54,13 +51,17 @@ public class Message {
     public void setMessageString(String msg){
         this.msg=msg;
     }
-/*
       public List<Parameter> getParameter(){
  
         return this.parameters;
     }
     public void setParameter(List<Parameter> parameters){
         this.parameters=parameters;
+    }
+    public void addParameter(Parameter parameter){
+        if(parameter!=null){
+            this.parameters.add(parameter);
+        }
     }
     public boolean isInput(){
         if(target==null){
@@ -74,7 +75,6 @@ public class Message {
         }
         return false;
     }
-*/
     public String toString(){
         return ("\n MESSAGE NAME:"+this.name+" ID:"+this.id+" TYPE:"+this.type+" MSG:"+this.msg);
     }
