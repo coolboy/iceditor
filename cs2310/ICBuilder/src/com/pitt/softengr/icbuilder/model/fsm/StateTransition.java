@@ -5,12 +5,14 @@ import java.util.List;
 import com.pitt.softengr.icbuilder.model.fsm.State;
 import com.pitt.softengr.icbuilder.model.fsm.Message;
 
+import com.pitt.softengr.icbuilder.util.fsm.StateTransitionType;
+
 public class StateTransition {
 
     private String id;
     private State source;
     private State target;
-    private String type;
+    private StateTransitionType type;
     private Message msg;
     private List<Action> actions;
     
@@ -32,10 +34,10 @@ public class StateTransition {
     public void setTargetState(State target){
         this.target=target;
     }
-    public String getTransitionType(){
+    public StateTransitionType getTransitionType(){
         return this.type;
     }
-    public void setTransitionType(String type){
+    public void setTransitionType(StateTransitionType type){
         this.type=type;
     }
     public Message getTransitionMessage(){
