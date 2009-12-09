@@ -48,6 +48,18 @@ public class IcCardEntry {
     public void addIcCardtoEntries(IcCard icCard){
         this.icCards.add(icCard);
     }
+/*
+      public Boolean isEndEntry(){
+ 
+        for(IcCard card : this.getIcCardList()){
+            int otherId = Integer.parseInt(card.getIcOtherId());
+            if(otherId<0){
+                return true;
+            }
+        }
+        return false;
+    }
+*/
     public String toString(){
         return "ENTRY ID "+entryId+
                " ENTRY Name "+entryName;          
