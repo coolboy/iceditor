@@ -5,12 +5,15 @@ import java.util.List;
 import com.pitt.softengr.icbuilder.model.fsm.IndexCell;
 import com.pitt.softengr.icbuilder.model.fsm.Message;
 
+import com.pitt.softengr.icbuilder.util.fsm.CellTransitionType;
+
+
 public class CellTransition {
 
     private String id;
     private IndexCell source;
     private IndexCell target;
-    private String type;
+    private CellTransitionType type;
     private Message msg;
     private List<Action> actions;
     
@@ -32,10 +35,10 @@ public class CellTransition {
     public void setTargetCell(IndexCell target){
         this.target=target;
     }
-    public String getTransitionType(){
+    public CellTransitionType getTransitionType(){
         return this.type;
     }
-    public void setTransitionType(String type){
+    public void setTransitionType(CellTransitionType type){
         this.type=type;
     }
     public Message getTransitionMessage(){
