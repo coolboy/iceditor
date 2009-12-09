@@ -3,7 +3,7 @@ package com.pitt.softengr.icbuilder.model.fsm;
 import java.util.List;
 
 import com.pitt.softengr.icbuilder.model.fsm.StateTransition;
-import com.pitt.softengr.icbuilder.util.ic.StateType;
+import com.pitt.softengr.icbuilder.util.fsm.StateType;
 
 public class State {
  
@@ -44,13 +44,13 @@ public class State {
         this.transitionsOut=transitionsOut;
     }
     public boolean isEndState(){
-        if(StateType.ENDING.equals(this.type)){
+        if(StateType.ending.equals(this.type)){
             return true;
         }
         return false;
     }
     public boolean isStartState(){
-        if(StateType.ENTERING.equals(this.type)){
+        if(StateType.entering.equals(this.type)){
             return true;
         }
         return false;
