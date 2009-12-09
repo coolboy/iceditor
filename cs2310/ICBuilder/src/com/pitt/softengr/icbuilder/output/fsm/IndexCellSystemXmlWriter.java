@@ -14,8 +14,6 @@ import com.pitt.softengr.icbuilder.model.fsm.Parameter;
 import com.pitt.softengr.icbuilder.util.CommonWriter;
 
 public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
-
-    private static final String MAX_TIME = "inf";
     
     public void writeHeader() throws IOException{
         // no header needed at this point
@@ -32,7 +30,7 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
                 }
                 for(StateTransition transition : cell.getTransitions()){
                     writeStateTransition(transition);
-//                    writeMessage(transition.getTransitionMessage());
+                    writeMessage(transition.getTransitionMessage());
                     writeln("</transition>");
                 }
                 writeln("</indexCell>");
@@ -83,20 +81,20 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
     }
     private void writeMessage(Message msg) throws IOException{
         write("<message ");
-        write("xsi:type=\""+msg.getType()+"\" ");
+        write("type=\""+msg.getType()+"\" ");
         write("id=\""+msg.getID()+"\" ");
         write("name=\""+msg.getName()+"\" ");
         writeln(">");
-//        if(msg.getTarget()!=null){
-//            writeln("<targetIC>"+msg.getTarget()+"</targetIC>");
-//        }
-//        for(Parameter param : msg.getParameter()){
-//            write("<parameter ");
-//            write("dataType=\""+param.getDataType()+"\" ");
-//            write("dataValue=\""+param.getDataValue()+"\" ");
-//            write("name=\""+param.getName()+"\" ");
-//            writeln("/>");
-//        }
+        if(msg.getTarget()!=null){
+            writeln("<targetIC>"+msg.getTarget()+"</targetIC>");
+        }
+        for(Parameter param : msg.getParameter()){
+            write("<parameter ");
+            write("dataType=\""+param.getDataType()+"\" ");
+            write("dataValue=\""+param.getDataValue()+"\" ");
+            write("name=\""+param.getName()+"\" ");
+            writeln("/>");
+        }
         writeln("</message>");
     }
 }
