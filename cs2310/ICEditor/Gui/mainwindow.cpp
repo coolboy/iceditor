@@ -735,14 +735,14 @@ void MainWindow::save()
 		oa << BOOST_SERIALIZATION_NVP(iceType);
 		oa << BOOST_SERIALIZATION_NVP(scards);
 	}
-	else if (scells.empty() == false)
+	else// if (scells.empty() == false)
 	{
 		iceType = L"ICIndex";
 		oa << BOOST_SERIALIZATION_NVP(iceType);
 		oa << BOOST_SERIALIZATION_NVP(scells);
 	}
-	else
-		assert(0);
+	//else
+		//assert(0);
 
 	oa << BOOST_SERIALIZATION_NVP(stexts);
 }
@@ -793,9 +793,14 @@ void MainWindow::open()
 	std::vector<ICCardex> scards;
 	std::vector<IndexCellex> scells;
 	std::vector<TextEx> stexts;
-	// restore the schedule from the archive
-	ia >> BOOST_SERIALIZATION_NVP(scards);
-	ia >> BOOST_SERIALIZATION_NVP(scells);
+	// restore the data from the archive
+	std::wstring iceType;
+	ia >> BOOST_SERIALIZATION_NVP(iceType);
+	if (iceType == L"ICCard")
+		ia >> BOOST_SERIALIZATION_NVP(scards);
+	else if (iceType == L"ICIndex")
+		ia >> BOOST_SERIALIZATION_NVP(scells);
+
 	ia >> BOOST_SERIALIZATION_NVP(stexts);
 
 	ICCardExs cards = ICCardExs::fromStdVector(scards);
