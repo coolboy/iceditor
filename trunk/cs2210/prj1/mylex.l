@@ -9,10 +9,11 @@ extern int yycolumn, yylength, yyline, yylval;
 
 /* regular definitions */
 
-
-begcomment		/*
-endcomment		*/
-scomment		{begcomment}[^{endcomment}]*{endcomment}
+%{ /* (f)lex specification */
+%}
+A [/]
+B [*]
+C [^/*]
 
 and				&&
 assgn			:=
@@ -60,6 +61,9 @@ newline			[\n]
 id				[a-zA-Z][a-zA-Z0-9]*
 
 %%
+
+{A}({A}.*|{B}({A}|{C}|{B}+{C})*{B}+{A}) /* skip comment */
+
 {newline}	{yyline++; yycolumn=0;}
 
 {delim}		{++yycolumn;}
