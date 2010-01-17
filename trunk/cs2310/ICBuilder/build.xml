@@ -1,5 +1,5 @@
 <!-- ANT configuration for ICBuilder project. -->
-<project name="ICBuilder" basedir="." default="builder-jar">
+<project name="ICBuilder" basedir="." default="ICBuilder-jar">
 	
 	<!-- Project specific settings -->
 	<property file="project.properties"/>
@@ -11,10 +11,55 @@
 	</target>
 	<!-- Create directory for compiled files. -->
 	<target name="ICBuilder-init" depends="ICBuilder-clean">
+		<mkdir dir="${dir.output.bin}"/>
 		<mkdir dir="${dir.output.bin}/ICBuilder"/>
 		<mkdir dir="${dir.output.dist}"/>
 	</target>
+	<target name="ICBuilder-compile" depends="ICBuilder-init" description="${ICBuilder.project.description}" >
+		<javac destdir="${dir.output.bin}/ICBuilder" debug="true" debuglevel="lines,vars,source">
+			<src path="${dir.src}"/>
+			<classpath refid="ICBuilder.compile"/>
+		</javac>
+		<copy todir="${dir.output.bin}/LicenseManager" verbose="false">
+			<fileset dir="${dir.src}" >
+				<exclude name="**/*.java"/>
+				<include name="log4j.properties" />
+				<include name="com/pitt/softengr/icbuilder/*.*" />
+				<include name="com/pitt/softengr/icbuilder/config/*.*" />
+				<include name="com/pitt/softengr/icbuilder/model/*.*" />
+				<include name="com/pitt/softengr/icbuilder/model/fsm/*.*" />
+				<include name="com/pitt/softengr/icbuilder/model/ic/*.*" />
+				<include name="com/pitt/softengr/icbuilder/output/*.*" />
+				<include name="com/pitt/softengr/icbuilder/output/fsm/*.*" />
+				<include name="com/pitt/softengr/icbuilder/util/*.*" />
+				<include name="com/pitt/softengr/icbuilder/util/event/*.*" />
+				<include name="com/pitt/softengr/icbuilder/util/fsm/*.*" />
+				<include name="com/pitt/softengr/icbuilder/util/ic/*.*" />
+				<include name="com/pitt/softengr/icbuilder/util/ic/icdb/*.*" />
+				<include name="com/pitt/softengr/icbuilder/util/ic/ice*.*" />
+				<include name="com/pitt/softengr/icbuilder/util/icinteraction/*.*" />
+			</fileset>
+		</copy>
+	</target>
 	<!-- Compile the builder tool -->
-	<target name="builder-jar" depends="ICBuilder-clean">
+	<target name="ICBuilder-jar" depends="ICBuilder-compile" description="Created JAR with debug settings enabled">
+		<tstamp>
+			<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+		</tstamp>	
+		<jar destfile="${dir.output.dist}/ICBuilder-${ICBuilder.project.version}">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Build-Date" value="${TODAY}" />
+				<attribute name="Main-Class" value="${ICBuilder.project.mainclass}" />
+			</manifest>
+		</jar>
+	</target>
+	<!-- Defines JAR Libraries needed on the classpath -->
+	<path id="ICBuilder.compile">
+		<pathelement location="${dir.lib}/log4j-1.2.15.jar" />
+	</path>
+	<path id="ICBuilder.run">
+		<pathelement location="${dir.lib}/log4j-1.2.15.jar" />
+	</path>
 
 </project>
