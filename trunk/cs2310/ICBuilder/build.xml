@@ -20,7 +20,7 @@
 			<src path="${dir.src}"/>
 			<classpath refid="ICBuilder.compile"/>
 		</javac>
-		<copy todir="${dir.output.bin}/LicenseManager" verbose="false">
+		<copy todir="${dir.output.bin}/ICBuilder" verbose="false">
 			<fileset dir="${dir.src}" >
 				<exclude name="**/*.java"/>
 				<include name="log4j.properties" />
