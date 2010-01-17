@@ -1,3 +1,5 @@
+#pragma once
+
 #define EOFnum			0
 #define	ANDnum			1
 #define ASSGNnum		2
@@ -82,3 +84,5 @@ const char* getTokenName(int index)
 {
 	return tokenNames[index];
 }
+
+#include "StringTable.h"

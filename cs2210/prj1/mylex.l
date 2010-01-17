@@ -9,11 +9,11 @@ extern int yycolumn, yylength, yyline, yylval;
 
 /* regular definitions */
 
-%{ /* (f)lex specification */
+%{ /* (f)lex specification for comment*/
 %}
-A [/]
-B [*]
-C [^/*]
+A				[/]
+B				[*]
+C				[^/*]
 
 and				&&
 assgn			:=
@@ -239,6 +239,7 @@ id				[a-zA-Z][a-zA-Z0-9]*
 			}
 						
 {sconst}	{
+				yylval = putString(yytext, 1);
 				yycolumn += strlen(yytext);
 				return (SCONSTnum);
 			}
@@ -263,6 +264,7 @@ id				[a-zA-Z][a-zA-Z0-9]*
 			}
 			
 {id}		{
+				yylval = putString(yytext, 0);
 				yycolumn += strlen(yytext);
 				return (IDnum);
 			}
@@ -271,6 +273,7 @@ id				[a-zA-Z][a-zA-Z0-9]*
 
 int yyline = 0;
 int yycolumn = 0;
+int yylval = -1;
 
 main()
 {
@@ -279,9 +282,16 @@ main()
     {
        int lexReturn = yylex();
 
-       printf("%d\t%d\t%s\t%d\n", yyline, yycolumn, getTokenName(lexReturn), 0);
+	   if (yylval == -1)
+		printf("%d\t%d\t%s\n", yyline, yycolumn, getTokenName(lexReturn));
+       else
+		printf("%d\t%d\t%s\t%d\n", yyline, yycolumn, getTokenName(lexReturn), yylval);
+       
+       yylval = -1;//reset
        
        if (lexReturn == EOFnum)
 		break;
     }
+    
+    printTable();
 }

@@ -978,13 +978,14 @@ case 38:
 YY_RULE_SETUP
 #line 241 "mylex.l"
 {
+				yylval = putString(yytext, 1);
 				yycolumn += strlen(yytext);
 				return (SCONSTnum);
 			}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 246 "mylex.l"
+#line 247 "mylex.l"
 {
 				yycolumn += strlen(yytext);
 				return (TIMESnum);
@@ -992,7 +993,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 251 "mylex.l"
+#line 252 "mylex.l"
 {
 				yycolumn += strlen(yytext);
 				return (VOIDnum);
@@ -1000,7 +1001,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 256 "mylex.l"
+#line 257 "mylex.l"
 {
 				++yycolumn;
 				return (SEMInum);
@@ -1008,25 +1009,26 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 261 "mylex.l"
+#line 262 "mylex.l"
 {
 				return (EOFnum);
 			}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 265 "mylex.l"
+#line 266 "mylex.l"
 {
+				yylval = putString(yytext, 0);
 				yycolumn += strlen(yytext);
 				return (IDnum);
 			}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 270 "mylex.l"
+#line 272 "mylex.l"
 ECHO;
 	YY_BREAK
-#line 1030 "lex.yy.c"
+#line 1032 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1912,11 +1914,12 @@ int main()
 	return 0;
 	}
 #endif
-#line 270 "mylex.l"
+#line 272 "mylex.l"
 
 
 int yyline = 0;
 int yycolumn = 0;
+int yylval = -1;
 
 main()
 {
@@ -1925,9 +1928,16 @@ main()
     {
        int lexReturn = yylex();
 
-       printf("%d\t%d\t%s\t%d\n", yyline, yycolumn, getTokenName(lexReturn), 0);
+	   if (yylval == -1)
+		printf("%d\t%d\t%s\n", yyline, yycolumn, getTokenName(lexReturn));
+       else
+		printf("%d\t%d\t%s\t%d\n", yyline, yycolumn, getTokenName(lexReturn), yylval);
+       
+       yylval = -1;//reset
        
        if (lexReturn == EOFnum)
 		break;
     }
+    
+    printTable();
 }
