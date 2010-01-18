@@ -1,0 +1,8 @@
+/*Example 2: A complex program*/
+
+program xyz;
+class Test {
+	method void main() {
+		System.println('HelloWorld!!!\t\'\\\n');
+	}
+}

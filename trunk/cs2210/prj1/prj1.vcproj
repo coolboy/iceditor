@@ -226,6 +226,10 @@
 				RelativePath=".\test.txt"
 				>
 			</File>
+			<File
+				RelativePath=".\test2.txt"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
