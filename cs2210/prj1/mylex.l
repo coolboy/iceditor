@@ -274,7 +274,7 @@ int yyline = 0;
 int yycolumn = 0;
 int yylval = -1;
 
-main()
+int main()
 {
 	printf("Line\tColumn\tToken\tIndex_in_String_table\n");
     while (1)
@@ -296,4 +296,5 @@ main()
     }
     
     printTable();
+    return 0;
 }
