@@ -3,6 +3,6 @@
 program xyz;
 class Test {
 	method void main() {
-		System.println('HelloWorld!!!\t\'\\\n');
+		System.println('HelloWorld!!!\t\'\\\nabc');
 	}
 }
