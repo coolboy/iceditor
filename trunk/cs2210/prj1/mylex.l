@@ -4,7 +4,7 @@
 #include <string.h>
 #include "token.h"
 
-extern int yycolumn, yylength, yyline, yylval;
+extern int yycolumn, yyline, yylval;
 %}
 
 /* regular definitions */
@@ -50,7 +50,7 @@ not				"!"
 plus			"+"
 rbrace			"}"
 return			"return"
-sconst			'[^']*'
+sconst			\'[^']*
 times			"*"
 void			"void"
 eof				<EOF>
@@ -240,7 +240,6 @@ id				[a-zA-Z][a-zA-Z0-9]*
 						
 {sconst}	{
 				yylval = putString(yytext, 1);
-				yycolumn += yyleng;
 				return (SCONSTnum);
 			}
 						
