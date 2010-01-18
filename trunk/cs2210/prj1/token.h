@@ -41,7 +41,7 @@
 #define TIMESnum		38
 #define VOIDnum			39
 
-static char* tokenNames[] = {
+static const char* tokenNames[] = {
 	"EOFnum", "ANDnum", "ASSGNnum",
 	"DECLARATIONSnum", "DOTnum", "ENDDECLARATIONSnum",
 "EQUALnum",
