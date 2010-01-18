@@ -700,13 +700,13 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 69 "mylex.l"
-{++yycolumn;}
+{yycolumn+=yyleng;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 71 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ANDnum);
 			}
 	YY_BREAK
@@ -714,7 +714,7 @@ case 5:
 YY_RULE_SETUP
 #line 76 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ASSGNnum);
 			}
 	YY_BREAK
@@ -722,7 +722,7 @@ case 6:
 YY_RULE_SETUP
 #line 81 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (DECLARATIONSnum);
 			}
 	YY_BREAK
@@ -730,7 +730,7 @@ case 7:
 YY_RULE_SETUP
 #line 86 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (DOTnum);
 			}
 	YY_BREAK
@@ -738,7 +738,7 @@ case 8:
 YY_RULE_SETUP
 #line 91 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ENDDECLARATIONSnum);
 			}
 	YY_BREAK
@@ -746,7 +746,7 @@ case 9:
 YY_RULE_SETUP
 #line 96 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (EQUALnum);
 			}
 	YY_BREAK
@@ -754,7 +754,7 @@ case 10:
 YY_RULE_SETUP
 #line 101 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (GTnum);
 			}
 	YY_BREAK
@@ -762,7 +762,7 @@ case 11:
 YY_RULE_SETUP
 #line 106 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (INTnum);
 			}
 	YY_BREAK
@@ -770,7 +770,7 @@ case 12:
 YY_RULE_SETUP
 #line 111 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LBRACnum);
 			}
 	YY_BREAK
@@ -778,7 +778,7 @@ case 13:
 YY_RULE_SETUP
 #line 116 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LPARENnum);
 			}
 	YY_BREAK
@@ -786,7 +786,7 @@ case 14:
 YY_RULE_SETUP
 #line 121 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (METHODnum);
 			}
 	YY_BREAK
@@ -794,7 +794,7 @@ case 15:
 YY_RULE_SETUP
 #line 126 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (NEnum);
 			}
 	YY_BREAK
@@ -802,7 +802,7 @@ case 16:
 YY_RULE_SETUP
 #line 131 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ORnum);
 			}
 	YY_BREAK
@@ -810,7 +810,7 @@ case 17:
 YY_RULE_SETUP
 #line 136 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (PROGRAMnum);
 			}
 	YY_BREAK
@@ -818,7 +818,7 @@ case 18:
 YY_RULE_SETUP
 #line 141 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (RBRACnum);
 			}
 	YY_BREAK
@@ -826,7 +826,7 @@ case 19:
 YY_RULE_SETUP
 #line 146 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (RPARENnum);
 			}
 	YY_BREAK
@@ -834,7 +834,7 @@ case 20:
 YY_RULE_SETUP
 #line 151 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (VALnum);
 			}
 	YY_BREAK
@@ -842,7 +842,7 @@ case 21:
 YY_RULE_SETUP
 #line 156 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (WHILEnum);
 			}
 	YY_BREAK
@@ -850,7 +850,7 @@ case 22:
 YY_RULE_SETUP
 #line 161 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (CLASSnum);
 			}
 	YY_BREAK
@@ -858,7 +858,7 @@ case 23:
 YY_RULE_SETUP
 #line 166 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (COMMAnum);
 			}
 	YY_BREAK
@@ -866,7 +866,7 @@ case 24:
 YY_RULE_SETUP
 #line 171 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (DIVIDEnum);
 			}
 	YY_BREAK
@@ -874,7 +874,7 @@ case 25:
 YY_RULE_SETUP
 #line 176 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ELSEnum);
 			}
 	YY_BREAK
@@ -882,7 +882,7 @@ case 26:
 YY_RULE_SETUP
 #line 181 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (EQnum);
 			}
 	YY_BREAK
@@ -890,7 +890,7 @@ case 27:
 YY_RULE_SETUP
 #line 186 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (GEnum);
 			}
 	YY_BREAK
@@ -898,7 +898,7 @@ case 28:
 YY_RULE_SETUP
 #line 191 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ICONSTnum);
 			}
 	YY_BREAK
@@ -906,7 +906,7 @@ case 29:
 YY_RULE_SETUP
 #line 196 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (IFnum);
 			}
 	YY_BREAK
@@ -914,7 +914,7 @@ case 30:
 YY_RULE_SETUP
 #line 201 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LBRACEnum);
 			}
 	YY_BREAK
@@ -922,7 +922,7 @@ case 31:
 YY_RULE_SETUP
 #line 206 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LEnum);
 			}
 	YY_BREAK
@@ -930,7 +930,7 @@ case 32:
 YY_RULE_SETUP
 #line 211 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LTnum);
 			}
 	YY_BREAK
@@ -938,7 +938,7 @@ case 33:
 YY_RULE_SETUP
 #line 216 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (MINUSnum);
 			}
 	YY_BREAK
@@ -946,7 +946,7 @@ case 34:
 YY_RULE_SETUP
 #line 221 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (NOTnum);
 			}
 	YY_BREAK
@@ -954,7 +954,7 @@ case 35:
 YY_RULE_SETUP
 #line 226 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (PLUSnum);
 			}
 	YY_BREAK
@@ -962,7 +962,7 @@ case 36:
 YY_RULE_SETUP
 #line 231 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (RBRACEnum);
 			}
 	YY_BREAK
@@ -970,7 +970,7 @@ case 37:
 YY_RULE_SETUP
 #line 236 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (RETURNnum);
 			}
 	YY_BREAK
@@ -979,7 +979,7 @@ YY_RULE_SETUP
 #line 241 "mylex.l"
 {
 				yylval = putString(yytext, 1);
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (SCONSTnum);
 			}
 	YY_BREAK
@@ -987,7 +987,7 @@ case 39:
 YY_RULE_SETUP
 #line 247 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (TIMESnum);
 			}
 	YY_BREAK
@@ -995,7 +995,7 @@ case 40:
 YY_RULE_SETUP
 #line 252 "mylex.l"
 {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (VOIDnum);
 			}
 	YY_BREAK
@@ -1019,7 +1019,7 @@ YY_RULE_SETUP
 #line 266 "mylex.l"
 {
 				yylval = putString(yytext, 0);
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (IDnum);
 			}
 	YY_BREAK
@@ -1927,6 +1927,12 @@ main()
     while (1)
     {
        int lexReturn = yylex();
+		       
+       if (lexReturn == EOFnum)
+       {	
+		printf("\t\t%s\t\n", getTokenName(lexReturn));
+		break;
+	   }
 
 	   if (yylval == -1)
 		printf("%d\t%d\t%s\n", yyline, yycolumn, getTokenName(lexReturn));
@@ -1934,9 +1940,6 @@ main()
 		printf("%d\t%d\t%s\t%d\n", yyline, yycolumn, getTokenName(lexReturn), yylval);
        
        yylval = -1;//reset
-       
-       if (lexReturn == EOFnum)
-		break;
     }
     
     printTable();

@@ -15,44 +15,44 @@ A				[/]
 B				[*]
 C				[^/*]
 
-and				&&
-assgn			:=
-declaration		declarations
-dot				[.]
-enddeclarations	enddeclarations
-equal			=
-gt				>
-int				int
-lbrac			[[]
-lparen			[(]
-method			method
-ne				!=
-or				\|\|
-program			program
-rbrac			[]]
-rparen			[)]
-semi			[;]
-val				val
-while			while
-class			class
-comma			[,]
-divide			[/]
-else			else
-eq				==
-ge				>=
+and				"&&"
+assgn			":="
+declaration		"declarations"
+dot				"."
+enddeclarations	"enddeclarations"
+equal			"="
+gt				">"
+int				"int"
+lbrac			"["
+lparen			"("
+method			"method"
+ne				"!="
+or				"||"
+program			"program"
+rbrac			"]"
+rparen			")"
+semi			";"
+val				"val"
+while			"while"
+class			"class"
+comma			","
+divide			"/"
+else			"else"
+eq				"=="
+ge				">="
 iconst			[0-9]+
-if				if
-lbrace			[{]
-le				<=
-lt				[<]
-minus			[-]
-not				[!]
-plus			[+]
-rbrace			[}]
-return			return
-sconst			'[^'\n]*'
-times			[*]
-void			void
+if				"if"
+lbrace			"{"
+le				"<="
+lt				"<"
+minus			"-"
+not				"!"
+plus			"+"
+rbrace			"}"
+return			"return"
+sconst			'[^']*'
+times			"*"
+void			"void"
 eof				<EOF>
 
 delim			[ \t]
@@ -66,191 +66,191 @@ id				[a-zA-Z][a-zA-Z0-9]*
 
 {newline}	{yyline++; yycolumn=0;}
 
-{delim}		{++yycolumn;}
+{delim}		{yycolumn+=yyleng;}
 
 {and}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ANDnum);
 			}
 			
 {assgn}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ASSGNnum);
 			}
 			
 {declaration} {
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (DECLARATIONSnum);
 			}
 			
 {dot}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (DOTnum);
 			}
 			
 {enddeclarations}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ENDDECLARATIONSnum);
 			}
 			
 {equal}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (EQUALnum);
 			}
 			
 {gt}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (GTnum);
 			}
 			
 {int}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (INTnum);
 			}
 			
 {lbrac}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LBRACnum);
 			}
 			
 {lparen}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LPARENnum);
 			}
 			
 {method}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (METHODnum);
 			}
 			
 {ne}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (NEnum);
 			}
 			
 {or}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ORnum);
 			}
 			
 {program}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (PROGRAMnum);
 			}
 			
 {rbrac}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (RBRACnum);
 			}
 			
 {rparen}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (RPARENnum);
 			}
 			
 {val}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (VALnum);
 			}
 			
 {while}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (WHILEnum);
 			}
 						
 {class}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (CLASSnum);
 			}
 						
 {comma}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (COMMAnum);
 			}
 						
 {divide}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (DIVIDEnum);
 			}
 						
 {else}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ELSEnum);
 			}
 						
 {eq}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (EQnum);
 			}
 						
 {ge}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (GEnum);
 			}
 						
 {iconst}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (ICONSTnum);
 			}
 						
 {if}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (IFnum);
 			}
 						
 {lbrace}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LBRACEnum);
 			}
 						
 {le}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LEnum);
 			}
 						
 {lt}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (LTnum);
 			}
 						
 {minus}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (MINUSnum);
 			}
 						
 {not}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (NOTnum);
 			}
 						
 {plus}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (PLUSnum);
 			}
 						
 {rbrace}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (RBRACEnum);
 			}
 						
 {return}	{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (RETURNnum);
 			}
 						
 {sconst}	{
 				yylval = putString(yytext, 1);
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (SCONSTnum);
 			}
 						
 {times}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (TIMESnum);
 			}
 						
 {void}		{
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (VOIDnum);
 			}
 						
@@ -265,7 +265,7 @@ id				[a-zA-Z][a-zA-Z0-9]*
 			
 {id}		{
 				yylval = putString(yytext, 0);
-				yycolumn += strlen(yytext);
+				yycolumn += yyleng;
 				return (IDnum);
 			}
 
@@ -281,6 +281,12 @@ main()
     while (1)
     {
        int lexReturn = yylex();
+		       
+       if (lexReturn == EOFnum)
+       {	
+		printf("\t\t%s\t\n", getTokenName(lexReturn));
+		break;
+	   }
 
 	   if (yylval == -1)
 		printf("%d\t%d\t%s\n", yyline, yycolumn, getTokenName(lexReturn));
@@ -288,9 +294,6 @@ main()
 		printf("%d\t%d\t%s\t%d\n", yyline, yycolumn, getTokenName(lexReturn), yylval);
        
        yylval = -1;//reset
-       
-       if (lexReturn == EOFnum)
-		break;
     }
     
     printTable();
