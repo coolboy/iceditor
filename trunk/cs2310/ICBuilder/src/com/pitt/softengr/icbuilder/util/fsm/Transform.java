@@ -137,7 +137,7 @@ public class Transform {
                         temp.add(entry);
                     }
                 }
-                List<IcCardEntry> stateEntries = new ArrayList<IcCardEntry>(temp);    
+                List<IcCardEntry> stateEntries = new ArrayList<IcCardEntry>(temp);   
                 List<State> states = buildStates(stateEntries);
                 if(states.size()>1){
                     List<StateTransition> stateTransitions = buildStateTransitions(stateEntries,states);
@@ -165,9 +165,7 @@ public class Transform {
         List<State> states = new ArrayList<State>();
         for(IcCardEntry entry : stateEntries){
             State state = buildState(entry);
-            if(state!=null){
-                states.add(state);
-            }
+            states.add(state);
         }
         return states;
     }
@@ -219,9 +217,9 @@ public class Transform {
         //the return list
         List<StateTransition> transitions = new ArrayList<StateTransition>();
         List<StateTransition> tempList = new ArrayList<StateTransition>();
+        int countTrans=0;
+        int countMsg=0;
         for(IcCardEntry entry : stateEntries){
-            int countTrans=0;
-            int countMsg=0;
             for(IcCard card : entry.getIcCardList()){
                 if(!card.getIcOtherId().isEmpty() && !card.getIcParentId().isEmpty()){
                          StateTransition trans = new StateTransition();
@@ -268,9 +266,10 @@ public class Transform {
             }
         }
         for(StateTransition trans : tempList){
-            if(trans.getSourceState()!=null && trans.getTargetState()!=null){
+//            System.out.println("TRANSITION ADDED "+trans);
+//            if(trans.getSourceState()!=null && trans.getTargetState()!=null){
                 transitions.add(trans);
-            }
+//            }
        }
         return transitions;
     }
@@ -285,11 +284,37 @@ public class Transform {
         return null;
     }
     private State findStateById(String ID, List<State> states){
+//        String entryCardId = findEntryIdByIcCardId(ID);
+        //if not found in the states it's not in this cell
+//        if(!isStateInList(entryCardId,states)){
+//            return null;
+//        }
+//        return getStateByEntryId(ID,states);
         for(State state : states){
-            if((findEntryIdByIcCardId(ID)!=null) && (state.getID().toLowerCase().equals(findEntryIdByIcCardId(ID).toLowerCase()))){
+            if((findEntryIdByIcCardId(ID)!=null) && isStateInList(findEntryIdByIcCardId(ID),states) && (state.getID().toLowerCase().equals(findEntryIdByIcCardId(ID).toLowerCase()))){
+//                System.out.println("1 "+(findEntryIdByIcCardId(ID)!=null+"\n"+
+//                        "2 "+isStateInList(findEntryIdByIcCardId(ID),states)+"\n"+
+//                        "3 "+state.getID().toLowerCase().equals(findEntryIdByIcCardId(ID).toLowerCase()))+"\n"+
+//                        "STATE "+state);
                 return state;
-            } else if((ID!=null) && (state.getID().toLowerCase().equals(ID.toLowerCase()))){
+            } else if((ID!=null) && isStateInList(ID,states) && (state.getID().toLowerCase().equals(ID.toLowerCase()))){
                 return state;
+            }
+        }
+        return null;
+    }
+    private boolean isStateInList(String ID, List<State> states){
+        for(State s : states){
+            if(ID.toLowerCase().equals(s.getID().toLowerCase())){
+                return true;
+            }
+        }
+        return false;
+    }
+    private State getStateByEntryId(String ID, List<State> states){
+        for(State s : states){
+            if(ID.toLowerCase().equals(s.getID().toLowerCase())){
+                return s;
             }
         }
         return null;
