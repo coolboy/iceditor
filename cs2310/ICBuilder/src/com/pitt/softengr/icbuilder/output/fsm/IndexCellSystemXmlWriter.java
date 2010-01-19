@@ -67,8 +67,18 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
         write("\t\t<transition ");
         write("id=\""+transition.getID()+"\" ");
         write("type=\""+transition.getTransitionType()+"\" ");
-        write("source=\""+transition.getSourceState().getID()+"\" ");
-        write("target=\""+transition.getTargetState().getID()+"\" ");
+        if(transition.getSourceState()!=null){
+            write("source=\""+transition.getSourceState().getID()+"\" ");
+        }
+        if(transition.getSourceState()==null){
+            write("source=\"\"");
+        }
+        if(transition.getTargetState()!=null){
+            write("target=\""+transition.getTargetState().getID()+"\" ");
+        }
+        if(transition.getTargetState()==null){
+            write("target=\"\"");
+        }
         writeln(">");
     }
     private void writeCellTransition(CellTransition transition) throws IOException{
