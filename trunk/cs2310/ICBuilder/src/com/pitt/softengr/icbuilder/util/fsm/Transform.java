@@ -126,7 +126,7 @@ public class Transform {
             system.setName(rootEntry.getEntryName());
             system.setDescription("n/a");
             
-            List<String> icIDs = cardSystem.getAllIndexIds("1");
+            List<String> icIDs = cardSystem.getAllIndexIds();
             List<IndexCell> cells = new ArrayList<IndexCell>();
             for(String cellId : icIDs){
                 IndexCell cell = new IndexCell();
@@ -138,7 +138,6 @@ public class Transform {
                     }
                 }
                 List<IcCardEntry> stateEntries = new ArrayList<IcCardEntry>(temp);    
-                
                 List<State> states = buildStates(stateEntries);
                 if(states.size()>1){
                     List<StateTransition> stateTransitions = buildStateTransitions(stateEntries,states);
