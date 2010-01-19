@@ -31,13 +31,13 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
                 for(StateTransition transition : cell.getTransitions()){
                     writeStateTransition(transition);
                     writeMessage(transition.getTransitionMessage());
-                    writeln("</transition>");
+                    writeln("\t\t</transition>");
                 }
-                writeln("</indexCell>");
+                writeln("\t</indexCell>");
             }
             for(CellTransition transition : system.getTransitions()){
                 writeCellTransition(transition);
-                writeln("</transition>");
+                writeln("\t</transition>");
             }
             writeln("</indexSystem>");
         }
@@ -49,7 +49,7 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
         writeln(">");
     }
     private void writeCell(IndexCell cell) throws IOException{
-        write("<indexCell ");
+        write("\t<indexCell ");
         write("id=\""+cell.getID()+"\" ");
         write("maxLifeTime=\""+cell.getMaxLifeTime()+"\" ");
         write("name=\""+cell.getName()+"\"");
@@ -57,14 +57,14 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
 
     }
     private void writeState(State state) throws IOException{
-        write("<state ");
+        write("\t\t<state ");
         write("id=\""+state.getID()+"\" ");
         write("type=\""+state.getType()+"\" ");
         write("name=\""+state.getName()+"\" ");
         writeln("/>");
     }
     private void writeStateTransition(StateTransition transition) throws IOException{
-        write("<transition ");
+        write("\t\t<transition ");
         write("id=\""+transition.getID()+"\" ");
         write("type=\""+transition.getTransitionType()+"\" ");
         write("source=\""+transition.getSourceState().getID()+"\" ");
@@ -72,7 +72,7 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
         writeln(">");
     }
     private void writeCellTransition(CellTransition transition) throws IOException{
-        write("<transition ");
+        write("\t<transition ");
         write("id=\""+transition.getID()+"\" ");
         write("type=\""+transition.getTransitionType()+"\" ");
         write("source=\""+transition.getSourceCell().getID()+"\" ");
@@ -80,7 +80,7 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
         writeln(">");        
     }
     private void writeMessage(Message msg) throws IOException{
-        write("<message ");
+        write("\t\t\t<message ");
         write("type=\""+msg.getType()+"\" ");
         write("id=\""+msg.getID()+"\" ");
         write("name=\""+msg.getName()+"\" ");
@@ -89,12 +89,12 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
             writeln("<targetIC>"+msg.getTarget()+"</targetIC>");
         }
         for(Parameter param : msg.getParameter()){
-            write("<parameter ");
+            write("\t\t\t\t<parameter ");
             write("dataType=\""+param.getDataType()+"\" ");
             write("dataValue=\""+param.getDataValue()+"\" ");
             write("name=\""+param.getName()+"\" ");
             writeln("/>");
         }
-        writeln("</message>");
+        writeln("\t\t\t</message>");
     }
 }
