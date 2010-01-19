@@ -1,65 +1,145 @@
-<!-- ANT configuration for ICBuilder project. -->
-<project name="ICBuilder" basedir="." default="ICBuilder-jar">
+<!-- ANT configuration for sim util project. -->
+<project name="licenseManager" basedir="." default="jar">
+    
+    <!-- Project-specific settings -->
+    <property file="project.properties"/>
+
+    <!-- Compile -->
+    <target name="compile" depends="init">
+      <javac destdir="${dir.output.bin}" debug="true" debuglevel="lines,vars,source">
+        <src path="${dir.src}"/>
+        <classpath refid="classpath"/>
+      </javac>
+      <copy todir="${dir.output.bin}" verbose="false">
+        <fileset dir="${dir.src}">
+        </fileset>
+      </copy>
+    </target>
 	
-	<!-- Project specific settings -->
-	<property file="project.properties"/>
+    <!-- Compilation target for release. -->
+    <target name="compile-release" depends="init">
+      <javac destdir="${dir.output.bin}" debug="false" >
+        <src path="${dir.src}"/>
+        <classpath refid="classpath"/>
+      </javac>
+      <copy todir="${dir.output.bin}" verbose="false">
+        <fileset dir="${dir.src}">
+        </fileset>
+      </copy>
+    </target>
+    
+    <!-- Compile the unit test classes into the build directory. -->
+    <target name="compile-test" depends="compile">
+      <javac destdir="${dir.output.bin}" debug="true" debuglevel="lines,vars,source">
+        <src path="${test.dir.src}"/>
+        <classpath refid="classpath"/>
+      </javac>
+    </target>
+    
+    <!-- Produce JavaDoc documentation files in HTML format. -->
+	<target name="javadoc" depends="compile">
+      <javadoc packagenames="com.wec.sim.*"
+               sourcepath="${dir.src}"
+               defaultexcludes="yes"
+               destdir="${dir.output.javadoc}"
+               author="true"
+               version="true"
+               use="true"
+               windowtitle="ICBuilder">
+        <doctitle><![CDATA[<h1>ICBuilder API</h1>]]></doctitle>
+        <bottom><![CDATA[<i>Copyright &#169; 2009 University of Pittsburgh Software Engineering. All Rights Reserved.</i>]]></bottom>
+        <tag name="todo" scope="all" description="To do:"/>
+        <group title="ICBuilder" packages="com.wec.sim.icbuilder*" />
+        <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
+      </javadoc>
+	</target>
+
+    <!-- Create a JAR file. -->
+    <target name="jar" depends="compile-release"
+            description="Builds a distributable JAR file.">
+      <jar destfile="${dir.output.dist}/ICBuilder-${project.version}.jar">
+        <manifest>
+          <!-- Who is building this jar? -->
+          <attribute name="Built-By" value="${user.name}"/>
+          <!-- Information about the program itself -->
+          <attribute name="Implementation-Vendor" value="${project.vendor}"/>
+          <attribute name="Implementation-Title" value="${project.title}"/>
+          <attribute name="Implementation-Version" value="${project.version}"/>
+        </manifest>
+        <fileset dir="${dir.output.bin}">
+          <!-- Exclude unit tests from the JAR. -->
+          <exclude name="*Test.class" />
+          <exclude name="*TestSuite.class" />
+        </fileset>
+      </jar>
+    </target>
 	
-	<!-- Remove all compiled files. -->
-	<target name="ICBuilder-clean">
-		<delete dir="${dir.output.bin}"/>
-		<delete file="${dir.output.dist}/ICBuilder-${ICBuilder.project.version}.jar"/>
-	</target>
-	<!-- Create directory for compiled files. -->
-	<target name="ICBuilder-init" depends="ICBuilder-clean">
-		<mkdir dir="${dir.output.bin}"/>
-		<mkdir dir="${dir.output.bin}/ICBuilder"/>
-		<mkdir dir="${dir.output.dist}"/>
-	</target>
-	<target name="ICBuilder-compile" depends="ICBuilder-init" description="${ICBuilder.project.description}" >
-		<javac destdir="${dir.output.bin}/ICBuilder" debug="true" debuglevel="lines,vars,source">
-			<src path="${dir.src}"/>
-			<classpath refid="ICBuilder.compile"/>
-		</javac>
-		<copy todir="${dir.output.bin}/ICBuilder" verbose="false">
-			<fileset dir="${dir.src}" >
-				<exclude name="**/*.java"/>
-				<include name="log4j.properties" />
-				<include name="com/pitt/softengr/icbuilder/*.*" />
-				<include name="com/pitt/softengr/icbuilder/config/*.*" />
-				<include name="com/pitt/softengr/icbuilder/model/*.*" />
-				<include name="com/pitt/softengr/icbuilder/model/fsm/*.*" />
-				<include name="com/pitt/softengr/icbuilder/model/ic/*.*" />
-				<include name="com/pitt/softengr/icbuilder/output/*.*" />
-				<include name="com/pitt/softengr/icbuilder/output/fsm/*.*" />
-				<include name="com/pitt/softengr/icbuilder/util/*.*" />
-				<include name="com/pitt/softengr/icbuilder/util/event/*.*" />
-				<include name="com/pitt/softengr/icbuilder/util/fsm/*.*" />
-				<include name="com/pitt/softengr/icbuilder/util/ic/*.*" />
-				<include name="com/pitt/softengr/icbuilder/util/ic/icdb/*.*" />
-				<include name="com/pitt/softengr/icbuilder/util/ic/ice*.*" />
-				<include name="com/pitt/softengr/icbuilder/util/icinteraction/*.*" />
-			</fileset>
-		</copy>
-	</target>
-	<!-- Compile the builder tool -->
-	<target name="ICBuilder-jar" depends="ICBuilder-compile" description="Created JAR with debug settings enabled">
-		<tstamp>
-			<format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
-		</tstamp>	
-		<jar destfile="${dir.output.dist}/ICBuilder-${ICBuilder.project.version}">
-			<manifest>
-				<attribute name="Built-By" value="${user.name}"/>
-				<attribute name="Build-Date" value="${TODAY}" />
-				<attribute name="Main-Class" value="${ICBuilder.project.mainclass}" />
-			</manifest>
-		</jar>
-	</target>
-	<!-- Defines JAR Libraries needed on the classpath -->
-	<path id="ICBuilder.compile">
-		<pathelement location="${dir.lib}/log4j-1.2.15.jar" />
-	</path>
-	<path id="ICBuilder.run">
-		<pathelement location="${dir.lib}/log4j-1.2.15.jar" />
-	</path>
+   <!-- Create a JAR file with debug settings. -->
+    <target name="jar-dev" depends="compile" description="Builds a JAR file for development purposes">
+      <jar destfile="${dir.output.dist}/ICBuilder-${project.version}.jar">
+        <manifest>
+          <!-- Who is building this jar? -->
+          <attribute name="Built-By" value="${user.name}"/>
+          <!-- Information about the program itself -->
+          <attribute name="Implementation-Vendor" value="${project.vendor}"/>
+          <attribute name="Implementation-Title" value="${project.title}"/>
+          <attribute name="Implementation-Version" value="${project.version}"/>
+        </manifest>
+        <fileset dir="${dir.output.bin}">
+          <!-- Exclude unit tests from the JAR. -->
+          <exclude name="*Test.class" />
+          <exclude name="*TestSuite.class" />
+        </fileset>
+      </jar>
+    </target>
+
+    <!-- Remove all compiled files. -->
+    <target name="clean">
+      <delete dir="${dir.output.bin}" />
+      <delete dir="${dir.output.dist}" />
+    </target>
+
+    <!-- Create directory for compiled files. -->
+    <target name="init" depends="clean">
+      <mkdir dir="${dir.output.bin}"/>
+      <mkdir dir="${dir.output.dist}"/>
+    </target>
+    
+    <!-- Defines JARs needed on the classpath for compilation. -->
+    <path id="classpath">
+      <fileset dir="${dir.lib}">
+        <include name="log4j-1.2.15.jar"/>
+      </fileset>
+    </path>
+    
+    <!-- Defines classpath for unit testing. -->
+    <path id="classpath.test">
+      <pathelement location="${dir.output.bin}" />
+      <pathelement location="${test.dir.src}" />
+      <fileset dir="${dir.lib}">
+        <include name="junit-4.6.jar"/>
+      </fileset>
+    </path>
+
+    <!-- Runs unit tests. -->
+    <target name="test-console" depends="compile-test">
+      <junit fork="yes" haltonfailure="no">
+        <test name="${test.class}" />
+        <formatter type="plain" usefile="false" />
+        <classpath refid="classpath.test" />
+      </junit>
+    </target>
+
+    <!-- Runs unit tests and creates an XML report. -->
+    <target name="test-xml" depends="compile-test">
+      <mkdir dir="${project.test.dir.reports}"/>
+      <junit errorProperty="test.failed" failureProperty="test.failed">
+        <test name="${test.class}" todir="${test.dir.reports}" />
+        <formatter type="brief" usefile="false" />
+        <formatter type="xml" />
+        <classpath refid="classpath.test" />
+      </junit>
+      <fail message="Tests failed: check test reports." if="test.failed" />
+    </target>
 
 </project>
