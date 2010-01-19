@@ -102,7 +102,7 @@ public class IcCardEntryList {
             }
             return null;
         }
-        public List<String> getAllIndexIds(String system){
+        public List<String> getAllIndexIds(){
             Set<String> ids = new HashSet<String>();
             for(IcCardEntry entry : icEntryList){
                 for(IcCard card : entry.getIcCardList()){
