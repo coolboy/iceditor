@@ -41,6 +41,9 @@
 #define TIMESnum		38
 #define VOIDnum			39
 
+//The max length for id
+#define MAX_BUF_LEN 500
+
 static const char* tokenNames[] = {
 	"EOFnum", "ANDnum", "ASSGNnum",
 	"DECLARATIONSnum", "DOTnum", "ENDDECLARATIONSnum",
@@ -83,6 +86,11 @@ static const char* tokenNames[] = {
 const char* getTokenName(int index)
 {
 	return tokenNames[index];
+}
+
+void errorHandler(int linenum, int columnnum, const char* msg)
+{
+	printf ("Error! line: %d column: %d MSG: %s\n", linenum, columnnum, msg);
 }
 
 #include "StringTable.h"

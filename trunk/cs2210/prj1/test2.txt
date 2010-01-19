@@ -1,8 +1,10 @@
-/*Example 2: A complex program*/
+/*Example2 : a more complex example
+B*/
 
-program xyz;
+/*12
+3*/ 3program xyz;
 class Test {
-	method void main() {
-		System.println('HelloWorld!!!\t\'\\\nabc');
+	method void main() {%
+		System.println('HelloWorld!!!\t\'\\\nab\xc');int abc = 123;
 	}
 }
