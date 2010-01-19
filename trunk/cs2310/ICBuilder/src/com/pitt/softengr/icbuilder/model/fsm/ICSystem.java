@@ -51,13 +51,13 @@ public class ICSystem {
         if(cells!=null && !cells.isEmpty()){
             return cells;
         }
-        return Collections.EMPTY_LIST;
+        return null;
     }
     public void setCells(List<IndexCell> cells){
         if (cells!=null && !cells.isEmpty()){
             this.cells=cells;
         } else {
-            this.cells=Collections.EMPTY_LIST;
+            this.cells=null;
         }
     }
     public void addCell(IndexCell cell){
