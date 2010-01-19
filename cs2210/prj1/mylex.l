@@ -5,15 +5,15 @@
 #include "token.h"
 
 extern int yycolumn, yyline, yylval;
+
+char string_buf[MAX_BUF_LEN];
+char *string_buf_ptr;
 %}
+
+%x comment
+%x str
 
 /* regular definitions */
-
-%{ /* (f)lex specification for comment*/
-%}
-A				[/]
-B				[*]
-C				[^/*]
 
 and				"&&"
 assgn			":="
@@ -50,7 +50,6 @@ not				"!"
 plus			"+"
 rbrace			"}"
 return			"return"
-sconst			\'[^']*
 times			"*"
 void			"void"
 eof				<EOF>
@@ -58,13 +57,52 @@ eof				<EOF>
 delim			[ \t]
 whitespace		{delim}+
 newline			[\n]
+
 id				[a-zA-Z][a-zA-Z0-9]*
+fid				[0-9][a-zA-Z0-9]*
 
 %%
 
-{A}({A}.*|{B}({A}|{C}|{B}+{C})*{B}+{A}) /* skip comment */
+"/*"         BEGIN(comment);
 
-{newline}	{yyline++; yycolumn=0;}
+<comment>[^*\n]*		yycolumn+=yyleng;/* eat anything that's not a '*' */
+<comment>"*"[^*/\n]*	yycolumn+=yyleng;/* eat up '*'s not followed by '/'s */
+<comment>\n				++yyline;yycolumn = 1;
+<comment>"*/"			yycolumn+=yyleng;BEGIN(INITIAL);/*return to init state*/
+<comment>.*{eof}		errorHandler(yyline, yycolumn, "Comment without closure!");
+
+\'      string_buf_ptr = string_buf; yycolumn+=yyleng; BEGIN(str);
+
+<str>\'        { /* saw closing quote - all done */
+        BEGIN(INITIAL);//TODO : buffer handler
+        yylval = putString(string_buf, 1);
+        yycolumn+=yyleng;
+        *string_buf_ptr = '\0';
+		return (SCONSTnum);
+        /* return string constant token type and
+         * value to parser
+         */
+        }
+
+<str>\\n  *string_buf_ptr++ = '\n';yycolumn+=yyleng;
+<str>\\t  *string_buf_ptr++ = '\t';yycolumn+=yyleng;
+<str>\\\\  *string_buf_ptr++ = '\\';yycolumn+=yyleng;
+<str>\\\'  *string_buf_ptr++ = '\'';yycolumn+=yyleng;
+
+<str>\\[^nt\\\']  {
+	yycolumn+=yyleng;
+	errorHandler(yyline, yycolumn, "Esacpe Error!");
+	}
+
+<str>[^\\\n\']+		{
+		char *yptr = yytext;
+		yycolumn += yyleng;
+		while ( *yptr )
+          *string_buf_ptr++ = *yptr++;
+        }
+
+
+{newline}	{yyline++; yycolumn=1;}
 
 {delim}		{yycolumn+=yyleng;}
 
@@ -238,11 +276,6 @@ id				[a-zA-Z][a-zA-Z0-9]*
 				return (RETURNnum);
 			}
 						
-{sconst}	{
-				yylval = putString(yytext, 1);
-				return (SCONSTnum);
-			}
-						
 {times}		{
 				yycolumn += yyleng;
 				return (TIMESnum);
@@ -267,15 +300,31 @@ id				[a-zA-Z][a-zA-Z0-9]*
 				yycolumn += yyleng;
 				return (IDnum);
 			}
+			
+{fid}		{
+				yycolumn += yyleng;
+				errorHandler(yyline, yycolumn, "Illegal id\n");
+				return (IDnum);
+			}
+.    {
+		yycolumn += yyleng;
+		errorHandler(yyline, yycolumn, "Unrecognised character\n");
+	 }
 
 %%
 
-int yyline = 0;
-int yycolumn = 0;
+int yyline = 1;
+int yycolumn = 1;//last+1 of that elem
 int yylval = -1;
 
-int main()
+int main(int argc, char** argv)
 {
+    ++argv, --argc;  /* skip over program name */
+    if (argc > 0)
+        yyin = fopen(argv[0], "r");
+    else
+        yyin = stdin;
+
 	printf("Line\tColumn\tToken\tIndex_in_String_table\n");
     while (1)
     {
