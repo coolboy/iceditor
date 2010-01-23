@@ -92,10 +92,17 @@ fid				[0-9][a-zA-Z0-9]*
 <str>\\\\  *string_buf_ptr++ = '\\';yycolumn+=yyleng;
 <str>\\\'  *string_buf_ptr++ = '\'';yycolumn+=yyleng;
 
-<str>\\[^nt\\\']  {/*deal with wrong escape symble*/
+<str>\\[^nt\\\']  {/*deal with other non-escape symble*/
+	char *yptr = yytext;
 	yycolumn+=yyleng;
-	errorHandler(yyline, yycolumn, "Escape Error!");
+	while ( *yptr )
+		*string_buf_ptr++ = *yptr++;
 	}
+
+<str>\n	{
+		++yyline;yycolumn = 1;
+		errorHandler(yyline, yycolumn, "String cross a line!");
+}
 
 <str>[^\\\n\']+		{
 		char *yptr = yytext;
