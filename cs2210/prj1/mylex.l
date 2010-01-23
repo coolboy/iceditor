@@ -69,7 +69,10 @@ fid				[0-9][a-zA-Z0-9]*
 <comment>"*"[^*/\n]*	yycolumn+=yyleng;/* eat up '*'s not followed by '/'s */
 <comment>\n				++yyline;yycolumn = 1;
 <comment>"*/"			yycolumn+=yyleng;BEGIN(INITIAL);/*return to init state*/
-<comment>.*{eof}		errorHandler(yyline, yycolumn, "Comment without closure!");
+<comment><<EOF>>	{
+					errorHandler(yyline, yycolumn, "Comment without closure!");
+					yyterminate();
+				}
 
 \'      string_buf_ptr = string_buf; yycolumn+=yyleng; BEGIN(str);
 
@@ -84,14 +87,14 @@ fid				[0-9][a-zA-Z0-9]*
          */
         }
 
-<str>\\n  *string_buf_ptr++ = '\n';yycolumn+=yyleng;
+<str>\\n  *string_buf_ptr++ = '\n';yycolumn+=yyleng;/*deal with escape sequences*/
 <str>\\t  *string_buf_ptr++ = '\t';yycolumn+=yyleng;
 <str>\\\\  *string_buf_ptr++ = '\\';yycolumn+=yyleng;
 <str>\\\'  *string_buf_ptr++ = '\'';yycolumn+=yyleng;
 
-<str>\\[^nt\\\']  {
+<str>\\[^nt\\\']  {/*deal with wrong escape symble*/
 	yycolumn+=yyleng;
-	errorHandler(yyline, yycolumn, "Esacpe Error!");
+	errorHandler(yyline, yycolumn, "Escape Error!");
 	}
 
 <str>[^\\\n\']+		{
@@ -100,9 +103,14 @@ fid				[0-9][a-zA-Z0-9]*
 		while ( *yptr )
           *string_buf_ptr++ = *yptr++;
         }
+        
+<str><<EOF>>	{/*deal with string without closure*/
+				errorHandler(yyline, yycolumn, "String without closure!");
+				yyterminate();
+			}
 
 
-{newline}	{yyline++; yycolumn=1;}
+{newline}	{yyline++; yycolumn=1;}/*deal with different symbols*/
 
 {delim}		{yycolumn+=yyleng;}
 
@@ -303,12 +311,11 @@ fid				[0-9][a-zA-Z0-9]*
 			
 {fid}		{
 				yycolumn += yyleng;
-				errorHandler(yyline, yycolumn, "Illegal id\n");
-				return (IDnum);
+				errorHandler(yyline, yycolumn, "Illegal id");
 			}
 .    {
 		yycolumn += yyleng;
-		errorHandler(yyline, yycolumn, "Unrecognised character\n");
+		errorHandler(yyline, yycolumn, "Unrecognised character");
 	 }
 
 %%

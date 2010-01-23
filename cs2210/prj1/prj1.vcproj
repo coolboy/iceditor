@@ -199,6 +199,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\complex.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\mylex.l"
 				>
 				<FileConfiguration
@@ -207,7 +211,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Lexing"
-						CommandLine="flex &quot;$(InputFileName)&quot;"
+						CommandLine="flex &quot;$(InputFileName)&quot;&#x0D;&#x0A;"
 						Outputs="lex.yy.c"
 					/>
 				</FileConfiguration>
@@ -217,17 +221,13 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Lexing"
-						CommandLine="flex &quot;$(InputFileName)&quot;"
+						CommandLine="flex &quot;$(InputFileName)&quot;&#x0D;&#x0A;"
 						Outputs="lex.yy.c"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\test.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\test2.txt"
+				RelativePath=".\simple.txt"
 				>
 			</File>
 		</Filter>

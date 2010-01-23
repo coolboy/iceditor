@@ -1,5 +1,11 @@
-/*Example2 : a more complex example
-B*/
+/*Example2 : a more complex example*/
+
+/*
+1. Multiline comment.
+2. Wrong ID.
+3. Wrong Char
+4. Wrong Escape
+*/
 
 /*12
 3*/ 3program xyz;

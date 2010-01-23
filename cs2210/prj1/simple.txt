@@ -4,5 +4,6 @@ program xyz;
 class Test {
 	method void main() {
 		System.println('HelloWorld!!!');
+		int xyz = 1;
 	}
 }
