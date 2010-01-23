@@ -3,8 +3,9 @@
 /*
 1. Multiline comment.
 2. Wrong ID.
-3. Wrong Char
-4. Wrong Escape
+3. Wrong Char.
+4. Wrong Escape.
+5. String across a line.
 */
 
 /*12
@@ -12,5 +13,7 @@
 class Test {
 	method void main() {%
 		System.println('HelloWorld!!!\t\'\\\nab\xc');int abc = 123;
+		System.println('Over
+		Line');int abc = 123;
 	}
 }
