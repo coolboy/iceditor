@@ -80,7 +80,7 @@ fid				[0-9][a-zA-Z0-9]*
         BEGIN(INITIAL);//TODO : buffer handler
         yylval = putString(string_buf, 1);
         yycolumn+=yyleng;
-        *string_buf_ptr = '\0';
+        memset(string_buf, 0, MAX_BUF_LEN);
 		return (SCONSTnum);
         /* return string constant token type and
          * value to parser
