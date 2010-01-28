@@ -113,7 +113,7 @@ CpuPlot::CpuPlot(QWidget *parent):
     const int fmh = QFontMetrics(scaleWidget->font()).height();
     scaleWidget->setMinBorderDist(0, fmh / 2);
 
-    setAxisTitle(QwtPlot::yLeft, "Cpu Usage [%]");
+    setAxisTitle(QwtPlot::yLeft, "Rate [%]");
     setAxisScale(QwtPlot::yLeft, 0, 100);
 
     Background *bg = new Background();
@@ -124,18 +124,18 @@ CpuPlot::CpuPlot(QWidget *parent):
     
     CpuCurve *curve;
 
-    curve = new CpuCurve("System");
+    curve = new CpuCurve("Test");
     curve->setColor(Qt::red);
     curve->attach(this);
     data[System].curve = curve;
 
-    curve = new CpuCurve("User");
+    curve = new CpuCurve("Sys.PF");
     curve->setColor(Qt::blue);
     curve->setZ(curve->z() - 1);
     curve->attach(this);
     data[User].curve = curve;
 
-    curve = new CpuCurve("Total");
+    curve = new CpuCurve("App.PF");
     curve->setColor(Qt::black);
     curve->setZ(curve->z() - 2);
     curve->attach(this);

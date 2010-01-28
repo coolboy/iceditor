@@ -21,7 +21,7 @@ private:
 	QLineEdit *pidLE;
 	QVBoxLayout *verticalLayout_2;
 	QLabel *label_4;
-	QTableView *phyMemWig;
+	QTableWidget *phyMemWig;
 	QGridLayout *gridLayout;
 	QSlider *testRateHS;
 	QLabel *label_2;
