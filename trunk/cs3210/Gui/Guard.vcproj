@@ -66,6 +66,7 @@
 				BufferSecurityCheck="false"
 				TreatWChar_tAsBuiltInType="false"
 				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
 				AssemblerListingLocation="objd\"
 				ObjectFile="objd\"
 				ProgramDataBaseFileName=".\"
@@ -166,6 +167,7 @@
 				BufferSecurityCheck="false"
 				TreatWChar_tAsBuiltInType="false"
 				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="2"
 				AssemblerListingLocation="objd\"
 				ObjectFile="objd\"
 				ProgramDataBaseFileName=".\"
@@ -310,6 +312,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\MainWin.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -345,6 +351,10 @@
 			</File>
 			<File
 				RelativePath="cpustat.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MainWin.hxx"
 				>
 			</File>
 			<File
