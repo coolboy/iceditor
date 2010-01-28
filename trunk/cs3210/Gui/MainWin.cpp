@@ -1,5 +1,7 @@
 #include "StdAfx.h"
 
+#include <cassert>
+
 #include "MainWin.hxx"
 #include "cpuplot.hxx"
 
@@ -45,7 +47,43 @@ void MainWin::setupUI()
 
 	verticalLayout_2->addWidget(label_4);
 
-	phyMemWig = new QTableView(centralwidget);
+	phyMemWig = new QTableWidget(centralwidget);
+	phyMemWig->setRowCount(50);
+	phyMemWig->setColumnCount(4);
+
+	for (int i = 0; i != 50; ++i)
+		for (int j = 0; j != 4; ++j)
+		{
+			QTableWidgetItem* item = new QTableWidgetItem();
+
+			switch (qrand() % 4)
+			{
+			case 0:
+				item->setBackground(QBrush(Qt::green));//free
+				break;
+
+			case 1:
+				item->setBackground(QBrush(Qt::yellow));//tested
+				break;
+
+			case 2:
+				item->setBackground(QBrush(Qt::red));//error
+				break;
+
+			case 3:
+				item->setBackground(QBrush(Qt::gray));//unknow
+				break;
+
+			case 4:
+				item->setBackground(QBrush(Qt::blue));//testing??
+				break;
+
+			default:
+				assert(0);
+				break;
+			}
+			phyMemWig->setItem(i, j, item);
+		}
 
 	verticalLayout_2->addWidget(phyMemWig);
 
