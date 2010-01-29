@@ -1,5 +1,7 @@
 #pragma once
 
+#include <qwt_slider.h>
+
 class MainWin : public QMainWindow
 {
 	Q_OBJECT
@@ -23,9 +25,9 @@ private:
 	QLabel *label_4;
 	QTableWidget *phyMemWig;
 	QGridLayout *gridLayout;
-	QSlider *testRateHS;
+	QwtSlider *testRateHS;
 	QLabel *label_2;
-	QSlider *faultHS;
+	QwtSlider *faultHS;
 	QLabel *label_3;
 	QMenuBar *menubar;
 	QStatusBar *statusbar;

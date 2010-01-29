@@ -43,20 +43,24 @@ void MainWin::setupUI()
 	gridLayout_2->addLayout(verticalLayout, 0, 0, 1, 1);
 
 	verticalLayout_2 = new QVBoxLayout();
-	label_4 = new QLabel("Physical Memory", centralwidget);
+	label_4 = new QLabel("Physical Memory Page Layout", centralwidget);
 
 	verticalLayout_2->addWidget(label_4);
 
 	phyMemWig = new QTableWidget(centralwidget);
 	phyMemWig->setRowCount(50);
-	phyMemWig->setColumnCount(4);
+	phyMemWig->setColumnCount(8);
+
+	QStringList vhLst;
 
 	for (int i = 0; i != 50; ++i)
-		for (int j = 0; j != 4; ++j)
+	{
+		vhLst<<QString::number(i * 8);
+		for (int j = 0; j != 8; ++j)
 		{
 			QTableWidgetItem* item = new QTableWidgetItem();
 
-			switch (qrand() % 4)
+			switch (qrand() % 5)
 			{
 			case 0:
 				item->setBackground(QBrush(Qt::green));//free
@@ -84,6 +88,12 @@ void MainWin::setupUI()
 			}
 			phyMemWig->setItem(i, j, item);
 		}
+	}
+
+	phyMemWig->setHorizontalHeaderLabels(QStringList()
+		<<"0"<<"1"<<"2"<<"3"<<"4"<<"5"<<"6"<<"7");
+
+	phyMemWig->setVerticalHeaderLabels(vhLst);
 
 	verticalLayout_2->addWidget(phyMemWig);
 
@@ -92,7 +102,7 @@ void MainWin::setupUI()
 	gridLayout_2->addWidget(cWig, 1, 0, 1, 1);
 
 	gridLayout = new QGridLayout();
-	testRateHS = new QSlider(centralwidget);
+	testRateHS = new QwtSlider(centralwidget, Qt::Horizontal, QwtSlider::TopScale, QwtSlider::BgTrough);
 	testRateHS->setOrientation(Qt::Horizontal);
 
 	gridLayout->addWidget(testRateHS, 0, 0, 1, 1);
@@ -101,7 +111,7 @@ void MainWin::setupUI()
 
 	gridLayout->addWidget(label_2, 0, 1, 1, 1);
 
-	faultHS = new QSlider(centralwidget);
+	faultHS = new QwtSlider(centralwidget, Qt::Horizontal, QwtSlider::TopScale, QwtSlider::BgTrough);
 	faultHS->setOrientation(Qt::Horizontal);
 
 	gridLayout->addWidget(faultHS, 1, 0, 1, 1);
