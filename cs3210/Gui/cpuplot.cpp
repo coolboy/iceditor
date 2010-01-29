@@ -9,6 +9,7 @@
 #include <qwt_scale_widget.h>
 #include <qwt_legend.h>
 #include <qwt_legend_item.h>
+#include <qwt_symbol.h>
 
 #include "cpupiemarker.h"
 #include "cpuplot.hxx"
@@ -18,191 +19,189 @@
 class TimeScaleDraw: public QwtScaleDraw
 {
 public:
-    TimeScaleDraw(const QTime &base):
-        baseTime(base)
-    {
-    }
-    virtual QwtText label(double v) const
-    {
-        QTime upTime = baseTime.addSecs((int)v);
-        return upTime.toString();
-    }
+	TimeScaleDraw(const QTime &base):
+			baseTime(base)
+			{
+			}
+			virtual QwtText label(double v) const
+			{
+				QTime upTime = baseTime.addSecs((int)v);
+				return upTime.toString();
+			}
 private:
-    QTime baseTime;
+	QTime baseTime;
 };
 
 class Background: public QwtPlotItem
 {
 public:
-    Background()
-    {
-        setZ(0.0);
-    }
+	Background()
+	{
+		setZ(0.0);
+	}
 
-    virtual int rtti() const
-    {
-        return QwtPlotItem::Rtti_PlotUserItem;
-    }
+	virtual int rtti() const
+	{
+		return QwtPlotItem::Rtti_PlotUserItem;
+	}
 
-    virtual void draw(QPainter *painter,
-        const QwtScaleMap &, const QwtScaleMap &yMap,
-        const QRectF &rect) const
-    {
-        QColor c(Qt::white);
-        QRectF r = rect;
+	virtual void draw(QPainter *painter,
+		const QwtScaleMap &, const QwtScaleMap &yMap,
+		const QRectF &rect) const
+	{
+		QColor c(Qt::white);
+		QRectF r = rect;
 
-        for ( int i = 100; i > 0; i -= 10 )
-        {
-            r.setBottom(yMap.transform(i - 10));
-            r.setTop(yMap.transform(i));
-            painter->fillRect(r, c);
+		for ( int i = 100; i > 0; i -= 10 )
+		{
+			r.setBottom(yMap.transform(i - 10));
+			r.setTop(yMap.transform(i));
+			painter->fillRect(r, c);
 
-            c = c.dark(110);
-        }
-    }
+			c = c.dark(110);
+		}
+	}
 };
 
 class CpuCurve: public QwtPlotCurve
 {
 public:
-    CpuCurve(const QString &title):
-        QwtPlotCurve(title)
-    {
-        setRenderHint(QwtPlotItem::RenderAntialiased);
-    }
+	CpuCurve(const QString &title):
+			QwtPlotCurve(title)
+			{
+				setRenderHint(QwtPlotItem::RenderAntialiased);
+			}
 
-    void setColor(const QColor &color)
-    {
-        QColor c = color;
-        c.setAlpha(150);
+			void setColor(const QColor &color)
+			{
+				//QColor c = color;
+				//c.setAlpha(150);
 
-        setPen(c);
-        setBrush(c);
-    }
+				setPen(color);
+				//setBrush(c);
+			}
 };
 
 CpuPlot::CpuPlot(QWidget *parent):
-    QwtPlot(parent),
-    dataCount(0)
+QwtPlot(parent),
+dataCount(0)
 {
-    setAutoReplot(false);
+	setAutoReplot(false);
 
-    plotLayout()->setAlignCanvasToScales(true);
+	plotLayout()->setAlignCanvasToScales(true);
 
-    QwtLegend *legend = new QwtLegend;
-    legend->setItemMode(QwtLegend::CheckableItem);
-    insertLegend(legend, QwtPlot::RightLegend);
+	QwtLegend *legend = new QwtLegend;
+	legend->setItemMode(QwtLegend::CheckableItem);
+	insertLegend(legend, QwtPlot::RightLegend);
 
-    setAxisTitle(QwtPlot::xBottom, " System Uptime [h:m:s]");
-    setAxisScaleDraw(QwtPlot::xBottom, 
-        new TimeScaleDraw(cpuStat.upTime()));
-    setAxisScale(QwtPlot::xBottom, 0, HISTORY);
-    setAxisLabelRotation(QwtPlot::xBottom, -50.0);
-    setAxisLabelAlignment(QwtPlot::xBottom, Qt::AlignLeft | Qt::AlignBottom);
+	setAxisTitle(QwtPlot::xBottom, " System Uptime [h:m:s]");
+	setAxisScaleDraw(QwtPlot::xBottom, 
+		new TimeScaleDraw(cpuStat.upTime()));
+	setAxisScale(QwtPlot::xBottom, 0, HISTORY);
+	setAxisLabelRotation(QwtPlot::xBottom, -50.0);
+	setAxisLabelAlignment(QwtPlot::xBottom, Qt::AlignLeft | Qt::AlignBottom);
 
-    /*
-     In situations, when there is a label at the most right position of the
-     scale, additional space is needed to display the overlapping part
-     of the label would be taken by reducing the width of scale and canvas.
-     To avoid this "jumping canvas" effect, we add a permanent margin.
-     We don't need to do the same for the left border, because there
-     is enough space for the overlapping label below the left scale.
-     */
+	/*
+	In situations, when there is a label at the most right position of the
+	scale, additional space is needed to display the overlapping part
+	of the label would be taken by reducing the width of scale and canvas.
+	To avoid this "jumping canvas" effect, we add a permanent margin.
+	We don't need to do the same for the left border, because there
+	is enough space for the overlapping label below the left scale.
+	*/
 
-    QwtScaleWidget *scaleWidget = axisWidget(QwtPlot::xBottom);
-    const int fmh = QFontMetrics(scaleWidget->font()).height();
-    scaleWidget->setMinBorderDist(0, fmh / 2);
+	QwtScaleWidget *scaleWidget = axisWidget(QwtPlot::xBottom);
+	const int fmh = QFontMetrics(scaleWidget->font()).height();
+	scaleWidget->setMinBorderDist(0, fmh / 2);
 
-    setAxisTitle(QwtPlot::yLeft, "Rate [%]");
-    setAxisScale(QwtPlot::yLeft, 0, 100);
+	setAxisTitle(QwtPlot::yLeft, "Rate [%]");
+	setAxisScale(QwtPlot::yLeft, 0, 100);
 
-    Background *bg = new Background();
-    bg->attach(this);
+	Background *bg = new Background();
+	bg->attach(this);
 
-    CpuPieMarker *pie = new CpuPieMarker();
-    pie->attach(this);
-    
-    CpuCurve *curve;
+	CpuPieMarker *pie = new CpuPieMarker();
+	pie->attach(this);
 
-    curve = new CpuCurve("Test");
-    curve->setColor(Qt::red);
-    curve->attach(this);
-    data[System].curve = curve;
+	CpuCurve *curve = new CpuCurve("Test");
+	curve->setColor(Qt::red);
+	curve->attach(this);
+	data[System].curve = curve;
 
-    curve = new CpuCurve("Sys.PF");
-    curve->setColor(Qt::blue);
-    curve->setZ(curve->z() - 1);
-    curve->attach(this);
-    data[User].curve = curve;
+	curve = new CpuCurve("Sys.PF");
+	curve->setColor(Qt::blue);
+	curve->setZ(curve->z() - 1);
+	curve->attach(this);
+	data[User].curve = curve;
 
-    curve = new CpuCurve("App.PF");
-    curve->setColor(Qt::black);
-    curve->setZ(curve->z() - 2);
-    curve->attach(this);
-    data[Total].curve = curve;
+	curve = new CpuCurve("App.PF");
+	curve->setColor(Qt::black);
+	curve->setZ(curve->z() - 2);
+	curve->attach(this);
+	data[Total].curve = curve;
 
-    curve = new CpuCurve("Idle");
-    curve->setColor(Qt::darkCyan);
-    curve->setZ(curve->z() - 3);
-    curve->attach(this);
-    data[Idle].curve = curve;
+	curve = new CpuCurve("Idle");
+	curve->setColor(Qt::darkCyan);
+	curve->setZ(curve->z() - 3);
+	curve->attach(this);
+	data[Idle].curve = curve;
 
-    showCurve(data[System].curve, true);
-    showCurve(data[User].curve, true);
-    showCurve(data[Total].curve, false);
-    showCurve(data[Idle].curve, false);
+	showCurve(data[System].curve, true);
+	showCurve(data[User].curve, true);
+	showCurve(data[Total].curve, false);
+	showCurve(data[Idle].curve, false);
 
-    for ( int i = 0; i < HISTORY; i++ )
-        timeData[HISTORY - 1 - i] = i;
+	for ( int i = 0; i < HISTORY; i++ )
+		timeData[HISTORY - 1 - i] = i;
 
-    (void)startTimer(1000); // 1 second
+	startTimer(1000); // 1 second
 
-    connect(this, SIGNAL(legendChecked(QwtPlotItem *, bool)),
-        SLOT(showCurve(QwtPlotItem *, bool)));
+	connect(this, SIGNAL(legendChecked(QwtPlotItem *, bool)),
+		SLOT(showCurve(QwtPlotItem *, bool)));
 }
 
 void CpuPlot::timerEvent(QTimerEvent *)
 {
-    for ( int i = dataCount; i > 0; i-- )
-    {
-        for ( int c = 0; c < NCpuData; c++ )
-        {
-            if ( i < HISTORY )
-                data[c].data[i] = data[c].data[i-1];
-        }
-    }
+	for ( int i = dataCount; i > 0; i-- )
+	{
+		for ( int c = 0; c < NCpuData; c++ )
+		{
+			if ( i < HISTORY )
+				data[c].data[i] = data[c].data[i-1];
+		}
+	}
 
-    cpuStat.statistic(data[User].data[0], data[System].data[0]);
+	cpuStat.statistic(data[User].data[0], data[System].data[0]);
 
-    data[Total].data[0] = data[User].data[0] + 
-        data[System].data[0];
-    data[Idle].data[0] = 100.0 - data[Total].data[0];
+	data[Total].data[0] = data[User].data[0] + 
+		data[System].data[0];
+	data[Idle].data[0] = 100.0 - data[Total].data[0];
 
-    if ( dataCount < HISTORY )
-        dataCount++;
+	if ( dataCount < HISTORY )
+		dataCount++;
 
-    for ( int j = 0; j < HISTORY; j++ )
-        timeData[j]++;
+	for ( int j = 0; j < HISTORY; j++ )
+		timeData[j]++;
 
-    setAxisScale(QwtPlot::xBottom, 
-        timeData[HISTORY - 1], timeData[0]);
+	setAxisScale(QwtPlot::xBottom, 
+		timeData[HISTORY - 1], timeData[0]);
 
-    for ( int c = 0; c < NCpuData; c++ )
-    {
-        data[c].curve->setRawSamples(
-            timeData, data[c].data, dataCount);
-    }
+	for ( int c = 0; c < NCpuData; c++ )
+	{
+		data[c].curve->setRawSamples(
+			timeData, data[c].data, dataCount);
+	}
 
-    replot();
+	replot();
 }
 
 void CpuPlot::showCurve(QwtPlotItem *item, bool on)
 {
-    item->setVisible(on);
-    QWidget *w = legend()->find(item);
-    if ( w && w->inherits("QwtLegendItem") )
-        ((QwtLegendItem *)w)->setChecked(on);
-    
-    replot();
+	item->setVisible(on);
+	QWidget *w = legend()->find(item);
+	if ( w && w->inherits("QwtLegendItem") )
+		((QwtLegendItem *)w)->setChecked(on);
+
+	replot();
 }
 
