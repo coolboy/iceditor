@@ -71,13 +71,13 @@ public class IndexCellSystemXmlWriter extends CommonWriter<List<ICSystem>> {
             write("source=\""+transition.getSourceState().getID()+"\" ");
         }
         if(transition.getSourceState()==null){
-            write("source=\"\"");
+            write("source=\"\" ");
         }
         if(transition.getTargetState()!=null){
             write("target=\""+transition.getTargetState().getID()+"\" ");
         }
         if(transition.getTargetState()==null){
-            write("target=\"\"");
+            write("target=\"\" ");
         }
         writeln(">");
     }
