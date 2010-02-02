@@ -41,7 +41,7 @@ GOTO PROCESS
 :PROCESS
 echo in process
 echo on
-ant -v -f .\build.xml %COMPILE_PAR% > .\build.log
+ant -v -f .\build.xml %COMPILE_PAR% > .\logs\build.log
 rem ant -v -f .\build.xml %COMPILE_PAR% 
 GOTO END
 
