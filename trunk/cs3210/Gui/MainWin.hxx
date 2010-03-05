@@ -1,6 +1,7 @@
 #pragma once
 
-#include <qwt_slider.h>
+class QwtSlider;
+class MemAdjustWig;
 
 class MainWin : public QMainWindow
 {
@@ -10,8 +11,12 @@ public:
 	MainWin(void);
 	~MainWin(void);
 
+private Q_SLOTS:
+	void slotOnMemAdjustBut();
+
 private:
 	void setupUI();
+	void setConnections();
 
 private:
 	QWidget* cWig;
@@ -31,4 +36,8 @@ private:
 	QLabel *label_3;
 	QMenuBar *menubar;
 	QStatusBar *statusbar;
+
+	QPushButton *memAdjustBut;
+
+	MemAdjustWig *memAdjustWig;
 };
