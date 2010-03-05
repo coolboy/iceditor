@@ -1,15 +1,19 @@
 #include "StdAfx.h"
 
 #include <cassert>
+#include <qwt_slider.h>
 
 #include "MainWin.hxx"
+
 #include "cpuplot.hxx"
+#include "MemAdjustWig.hxx"
 
 #include "moc/moc_MainWin.cpp"
 
-MainWin::MainWin(void)
+MainWin::MainWin(void):memAdjustWig(0)
 {
 	setupUI();
+	setConnections();
 }
 
 MainWin::~MainWin(void)
@@ -123,10 +127,30 @@ void MainWin::setupUI()
 
 	gridLayout_2->addLayout(gridLayout, 2, 0, 1, 1);
 
+	memAdjustBut = new QPushButton("Memory Adjust", this);
+
+	gridLayout_2->addWidget(memAdjustBut, 3, 1);
+
 	setCentralWidget(centralwidget);
+
 	menubar = new QMenuBar(this);
-	menubar->setGeometry(QRect(0, 0, 800, 26));
+	//menubar->setGeometry(QRect(0, 0, 800, 26));
 	setMenuBar(menubar);
+
 	statusbar = new QStatusBar(this);
 	setStatusBar(statusbar);
+	//statusbar->showMessage("123");
+}
+
+void MainWin::setConnections()
+{
+	QConnect (memAdjustBut, clicked(), this, slotOnMemAdjustBut());
+}
+
+void MainWin::slotOnMemAdjustBut()
+{
+	if (memAdjustWig == 0)
+		memAdjustWig = new MemAdjustWig(0);
+
+	memAdjustWig->show();
 }
