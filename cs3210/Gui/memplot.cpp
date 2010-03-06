@@ -1,8 +1,5 @@
 #include "StdAfx.h"
-#include <qapplication.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qpainter.h>
+
 #include <qwt_plot_layout.h>
 #include <qwt_plot_curve.h>
 #include <qwt_scale_draw.h>
@@ -11,10 +8,10 @@
 #include <qwt_legend_item.h>
 #include <qwt_symbol.h>
 
-#include "cpupiemarker.h"
-#include "cpuplot.hxx"
+#include "mempiemarker.h"
+#include "memplot.hxx"
 
-#include "moc/moc_cpuplot.cpp"
+#include "moc/moc_memplot.cpp"
 
 class TimeScaleDraw: public QwtScaleDraw
 {
@@ -74,15 +71,11 @@ public:
 
 			void setColor(const QColor &color)
 			{
-				//QColor c = color;
-				//c.setAlpha(150);
-
 				setPen(color);
-				//setBrush(c);
 			}
 };
 
-CpuPlot::CpuPlot(QWidget *parent):
+MemPlot::MemPlot(QWidget *parent):
 QwtPlot(parent),
 dataCount(0)
 {
@@ -96,7 +89,7 @@ dataCount(0)
 
 	setAxisTitle(QwtPlot::xBottom, " System Uptime [h:m:s]");
 	setAxisScaleDraw(QwtPlot::xBottom, 
-		new TimeScaleDraw(cpuStat.upTime()));
+		new TimeScaleDraw(QTime()));
 	setAxisScale(QwtPlot::xBottom, 0, HISTORY);
 	setAxisLabelRotation(QwtPlot::xBottom, -50.0);
 	setAxisLabelAlignment(QwtPlot::xBottom, Qt::AlignLeft | Qt::AlignBottom);
@@ -120,7 +113,7 @@ dataCount(0)
 	Background *bg = new Background();
 	bg->attach(this);
 
-	CpuPieMarker *pie = new CpuPieMarker();
+	MemPieMarker *pie = new MemPieMarker();
 	pie->attach(this);
 
 	CpuCurve *curve = new CpuCurve("Test");
@@ -160,7 +153,7 @@ dataCount(0)
 		SLOT(showCurve(QwtPlotItem *, bool)));
 }
 
-void CpuPlot::timerEvent(QTimerEvent *)
+void MemPlot::timerEvent(QTimerEvent *)
 {
 	for ( int i = dataCount; i > 0; i-- )
 	{
@@ -195,7 +188,7 @@ void CpuPlot::timerEvent(QTimerEvent *)
 	replot();
 }
 
-void CpuPlot::showCurve(QwtPlotItem *item, bool on)
+void MemPlot::showCurve(QwtPlotItem *item, bool on)
 {
 	item->setVisible(on);
 	QWidget *w = legend()->find(item);

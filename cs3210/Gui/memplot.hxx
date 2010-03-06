@@ -17,13 +17,13 @@
 #pragma once
 #include <qwt_plot.h>
 
-#include "cpustat.h"
+#include "memstat.h"
 
 static const int HISTORY = 60; // seconds
 
 class QwtPlotCurve;
 
-class CpuPlot : public QwtPlot 
+class MemPlot : public QwtPlot 
 {
     Q_OBJECT
 public:
@@ -37,7 +37,7 @@ public:
         NCpuData
     };
 
-    CpuPlot(QWidget * = 0);
+    MemPlot(QWidget * = 0);
     const QwtPlotCurve *cpuCurve(int id) const
         { return data[id].curve; }
 
@@ -56,5 +56,5 @@ private:
     double timeData[HISTORY];
 
     int dataCount;
-    CpuStat cpuStat;
+    MemStat cpuStat;
 };

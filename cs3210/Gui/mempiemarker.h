@@ -2,7 +2,6 @@
  * Copyright (c) 2010, Sysu
  * 保留所有权利。( All rights reserved. )
  * 
- * 文件名称：cpupiemarker.h
  * 文件标识：
  * 摘    要：
  * 
@@ -22,10 +21,10 @@
 
 #include <qwt_plot_item.h>
 
-class CpuPieMarker: public QwtPlotItem
+class MemPieMarker: public QwtPlotItem
 {
 public:
-    CpuPieMarker();
+    MemPieMarker();
 
     virtual int rtti() const;
 
