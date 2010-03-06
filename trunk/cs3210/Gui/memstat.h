@@ -2,7 +2,6 @@
  * Copyright (c) 2010, Sysu
  * 保留所有权利。( All rights reserved. )
  * 
- * 文件名称：cpustat.h
  * 文件标识：
  * 摘    要：
  * 
@@ -16,26 +15,11 @@
  */
 #pragma once
 
-#include <qdatetime.h>
-
-class CpuStat 
+class MemStat 
 {
 public:
-    CpuStat();
+    MemStat();
     void statistic(double &user, double &system);
-    QTime upTime() const;
-
-    enum Value
-    {
-        User,
-        Nice,
-        System,
-        Idle,
-
-        NValues
-    };
 
 private:
-    void lookUp(double[NValues]) const;
-    double procValues[NValues];
 };

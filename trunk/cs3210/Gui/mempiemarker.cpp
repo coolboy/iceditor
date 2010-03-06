@@ -1,26 +1,27 @@
 #include "StdAfx.h"
-#include <qpainter.h>
+
 #include <qwt_scale_map.h>
 #include <qwt_plot_curve.h>
-#include "cpuplot.hxx"
-#include "cpupiemarker.h"
 
-CpuPieMarker::CpuPieMarker()
+#include "memplot.hxx"
+#include "mempiemarker.h"
+
+MemPieMarker::MemPieMarker()
 {
     setZ(1000);
     setRenderHint(QwtPlotItem::RenderAntialiased, true);
 }
 
-int CpuPieMarker::rtti() const
+int MemPieMarker::rtti() const
 {
     return QwtPlotItem::Rtti_PlotUserItem;
 }
 
-void CpuPieMarker::draw(QPainter *p, 
+void MemPieMarker::draw(QPainter *p, 
     const QwtScaleMap &, const QwtScaleMap &,
     const QRectF &rect) const
 {
-    const CpuPlot *cpuPlot = (CpuPlot *)plot();
+    const MemPlot *cpuPlot = (MemPlot *)plot();
 
     const QwtScaleMap yMap = cpuPlot->canvasMap(QwtPlot::yLeft);
 
@@ -32,7 +33,7 @@ void CpuPieMarker::draw(QPainter *p,
     pieRect.setHeight(yMap.transform(80.0));
     pieRect.setWidth(pieRect.height());
     
-    const int dataType[] = { CpuPlot::User, CpuPlot::System, CpuPlot::Idle };
+    const int dataType[] = { MemPlot::User, MemPlot::System, MemPlot::Idle };
 
     int angle = (int)(5760 * 0.75);
     for ( unsigned int i = 0; 

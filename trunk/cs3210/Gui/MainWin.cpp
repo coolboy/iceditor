@@ -18,6 +18,7 @@ MainWin::MainWin(void):memAdjustWig(0)
 
 MainWin::~MainWin(void)
 {
+	delete memAdjustWig;
 }
 
 void MainWin::setupUI()
@@ -26,7 +27,7 @@ void MainWin::setupUI()
 
 	cWig = new QWidget(this);
 
-	CpuPlot *plot = new CpuPlot(cWig);
+	MemPlot *plot = new MemPlot(cWig);
 	plot->setTitle("History");
 	plot->setMargin(5);
 
