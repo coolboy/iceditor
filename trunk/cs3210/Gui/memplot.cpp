@@ -164,7 +164,8 @@ void MemPlot::timerEvent(QTimerEvent *)
 		}
 	}
 
-	cpuStat.statistic(data[User].data[0], data[System].data[0]);
+	data[User].data[0] = memStat.statistic("User").toDouble();
+	data[System].data[0] = memStat.statistic("System").toDouble();
 
 	data[Total].data[0] = data[User].data[0] + 
 		data[System].data[0];
