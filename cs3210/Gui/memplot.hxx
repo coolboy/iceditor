@@ -56,5 +56,5 @@ private:
     double timeData[HISTORY];
 
     int dataCount;
-    MemStat cpuStat;
+    MemStat memStat;
 };

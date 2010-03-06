@@ -5,7 +5,7 @@
 
 #include "MainWin.hxx"
 
-#include "cpuplot.hxx"
+#include "memplot.hxx"
 #include "MemAdjustWig.hxx"
 
 #include "moc/moc_MainWin.cpp"

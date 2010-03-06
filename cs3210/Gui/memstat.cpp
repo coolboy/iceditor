@@ -6,8 +6,7 @@ MemStat::MemStat()
 {
 }
 
-void MemStat::statistic(double &user, double &system)
+QVariant MemStat::statistic(const QString &key)
 {
-		user = 10;
-		system = 10;
+	return 10;
 }
