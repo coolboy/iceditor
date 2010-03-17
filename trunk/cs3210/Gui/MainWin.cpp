@@ -3,9 +3,11 @@
 #include <cassert>
 #include <qwt_slider.h>
 
-#include "MainWin.hxx"
+#include "../shared.h"
 
+#include "MainWin.hxx"
 #include "memplot.hxx"
+#include "memstat.hxx"
 #include "MemAdjustWig.hxx"
 
 #include "moc/moc_MainWin.cpp"
@@ -25,14 +27,12 @@ void MainWin::setupUI()
 {
 	setWindowTitle("Guard");
 
-	cWig = new QWidget(this);
-
-	MemPlot *plot = new MemPlot(cWig);
+	plot = new MemPlot();
 	plot->setTitle("History");
 	plot->setMargin(5);
 
-	QVBoxLayout *layout = new QVBoxLayout(cWig);
-	layout->addWidget(plot);
+	plotLayout = new QVBoxLayout();
+	plotLayout->addWidget(plot);
 
 	centralwidget = new QWidget(this);
 	gridLayout_2 = new QGridLayout(centralwidget);
@@ -104,7 +104,7 @@ void MainWin::setupUI()
 
 	gridLayout_2->addLayout(verticalLayout_2, 0, 1, 3, 1);
 
-	gridLayout_2->addWidget(cWig, 1, 0, 1, 1);
+	gridLayout_2->addLayout(plotLayout, 1, 0, 1, 1);
 
 	gridLayout = new QGridLayout();
 	testRateHS = new QwtSlider(centralwidget, Qt::Horizontal, QwtSlider::TopScale, QwtSlider::BgTrough);
@@ -134,18 +134,19 @@ void MainWin::setupUI()
 
 	setCentralWidget(centralwidget);
 
-	menubar = new QMenuBar(this);
-	//menubar->setGeometry(QRect(0, 0, 800, 26));
-	setMenuBar(menubar);
+	connectAct = new QAction("Connect", this);
+	exitAct = new QAction("Exit", this);
 
-	statusbar = new QStatusBar(this);
-	setStatusBar(statusbar);
-	//statusbar->showMessage("123");
+	fileMenu = menuBar()->addMenu(tr("&File"));
+	fileMenu->addAction(connectAct);
+	fileMenu->addAction(exitAct);
 }
 
 void MainWin::setConnections()
 {
 	QConnect (memAdjustBut, clicked(), this, slotOnMemAdjustBut());
+	QConnect (connectAct, triggered(), this, slotOnConnect());
+	QConnect (exitAct, triggered(), qApp, quit());
 }
 
 void MainWin::slotOnMemAdjustBut()
@@ -154,4 +155,25 @@ void MainWin::slotOnMemAdjustBut()
 		memAdjustWig = new MemAdjustWig(0);
 
 	memAdjustWig->show();
+}
+
+void MainWin::slotOnConnect()
+{
+	bool ok = false;
+	QString srvAddr = QInputDialog::getText(this, tr("Input server address:"),
+		tr("ip:port"), QLineEdit::Normal,	defHost + ':' + QString::number(defPort), &ok);
+	if (ok && !srvAddr.isEmpty()){
+		QStringList lst = srvAddr.split(":", QString::SkipEmptyParts);
+		if (lst.size() != 2)
+			return;
+
+		QString host = lst[0];
+		quint16 port = lst[1].toUInt();
+
+		MemStat *memStat = new MemStat(this, host, port);
+		memStat->setDebugOutput(statusBar());
+		memStat->grapMsg();
+
+		plot->setDataSrc(memStat);
+	}
 }

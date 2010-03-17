@@ -2,6 +2,7 @@
 
 class QwtSlider;
 class MemAdjustWig;
+class MemPlot;
 
 class MainWin : public QMainWindow
 {
@@ -14,14 +15,19 @@ public:
 private Q_SLOTS:
 	void slotOnMemAdjustBut();
 
+	//menu
+	void slotOnConnect();
+
 private:
 	void setupUI();
 	void setConnections();
 
 private:
-	QWidget* cWig;
-
 	QWidget *centralwidget;
+
+	QVBoxLayout *plotLayout;
+	MemPlot *plot;
+
 	QGridLayout *gridLayout_2;
 	QVBoxLayout *verticalLayout;
 	QLabel *label;
@@ -34,10 +40,14 @@ private:
 	QLabel *label_2;
 	QwtSlider *faultHS;
 	QLabel *label_3;
-	QMenuBar *menubar;
-	QStatusBar *statusbar;
+	//QStatusBar *statusbar;
 
 	QPushButton *memAdjustBut;
 
 	MemAdjustWig *memAdjustWig;
+
+	//menu
+	QMenu* fileMenu;
+	QAction* connectAct;
+	QAction* exitAct;
 };
