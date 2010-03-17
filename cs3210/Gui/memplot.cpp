@@ -9,7 +9,9 @@
 #include <qwt_symbol.h>
 
 #include "mempiemarker.h"
+
 #include "memplot.hxx"
+#include "memstat.hxx"
 
 #include "moc/moc_memplot.cpp"
 
@@ -151,6 +153,8 @@ dataCount(0)
 
 	connect(this, SIGNAL(legendChecked(QwtPlotItem *, bool)),
 		SLOT(showCurve(QwtPlotItem *, bool)));
+
+	memStat = 0;
 }
 
 void MemPlot::timerEvent(QTimerEvent *)
@@ -164,8 +168,8 @@ void MemPlot::timerEvent(QTimerEvent *)
 		}
 	}
 
-	data[User].data[0] = memStat.statistic("User").toDouble();
-	data[System].data[0] = memStat.statistic("System").toDouble();
+	data[User].data[0] = memStat->getData("User").toDouble();
+	data[System].data[0] = memStat->getData("System").toDouble();
 
 	data[Total].data[0] = data[User].data[0] + 
 		data[System].data[0];
@@ -197,5 +201,11 @@ void MemPlot::showCurve(QwtPlotItem *item, bool on)
 		((QwtLegendItem *)w)->setChecked(on);
 
 	replot();
+}
+
+void MemPlot::setDataSrc( MemStat* src )
+{
+	delete memStat;
+	memStat = src;
 }
 

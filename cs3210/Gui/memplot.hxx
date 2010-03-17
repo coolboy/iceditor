@@ -17,7 +17,7 @@
 #pragma once
 #include <qwt_plot.h>
 
-#include "memstat.h"
+class MemStat;
 
 static const int HISTORY = 60; // seconds
 
@@ -38,6 +38,9 @@ public:
     };
 
     MemPlot(QWidget * = 0);
+
+		void setDataSrc(MemStat* src);
+
     const QwtPlotCurve *cpuCurve(int id) const
         { return data[id].curve; }
 
@@ -56,5 +59,5 @@ private:
     double timeData[HISTORY];
 
     int dataCount;
-    MemStat memStat;
+    MemStat* memStat;
 };

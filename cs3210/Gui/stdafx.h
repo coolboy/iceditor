@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtGui/QtGui>
+#include <QtNetwork/QtNetwork>
 
 #include <qwt.h>
 
