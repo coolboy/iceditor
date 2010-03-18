@@ -24,3 +24,4 @@
 #include <Windows.h>
 
 #include <QtGui/QtGui>
+#include <QtNetwork/QtNetwork>

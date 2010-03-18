@@ -149,8 +149,6 @@ dataCount(0)
 	for ( int i = 0; i < HISTORY; i++ )
 		timeData[HISTORY - 1 - i] = i;
 
-	startTimer(1000); // 1 second
-
 	connect(this, SIGNAL(legendChecked(QwtPlotItem *, bool)),
 		SLOT(showCurve(QwtPlotItem *, bool)));
 
@@ -207,5 +205,7 @@ void MemPlot::setDataSrc( MemStat* src )
 {
 	delete memStat;
 	memStat = src;
+
+	startTimer(1000); // 1 second
 }
 
