@@ -6,7 +6,7 @@
 #include "moc/moc_memstat.cpp"
 
 MemStat::MemStat(QObject* parent, QString srvHost, quint16 srvPort)
-	:QObject(parent)
+	:QObject(parent), currentFortune("0")
 {
 	host = srvHost;
 	port = srvPort;
@@ -22,7 +22,7 @@ MemStat::MemStat(QObject* parent, QString srvHost, quint16 srvPort)
 
 QVariant MemStat::getData(const QString &key)
 {
-	return 10;//decode the data
+	return currentFortune.toUInt();//decode the data
 }
 
 void MemStat::grapMsg()
@@ -49,6 +49,8 @@ void MemStat::slotReadMsg()
 
 	QString nextFortune;
 	in >> nextFortune;
+
+	blockSize = 0; //clear
 
 	//if (nextFortune == currentFortune) {
 		//QTimer::singleShot(0, this, SLOT(requestNewMsg()));

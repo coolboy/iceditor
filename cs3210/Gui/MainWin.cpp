@@ -25,7 +25,7 @@ MainWin::~MainWin(void)
 
 void MainWin::setupUI()
 {
-	setWindowTitle("Guard");
+	setWindowTitle("Guard Client");
 
 	plot = new MemPlot();
 	plot->setTitle("History");
