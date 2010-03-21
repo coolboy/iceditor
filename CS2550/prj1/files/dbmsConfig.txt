@@ -1,0 +1,59 @@
+Page Size: 4KBTotal Memory Buffer: 1 MB
+
+#----------------------------#
+#Comments are preceeded by a #
+#bfr = blocking factor
+#----------------------------#
+PATIENT {
+Cardinality 100000
+bfr 50#Attr,
+selectivityFirstName,0.05
+LastName,0.08DateofBirth,0.04
+}
+#----------------------------
+DOCTOR {
+Cardinality 5000
+bfr 50
+#Attr,selectivity
+Doctor-Lic-state,0.02
+FirstName,0.06
+LastName,0.10
+Specialty,0.15
+#----------------------------
+PHARMACEUTICAL-CO{
+Cardinality 50
+bfr 50
+}
+#----------------------------
+PHARMACY {
+Cardinality 600
+bfr 60
+}
+#----------------------------
+DRUG {
+Cardinality 2000000
+bfr 50
+#Attr,selectivity
+Formula,0.0005
+Manufacturer-Registration,0.02
+}
+#----------------------------
+PRESCRIPTION {
+Cardinality 400000
+bfr 40
+#Attr-selectivity
+Doctor-Lic-No,0.0002
+Patient,0.00001
+Drug,0.0005
+}
+#----------------------------
+SELL {
+Cardinality 2500
+bfr 50
+}
+#----------------------------
+CONTRACT {
+Cardinality 100
+bfr 50
+}
+#----------------------------
