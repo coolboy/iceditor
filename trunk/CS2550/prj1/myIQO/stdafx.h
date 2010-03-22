@@ -18,5 +18,7 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include <list>
+#include <mytype.h>
 
 #include <boost/shared_ptr.hpp>

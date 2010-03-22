@@ -2,8 +2,11 @@
 //
 
 #include "stdafx.h"
+#include "DbCatalog.h"
 
 using namespace std;
+
+DbCatalog *dbCata;
 
 void FileOpenError(const char* fileName){
 	cerr<<"Can't open : "<<fileName<<endl;
@@ -21,7 +24,7 @@ string ReadAll(const char* fileName){
 
 	copy(istream_iterator<char>(ifs), istream_iterator<char>(), back_inserter(inFileBuf));
 
-	return inFileBuf
+	return inFileBuf;
 }
 
 int main(int argc, char* argv[])
@@ -38,6 +41,7 @@ int main(int argc, char* argv[])
 	dbmsConfigPath = argv[3];
 	queryTreesPath = argv[4];
 
+	dbCata = new DbCatalog(dbSchemaPath,dbIndexingPath,dbmsConfigPath);
 	//deal with db schema
 
 	//deal with db indexing
