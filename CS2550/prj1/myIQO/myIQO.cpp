@@ -31,6 +31,9 @@ int main(int argc, char* argv[])
 {
 	const char* dbSchemaPath = 0, *dbIndexingPath = 0,
 		*dbmsConfigPath = 0, *queryTreesPath = 0;
+
+	string dbSchemaStr, dbIndexingStr, dbConfigStr;  // strings used to store input files
+
 	if (argc != 5){
 		cerr<<"Wrong arguments number!\n";
 		return 1;
@@ -41,7 +44,14 @@ int main(int argc, char* argv[])
 	dbmsConfigPath = argv[3];
 	queryTreesPath = argv[4];
 
-	dbCata = new DbCatalog(dbSchemaPath,dbIndexingPath,dbmsConfigPath);
+	// read input file to strings
+    dbSchemaStr = ReadAll(dbSchemaPath);
+	dbIndexingStr = ReadAll(dbIndexingPath);
+	dbConfigStr = ReadAll(dbmsConfigPath);
+
+	//create catalog module for the database
+	dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
+
 	//deal with db schema
 
 	//deal with db indexing
