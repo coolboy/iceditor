@@ -29,28 +29,28 @@ string ReadAll(const char* fileName){
 
 int main(int argc, char* argv[])
 {
-	const char* dbSchemaPath = 0, *dbIndexingPath = 0,
+	const char* dbSchemaPath = "dbSchema.txt", *dbIndexingPath = 0,
 		*dbmsConfigPath = 0, *queryTreesPath = 0;
 
 	string dbSchemaStr, dbIndexingStr, dbConfigStr;  // strings used to store input files
 
 	if (argc != 5){
 		cerr<<"Wrong arguments number!\n";
-		return 1;
+	//	return 1;
 	}
 
-	dbSchemaPath = argv[1];
+	//dbSchemaPath = argv[1];
 	dbIndexingPath = argv[2];
 	dbmsConfigPath = argv[3];
 	queryTreesPath = argv[4];
 
-	// read input file to strings
+	// read input files to strings
     dbSchemaStr = ReadAll(dbSchemaPath);
-	dbIndexingStr = ReadAll(dbIndexingPath);
-	dbConfigStr = ReadAll(dbmsConfigPath);
+//	dbIndexingStr = ReadAll(dbIndexingPath);
+//	dbConfigStr = ReadAll(dbmsConfigPath);
 
 	//create catalog module for the database
-	dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
+	dbCata = new DbCatalog(dbSchemaStr, "s", "s");
 
 	//deal with db schema
 

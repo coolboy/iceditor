@@ -12,8 +12,7 @@ typedef enum
 	NONE_T = 0, 
 	BTREE_T = 1,
 	EHASH_T = 2,
-	LHASH_T = 3,
-	UNKNOWN_T = 4
+	LHASH_T = 3
 } Idx_Type;
 
 typedef enum 
@@ -25,6 +24,5 @@ typedef enum
 	PROJECT_T = 4,
 	JOIN_T = 5,
 	CPRODUCT_T = 6,
-	UNION = 7,
-	UNKNOWN = 8
+	UNION = 7
 } Op_Type;

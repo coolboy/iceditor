@@ -27,7 +27,7 @@ int DbTable::GetBfr(void)
 
 double DbTable::GetSel(string s)
 {
-   list<string>::iterator str_iter;
+   list<TabAtr>::iterator str_iter;
    for(str_iter=TableAttributes.begin(); str_iter!=TableAttributes.end(); ++str_iter)
    {
        if (str_iter->GetName() == s)
@@ -39,18 +39,18 @@ double DbTable::GetSel(string s)
 
 Idx_Type DbTable::GetIdx(string s)
 {
-   list<string>::iterator str_iter;
+   list<TabAtr>::iterator str_iter;
    for(str_iter=TableAttributes.begin(); str_iter!=TableAttributes.end(); ++str_iter)
    {
        if (str_iter->GetName() == s)
 		   return str_iter->GetIdx();
    }
-   return UNKNOWN_T;
+   return NONE_T;
 }
 
 int DbTable::GetIdxBfr(string s)
 {
-   list<string>::iterator str_iter;
+   list<TabAtr>::iterator str_iter;
    for(str_iter=TableAttributes.begin(); str_iter!=TableAttributes.end(); ++str_iter)
    {
        if (str_iter->GetName() == s)
@@ -88,7 +88,7 @@ void DbTable::AddAtr(string n, Atr_Type t)
 
 int DbTable::SetSel(string s,double d)
 {
-   list<string>::iterator str_iter;
+   list<TabAtr>::iterator str_iter;
    for(str_iter=TableAttributes.begin(); str_iter!=TableAttributes.end(); ++str_iter)
    {
        if (str_iter->GetName() == s)
@@ -102,7 +102,7 @@ int DbTable::SetSel(string s,double d)
 
 int DbTable::SetIdx(string s, Idx_Type it, int ibfr)
 {
-   list<string>::iterator str_iter;
+   list<TabAtr>::iterator str_iter;
    for(str_iter=TableAttributes.begin(); str_iter!=TableAttributes.end(); ++str_iter)
    {
        if (str_iter->GetName() == s)
@@ -120,12 +120,32 @@ int DbTable::IsFk(string s)
    list<string>::iterator str_iter;
    for(str_iter=fks.begin(); str_iter!=fks.end(); ++str_iter)
    {
-       if (str_iter->GetName() == s)
+       if (str_iter->compare(s) == 0)
 	   {
 		   return 1;
 	   }
    }
    return 0; 
+}
+
+void DbTable::SetCardi(long int cardi)
+{
+   cardinality = cardi;
+}
+
+void DbTable::SetIdxBfr(string s,int l)
+{
+   list<TabAtr>::iterator str_iter;
+   for(str_iter=TableAttributes.begin(); str_iter!=TableAttributes.end(); ++str_iter)
+   {
+       if (str_iter->GetName() == s)
+		  str_iter->SetIdxBfr(l);
+   }
+}
+
+void DbTable::SetBfr(int i)
+{
+   bfr = i;
 }
 
 DbTable::~DbTable(void)
