@@ -9,40 +9,82 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 namespace client
 {
 	namespace qi = boost::spirit::qi;
 	namespace ascii = boost::spirit::ascii;
 
-	//struct hundreds_ : qi::symbols<char, char>
-	//{
-	//	hundreds_()
-	//	{
-	//		add
-	//			("C"    , 100)
-	//			("CM"   , 900)
-	//			;
-	//	}
+	struct relation_keywords_ : qi::symbols<char, char>
+	{
+		relation_keywords_()
+		{
+			add
+				("SCAN", "SCAN")
+				("INDEX_SCAN", "INDEX_SCAN")
+				("HASH_SCAN", "HASH_SCAN");
+		}
 
-	//} hundreds;
+	} relation_keywords;
+
+	struct condition_keywords_ : qi::symbols<char, char>
+	{
+		condition_keywords_()
+		{
+			add
+				("SELECT"   , "SELECT")
+				("JOIN"   , "JOIN");
+		}
+
+	} condition_keywords;
+
+	struct attr_keywords_ : qi::symbols<char, char>
+	{
+		attr_keywords_()
+		{
+			add
+				("PROJECT"   , "PROJECT");
+		}
+
+	} attr_keywords;
+
+	struct null_keywords_ : qi::symbols<char, char>
+	{
+		null_keywords_()
+		{
+			add
+				("UNION"   , "UNION")
+				("PRODUCT"   , "PRODUCT");
+		}
+
+	} null_keywords;
 
 	///////////////////////////////////////////////////////////////////////////
 	//  Our number list compiler
 	///////////////////////////////////////////////////////////////////////////
 	typedef std::vector<int> NumberVec;
+	typedef std::vector<std::string> StringVec;
+	typedef std::vector<std::pair<NumberVec, StringVec>> OutVec;
 
 	template <typename Iterator>
-	struct querytree : qi::grammar<Iterator, NumberVec()>
+	struct querytree : qi::grammar<Iterator, StringVec()>
 	{
-		querytree() : querytree::base_type(start)
+		querytree() : querytree::base_type(stringList)
 		{
-			using qi::double_;
+			using qi::int_;
+			using qi::char_;
 
-			start = double_ % ',';
+			using qi::lit;
+
+			//start = stringList >> *(numberList >> stringList);
+			//numberList = int_ % ',';
+			stringList = lit("([") >> (char_("a-zA-Z_.") - ',') % ',' >> lit("])");
 		}
 
-		qi::rule<Iterator, NumberVec()> start;
+		//qi::rule<Iterator, OutVec()> start;
+		//qi::rule<Iterator, NumberVec()> numberList;
+		qi::rule<Iterator, StringVec()> stringList;
 	};
 }
 
@@ -63,6 +105,7 @@ main()
 	std::string str;
 	typedef std::string::const_iterator iterator_type;
 	typedef client::querytree<iterator_type> querytree_parser;
+
 	querytree_parser tree_parser; // Our grammar
 
 	while (getline(std::cin, str))
@@ -70,7 +113,7 @@ main()
 		if (str.empty() || str[0] == 'q' || str[0] == 'Q')
 			break;
 
-		client::NumberVec v;
+		client::StringVec v;
 
 		std::string::const_iterator iter = str.begin();
 		std::string::const_iterator end = str.end();
@@ -83,8 +126,8 @@ main()
 			std::cout << "Parsing succeeded\n";
 			std::cout << str << " Parses OK: " << std::endl;
 
-			for (client::NumberVec::size_type i = 0; i < v.size(); ++i)
-				std::cout << i << ": " << v[i] << std::endl;
+			//for (client::NumberVec::size_type i = 0; i < v.size(); ++i)
+				//std::cout << i << ": " << v[i] << std::endl;
 
 			std::cout << "\n-------------------------\n";
 		}
