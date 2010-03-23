@@ -5,7 +5,7 @@
 DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 {
     
-	string delimiters = " \t\n(:->";
+	string delimiters = " \t\n(:->,";
 	string token;
 	string CurTabName;
 	string attr;
@@ -44,7 +44,7 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 		    lastPos = dbSchema.find_first_not_of(delimiters, pos);
             pos = dbSchema.find_first_of("\n", lastPos);
 			token = dbSchema.substr(lastPos, pos - lastPos);
-			(SearchTable(CurTabName))->SetPk(token);
+			SetPk(CurTabName,token);
 		}
 
 		else if(token.compare("FK")==0 || token.compare("fk")==0 )
@@ -53,7 +53,7 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
         // Find next "non-delimiter"
             pos = dbSchema.find_first_of(delimiters, lastPos);
 			token = dbSchema.substr(lastPos, pos - lastPos);
-			(SearchTable(CurTabName))->AddFks(token);
+		    AddFks(CurTabName,token);
 
 			lastPos = dbSchema.find_first_of("\n", pos);
             lastPos = dbSchema.find_first_not_of(delimiters, lastPos);  //read next line
@@ -91,7 +91,7 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
             pos = dbSchema.find_first_of(delimiters, lastPos);
 
 			//AddAtr(attr, type, 4);  //fixed lengh, do we really need to read the lengh information?
-			(SearchTable(CurTabName))->AddAtr(attr, type, 4);
+			AddAtr(CurTabName, attr, type, 4);
 		    continue;
 		}
 		
@@ -117,47 +117,168 @@ DbCatalog::DbCatalog(void)
 
 int DbCatalog::AddTable(string s)
 {
-
+   return 0;
 }
 
-DbTable* DbCatalog::SearchTable(string tab_name)
+/*
+DbTable* DbCatalog::SearchTable(string tab_name, )
 {
-
+   list<DbTable>::iterator tab_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+		   return tab_iter;
+   }
+   return NULL;
 }
+*/
+
 
 long int DbCatalog::GetCardi(string tab_name)
 {
-
+   return 0;
 }
 
 int DbCatalog::GetBfr(string tab_name)
 {
-
+   return 0;
 }
 
 string DbCatalog::GetPk(string tab_name)
 {
-
+   return " ";
 }
 
 int DbCatalog::IsPk(string tab_name, string attr_name)
 {
-
+   return 0;
 }
 
 double DbCatalog::GetSel(string tab_name, string attr_name)
 {
-
+   return 0;
 }
 
 Idx_Type DbCatalog::GetIdx(string tab_name, string attr_name)
 {
-
+   return NONE_T;
 }
 
 int DbCatalog::GetIdxBfr(string tab_name, string attr_name)
 {
+   return 0;
+}
 
+
+void DbCatalog::SetCardi(string tab_name, long int cardi)
+{
+   list<DbTable>::iterator tab_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+		   tab_iter->SetCardi(cardi);
+   }
+}
+
+void DbCatalog::SetBfr(string tab_name, int bfr)
+{
+   list<DbTable>::iterator tab_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+		   tab_iter->SetBfr(bfr);
+   }
+}
+
+void DbCatalog::SetPk(string tab_name, string pk)
+{
+   list<DbTable>::iterator tab_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+		   tab_iter->SetPk(pk);
+   }
+}
+
+void DbCatalog::SetIdxBfr(string tab_name, string attr_name, int ibfr)
+{
+   list<DbTable>::iterator tab_iter;
+   list<TabAtr>::iterator attr_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+	      for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
+          {
+             if (attr_iter->GetName() == attr_name)
+				 attr_iter->SetIdxBfr(ibfr);
+          }
+		   
+   }
+}
+
+void DbCatalog::AddFks(string tab_name, string fk)
+{
+   list<DbTable>::iterator tab_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+		   tab_iter->AddFks(fk);
+   }
+}
+
+void DbCatalog::AddAtr(string tab_name, string n, Atr_Type t,int l)
+{
+   list<DbTable>::iterator tab_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+		   tab_iter->AddAtr(n,t,l);
+   }
+}
+
+void DbCatalog::AddAtr(string tab_name, string n, Atr_Type t)
+{
+   list<DbTable>::iterator tab_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+		   tab_iter->AddAtr(n,t);
+   }
+}
+
+void DbCatalog::SetSel(string tab_name, string attr_name,double d)
+{
+   list<DbTable>::iterator tab_iter;
+   list<TabAtr>::iterator attr_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+	      for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
+          {
+             if (attr_iter->GetName() == attr_name)
+				 attr_iter->SetSel(d);
+          }
+		   
+   }
+}
+
+void DbCatalog::SetIdx(string tab_name, string attr_name, Idx_Type it, int ibfr)
+{
+   list<DbTable>::iterator tab_iter;
+   list<TabAtr>::iterator attr_iter;
+   for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+   {
+       if (tab_iter->GetName() == tab_name)
+	      for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
+          {
+             if (attr_iter->GetName() == attr_name)
+			 {
+				attr_iter->SetIdx(it);
+		        attr_iter->SetIdxBfr(ibfr);
+			 }
+          }
+		   
+   }
 }
 
 

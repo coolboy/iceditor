@@ -1,15 +1,23 @@
 #pragma once
+
+#include "TabAtr.h"
+
+using namespace std;
+
 class DbTable
 {
 private:
 	string name;
 	string pk;  //primary key(in case of compound key, I store all keys as a whole string)
 	list<string> fks;  //foreign keys
-	list<TabAtr> TableAttributes;  //attributes list
+	
 	long int cardinality;
 	int bfr;
 
 public:
+
+	list<TabAtr> TableAttributes;  //attributes list
+
 	DbTable(string s);
 
 	string GetName(void);
@@ -21,6 +29,9 @@ public:
 	int GetIdxBfr(string s);
 	int IsFk(string s);  // 1 mean fk, 0 mean not
 
+	void SetCardi(long int cardi);
+	void SetBfr(int i);
+	void SetIdxBfr(string s,int l);
 	void SetName(string n);
 	void SetPk(string s);
 	void AddFks(string s);
