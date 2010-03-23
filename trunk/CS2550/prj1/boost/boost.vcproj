@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="myIQO"
-	ProjectGUID="{FD7BB050-94AE-49DD-BD1C-63EC29DEF2A0}"
-	RootNamespace="myIQO"
+	Name="boost"
+	ProjectGUID="{10FA131A-862C-406A-A0DE-39ADA627DF3D}"
+	RootNamespace="boost"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="2"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,6 +40,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm141"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
@@ -92,7 +93,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			CharacterSet="2"
+			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -112,6 +113,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm141"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
@@ -171,11 +173,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\myIQO.cpp"
+				RelativePath=".\employee.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\QueryTreeNode.cpp"
+				RelativePath=".\queryTree.cpp"
 				>
 			</File>
 			<File
@@ -198,16 +200,16 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\symbol.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\QueryTreeNode.h"
-				>
-			</File>
 			<File
 				RelativePath=".\stdafx.h"
 				>
@@ -222,22 +224,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-			<File
-				RelativePath="..\files\dbIndexing.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\files\dbmsConfig.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\files\dbSchema.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\files\querytrees.txt"
-				>
-			</File>
 		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"
