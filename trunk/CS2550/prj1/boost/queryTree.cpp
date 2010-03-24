@@ -18,14 +18,42 @@
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
 
+//////////////////////////////////////////////////////////////////////////
+// Typedefs
+//////////////////////////////////////////////////////////////////////////
+typedef std::vector<std::string> StringVec;
+typedef std::vector<int> IntVec;
+
+///////////////////////////////////////////////////////////////////////////
+//  Query Tree Node struct
+///////////////////////////////////////////////////////////////////////////
+struct TreeNode
+{
+	IntVec Levels;
+	StringVec AttrLst;
+};
+
+// We need to tell fusion about our employee struct
+// to make it a first-class fusion citizen. This has to
+// be in global scope.
+
+BOOST_FUSION_ADAPT_STRUCT(
+													TreeNode,
+													(IntVec, Levels)
+													(StringVec, AttrLst)
+													)
+
+//////////////////////////////////////////////////////////////////////////
+//
+//////////////////////////////////////////////////////////////////////////
 template<typename Iterator>
-struct my_grammar : qi::grammar<Iterator, std::vector<std::string>(), ascii::space_type>
+struct my_grammar : qi::grammar<Iterator, TreeNode(), ascii::space_type>
 {
 	my_grammar() : my_grammar::base_type(start){
 		using qi::lit;
 		using qi::int_;
 
-		start = lit("([") >> stringRule % ',' >> lit("])");
+		start = uintsRule >> lit("([") >> stringRule % ',' >> lit("])");
 
 		//stringRule = *(char_("_.a-zA-Z0-9"));
 		stringRule = *(qi::alnum | '_' | '.');
@@ -33,9 +61,9 @@ struct my_grammar : qi::grammar<Iterator, std::vector<std::string>(), ascii::spa
 		uintsRule = int_ % ',';
 	}
 
-	qi::rule<Iterator, std::vector<std::string>(), ascii::space_type> start;
+	qi::rule<Iterator, TreeNode(), ascii::space_type> start;
 	qi::rule<Iterator, std::string(), ascii::space_type> stringRule;
-	qi::rule<Iterator, std::vector<int>(), ascii::space_type> uintsRule;
+	qi::rule<Iterator, IntVec(), ascii::space_type> uintsRule;
 };
 
 
@@ -43,9 +71,9 @@ int main(int argc, char *argv[])
 {
 	my_grammar<std::string::const_iterator> g;
 
-	std::vector<std::string> output;
+	TreeNode output;
 
-	std::string text = "([test,text])";
+	std::string text = "1,2 ([test,text])";
 	std::string::const_iterator iter = text.begin();
 	std::string::const_iterator end = text.end();
 
@@ -53,9 +81,9 @@ int main(int argc, char *argv[])
 
 	if (result && iter == end){
 		std::cout << "Parsing OK!\n";
-		BOOST_FOREACH(std::string s, output){
-			std::cout << s << std::endl;
-		}
+		//BOOST_FOREACH(std::string s, output){
+			//std::cout << s << std::endl;
+		//}
 	}
 	else{
 		std::cout << "Parsing failed.\n";
