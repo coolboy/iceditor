@@ -30,6 +30,7 @@ typedef std::vector<int> IntVec;
 struct TreeNode
 {
 	IntVec Levels;
+	//std::string Type;
 	StringVec AttrLst;
 };
 
@@ -40,11 +41,59 @@ struct TreeNode
 BOOST_FUSION_ADAPT_STRUCT(
 													TreeNode,
 													(IntVec, Levels)
+													//(std::string, Type)
 													(StringVec, AttrLst)
 													)
 
 //////////////////////////////////////////////////////////////////////////
-//
+// Symbol table for keyword
+//////////////////////////////////////////////////////////////////////////
+struct relation_keywords_ : qi::symbols<char, char>
+{
+	relation_keywords_()
+	{
+		add
+			("SCAN", "SCAN")
+			("INDEX_SCAN", "INDEX_SCAN")
+			("HASH_SCAN", "HASH_SCAN");
+	}
+
+} relation_keywords;
+
+struct condition_keywords_ : qi::symbols<char, char>
+{
+	condition_keywords_()
+	{
+		add
+			("SELECT"   , "SELECT")
+			("JOIN"   , "JOIN");
+	}
+
+} condition_keywords;
+
+struct attr_keywords_ : qi::symbols<char, std::string>
+{
+	attr_keywords_()
+	{
+		add
+			("PROJECT"   , "PROJECT");
+	}
+
+} attr_keywords;
+
+struct null_keywords_ : qi::symbols<char, char>
+{
+	null_keywords_()
+	{
+		add
+			("UNION"   , "UNION")
+			("PRODUCT"   , "PRODUCT");
+	}
+
+} null_keywords;
+
+//////////////////////////////////////////////////////////////////////////
+//grammar parser to parse query tree
 //////////////////////////////////////////////////////////////////////////
 template<typename Iterator>
 struct my_grammar : qi::grammar<Iterator, TreeNode(), ascii::space_type>
@@ -53,17 +102,20 @@ struct my_grammar : qi::grammar<Iterator, TreeNode(), ascii::space_type>
 		using qi::lit;
 		using qi::int_;
 
-		start = uintsRule >> lit("([") >> stringRule % ',' >> lit("])");
+		start = levelsRule >> attrLstRule;
 
-		//stringRule = *(char_("_.a-zA-Z0-9"));
-		stringRule = *(qi::alnum | '_' | '.');
+		attrLstRule = lit("([") >> stringRule % ',' >> lit("])");
+		stringRule = *(qi::alnum | '_' | '.');//stringRule = *(char_("_.a-zA-Z0-9"));
 
-		uintsRule = int_ % ',';
+		levelsRule = int_ % ',';
 	}
 
 	qi::rule<Iterator, TreeNode(), ascii::space_type> start;
+
+	qi::rule<Iterator, StringVec(), ascii::space_type> attrLstRule;
 	qi::rule<Iterator, std::string(), ascii::space_type> stringRule;
-	qi::rule<Iterator, IntVec(), ascii::space_type> uintsRule;
+
+	qi::rule<Iterator, IntVec(), ascii::space_type> levelsRule;
 };
 
 
@@ -73,7 +125,7 @@ int main(int argc, char *argv[])
 
 	TreeNode output;
 
-	std::string text = "1,2 ([test,text])";
+	std::string text = "1,2  ([test,text])";
 	std::string::const_iterator iter = text.begin();
 	std::string::const_iterator end = text.end();
 
