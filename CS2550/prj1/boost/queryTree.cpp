@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 //ref:http://www.gamedev.net/community/forums/topic.asp?topic_id=557809
-//ref:http://stackoverflow.com/questions/2469861/parsing-string-with-boost-spirit-2-to-fill-data-in-user-defined-struct
 
 #include <boost/foreach.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -27,10 +26,21 @@ typedef std::vector<int> IntVec;
 ///////////////////////////////////////////////////////////////////////////
 //  Query Tree Node struct
 ///////////////////////////////////////////////////////////////////////////
+enum NodeType{
+	SCAN,
+	INDEX_SCAN,
+	HASH_SCAN,
+	SELECT,
+	JOIN,
+	UNION,
+	PRODUCT,
+	PROJECT
+};
+
 struct TreeNode
 {
 	IntVec Levels;
-	//std::string Type;
+	NodeType Type;
 	StringVec AttrLst;
 };
 
@@ -41,53 +51,53 @@ struct TreeNode
 BOOST_FUSION_ADAPT_STRUCT(
 													TreeNode,
 													(IntVec, Levels)
-													//(std::string, Type)
+													(NodeType, Type)
 													(StringVec, AttrLst)
 													)
 
 //////////////////////////////////////////////////////////////////////////
 // Symbol table for keyword
 //////////////////////////////////////////////////////////////////////////
-struct relation_keywords_ : qi::symbols<char, char>
+struct relation_keywords_ : qi::symbols<char, NodeType>
 {
 	relation_keywords_()
 	{
 		add
-			("SCAN", "SCAN")
-			("INDEX_SCAN", "INDEX_SCAN")
-			("HASH_SCAN", "HASH_SCAN");
+			("SCAN", SCAN)
+			("INDEX_SCAN", INDEX_SCAN)
+			("HASH_SCAN", HASH_SCAN);
 	}
 
 } relation_keywords;
 
-struct condition_keywords_ : qi::symbols<char, char>
+struct condition_keywords_ : qi::symbols<char, NodeType>
 {
 	condition_keywords_()
 	{
 		add
-			("SELECT"   , "SELECT")
-			("JOIN"   , "JOIN");
+			("SELECT"   , SELECT)
+			("JOIN"   , JOIN);
 	}
 
 } condition_keywords;
 
-struct attr_keywords_ : qi::symbols<char, std::string>
+struct attr_keywords_ : qi::symbols<char, NodeType>
 {
 	attr_keywords_()
 	{
 		add
-			("PROJECT"   , "PROJECT");
+			("PROJECT"   , PROJECT);
 	}
 
 } attr_keywords;
 
-struct null_keywords_ : qi::symbols<char, char>
+struct null_keywords_ : qi::symbols<char, NodeType>
 {
 	null_keywords_()
 	{
 		add
-			("UNION"   , "UNION")
-			("PRODUCT"   , "PRODUCT");
+			("UNION"   , UNION)
+			("PRODUCT"   , PRODUCT);
 	}
 
 } null_keywords;
@@ -102,9 +112,14 @@ struct my_grammar : qi::grammar<Iterator, TreeNode(), ascii::space_type>
 		using qi::lit;
 		using qi::int_;
 
-		start = levelsRule >> attrLstRule;
+		start = levelsRule >> 
+			(attr_keywords | relation_keywords) >> attrLstRule
+			;
 
 		attrLstRule = lit("([") >> stringRule % ',' >> lit("])");
+
+		relationRule = lit("(") >> stringRule >> lit(")");
+
 		stringRule = *(qi::alnum | '_' | '.');//stringRule = *(char_("_.a-zA-Z0-9"));
 
 		levelsRule = int_ % ',';
@@ -113,6 +128,9 @@ struct my_grammar : qi::grammar<Iterator, TreeNode(), ascii::space_type>
 	qi::rule<Iterator, TreeNode(), ascii::space_type> start;
 
 	qi::rule<Iterator, StringVec(), ascii::space_type> attrLstRule;
+
+	qi::rule<Iterator, std::string(), ascii::space_type> relationRule;
+
 	qi::rule<Iterator, std::string(), ascii::space_type> stringRule;
 
 	qi::rule<Iterator, IntVec(), ascii::space_type> levelsRule;
@@ -121,21 +139,18 @@ struct my_grammar : qi::grammar<Iterator, TreeNode(), ascii::space_type>
 
 int main(int argc, char *argv[])
 {
-	my_grammar<std::string::const_iterator> g;
+	my_grammar<std::string::const_iterator> gar;
 
 	TreeNode output;
 
-	std::string text = "1,2  ([test,text])";
-	std::string::const_iterator iter = text.begin();
-	std::string::const_iterator end = text.end();
+	std::string text = "1,2 SCAN ([test,text])";
+	BOOST_AUTO (iter, text.begin());
+	BOOST_AUTO (end, text.end());
 
-	bool result = phrase_parse(iter, end, g, ascii::space, output);
+	bool result = phrase_parse(iter, end, gar, ascii::space, output);
 
 	if (result && iter == end){
 		std::cout << "Parsing OK!\n";
-		//BOOST_FOREACH(std::string s, output){
-			//std::cout << s << std::endl;
-		//}
 	}
 	else{
 		std::cout << "Parsing failed.\n";
