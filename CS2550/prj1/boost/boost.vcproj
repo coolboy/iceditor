@@ -204,6 +204,10 @@
 				RelativePath=".\symbol.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Test.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"

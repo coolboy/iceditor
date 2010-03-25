@@ -137,7 +137,7 @@ struct my_grammar : qi::grammar<Iterator, TreeNode(), ascii::space_type>
 };
 
 
-int main(int argc, char *argv[])
+int main_3(int argc, char *argv[])
 {
 	my_grammar<std::string::const_iterator> gar;
 
