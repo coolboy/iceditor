@@ -1,6 +1,6 @@
-PATIENT, SSN, B+-tree(8), 16
-DOCTOR, Doctor-Lic-No, B+-tree(8), 32
-PHARMACEUTICAL-CO, PCM-Registration, Extensible Hashing, 64
-PHARMACY, Name, Linear Hashing, 16
-DRUG, Name, Extensible Hashing, 16
-PRESCRIPTION, Doctor-Lic-No and Patient, Grid, 64
+PATIENT, SSN, B+-tree, 16
+DOCTOR, Doctor-Lic-No, B+-tree, 32
+PHARMACEUTICAL-CO, PCM-Registration, Extensible Hashing, 64
+PHARMACY, Name, Linear Hashing, 16
+DRUG, Name, Extensible Hashing, 16
+

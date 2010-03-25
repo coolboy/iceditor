@@ -6,9 +6,11 @@ Page Size: 4KBTotal Memory Buffer: 1 MB
 #----------------------------#
 PATIENT {
 Cardinality 100000
-bfr 50#Attr,
+bfr 50
+#Attr,
 selectivityFirstName,0.05
-LastName,0.08DateofBirth,0.04
+LastName,0.08
+DateofBirth,0.04
 }
 #----------------------------
 DOCTOR {
