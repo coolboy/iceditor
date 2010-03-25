@@ -19,6 +19,9 @@ namespace ascii = boost::spirit::ascii;
 typedef std::vector<std::string> StringVec;
 typedef std::vector<int> IntVec;
 
+//////////////////////////////////////////////////////////////////////////
+// enu for node type
+//////////////////////////////////////////////////////////////////////////
 enum NodeType{
 	SCAN,
 	INDEX_SCAN,
@@ -113,9 +116,11 @@ int main()
 
 	using client::writer;
 
-	std::string text = "PROJECT([FirstName,MiddleName,LastName])"
-										 "\t1 SELECT(YearofExperience>10)"
-										 "\t\t1,1 SCAN(DOCTOR)";
+	std::string text = "UNION"
+		"\t1 PROJECT([FirstName, MiddleName, LastName])"
+		"\t\t1,1 SCAN(DOCTOR)"
+		"\t2 PROJECT([FirstName, MiddleName, LastName])"
+		"\t\t2,1 SELECT(PATIENT.SSN=PRESCRIPTION.Patient)";
 	BOOST_AUTO (first, text.begin());
 	BOOST_AUTO (last, text.end());
 
@@ -126,25 +131,28 @@ int main()
 	BOOST_AUTO(levelsRule, int_[boost::bind(&writer::print, &w, _1)] % ',');
 
 	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
-	 stringRule = *(qi::alnum | '_' | '.' | '>');
+	 stringRule = *(qi::alnum | '_' | '.');
+
+	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
+		conExpRule = *(qi::alnum | '_' | '.' | '>' | '=' | '<');
 
 	BOOST_AUTO(attrLstRule, lit("([") >> stringRule[boost::bind(&writer::printStr, &w, _1)] % ',' >> lit("])") );
 	BOOST_AUTO(relationRule, lit("(") >> stringRule[boost::bind(&writer::printStr, &w, _1)] >> lit(")"));
-	BOOST_AUTO(conditionRule, lit("(") >> stringRule[boost::bind(&writer::printStr, &w, _1)] >> lit(")"));
+	BOOST_AUTO(conditionRule, lit("(") >> conExpRule[boost::bind(&writer::printStr, &w, _1)] >> lit(")"));
 
-	BOOST_AUTO(begRule, ( (attr_keywords >> attrLstRule) | (relation_keywords >> relationRule ) ) );
-	BOOST_AUTO(expRule, levelsRule >> 
-		( (attr_keywords >> attrLstRule) 
+	BOOST_AUTO(nodeRule, ( 
+		  (attr_keywords >> attrLstRule) 
 		| (relation_keywords >> relationRule ) 
-		| (condition_keywords >> conditionRule) ) );
+		| (condition_keywords >> conditionRule) 
+		| (null_keywords) 
+		) );
 
-	BOOST_AUTO(start, begRule >> * expRule
-		)
-		;
+	BOOST_AUTO(begRule, nodeRule );
+	BOOST_AUTO(expRule, levelsRule >> nodeRule );
 
-	qi::phrase_parse(first, last, 
-		start,
-		space);
+	BOOST_AUTO(start, begRule >> * expRule );
+
+	qi::phrase_parse(first, last, start, space);
 
 	return 0;
 }
