@@ -4,6 +4,8 @@
 
 #include <boost/spirit/include/qi.hpp>
 
+#include <boost/fusion/include/at_c.hpp>
+
 #include <boost/shared_ptr.hpp>
 
 #include <boost/variant.hpp>
@@ -17,6 +19,7 @@
 
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
+namespace fu = boost::fusion;
 
 //////////////////////////////////////////////////////////////////////////
 // Typedefs
@@ -86,11 +89,27 @@ struct null_keywords_ : qi::symbols<char, NodeType>
 
 } null_keywords;
 
+//////////////////////////////////////////////////////////////////////////
+// Query tree node
+//////////////////////////////////////////////////////////////////////////
+
 class QueryTreeNode{
 public:
 	typedef boost::variant<std::string, StringVec> Attribute;
 	typedef std::set<boost::shared_ptr<QueryTreeNode> > Children;
 	QueryTreeNode():id(-1),ty(UNDEF){}
+
+	int getId() const { return id; }
+	void setId(int val) { id = val; }
+
+	NodeType getType() const { return ty; }
+	void setType(NodeType val) { ty = val; }
+
+	Attribute getAttr() const { return attr; }
+	void setAttr(const Attribute& val) { attr = val; }
+
+	Children& getChildren() { return children; }
+	void setChildren(const Children& val) { children = val; }
 
 private:
 	int id;//0 stands for root -1 stands for error
@@ -100,31 +119,61 @@ private:
 	Children children;
 };
 
-void onlevelLst (IntVec& iVec)
-{
+//////////////////////////////////////////////////////////////////////////
+// Typedef for nodes
+//////////////////////////////////////////////////////////////////////////
 
+typedef boost::fusion::vector2<NodeType,StringVec> NodeType1;
+typedef boost::fusion::vector2<NodeType,std::string> NodeType2;
+typedef NodeType NodeType3;
+typedef boost::variant <NodeType1, NodeType2, NodeType3> NodeVar;
+
+//////////////////////////////////////////////////////////////////////////
+// Root node call back
+//////////////////////////////////////////////////////////////////////////
+
+class node_visitor : public boost::static_visitor<QueryTreeNode>
+{
+public:
+	QueryTreeNode operator()(const NodeType1& node) const
+	{
+		QueryTreeNode qtn;
+		qtn.setType (fu::at_c<0>(node));
+		qtn.setAttr (fu::at_c<1>(node));
+		return qtn;
+	}
+
+	QueryTreeNode operator()(const NodeType2& node) const
+	{
+		QueryTreeNode qtn;
+		qtn.setType (fu::at_c<0>(node));
+		qtn.setAttr (fu::at_c<1>(node));
+		return qtn;
+	}
+
+	QueryTreeNode operator()(const NodeType3& node) const
+	{
+		QueryTreeNode qtn;
+		qtn.setType(node);
+		return qtn;
+	}
+};
+
+void onRoot(NodeVar& val)
+{
+	QueryTreeNode root = boost::apply_visitor( node_visitor(), val );
 }
 
-void onType (NodeType& ty)
+//////////////////////////////////////////////////////////////////////////
+// Normal node call back
+//////////////////////////////////////////////////////////////////////////
+typedef boost::fusion::vector2< IntVec, NodeVar> SubNode;
+
+void onNode(SubNode& val)
 {
-
+	IntVec lvl = fu::at_c<0>(val);
+	QueryTreeNode node = boost::apply_visitor( node_visitor(), fu::at_c<1>(val) );
 }
-
-void onAttrLst(const StringVec& attrLst)
-{
-
-}
-
-void onRelation(const std::string& rel)
-{
-
-}
-
-void onCondition(const std::string& con)
-{
-
-}
-
 
 int main()
 {
@@ -142,7 +191,7 @@ int main()
 	BOOST_AUTO (first, text.begin());
 	BOOST_AUTO (last, text.end());
 
-	BOOST_AUTO(levelsRule, (int_ % ',')[onlevelLst] );
+	BOOST_AUTO(levelsRule, int_ % ',' );
 
 	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
 		stringRule = *(qi::alnum | '_' | '.');
@@ -150,23 +199,27 @@ int main()
 	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
 		conExpRule = *(qi::alnum | '_' | '.' | '>' | '=' | '<');
 
-	BOOST_AUTO(attrLstRule, lit("([") >> (stringRule % ',')[onAttrLst] >> lit("])") );
-	BOOST_AUTO(relationRule, lit("(") >> stringRule[onRelation] >> lit(")"));
-	BOOST_AUTO(conditionRule, lit("(") >> conExpRule[onCondition] >> lit(")"));
+	BOOST_AUTO(attrLstRule, lit("([") >> stringRule % ',' >> lit("])") );
+	BOOST_AUTO(relationRule, lit("(") >> stringRule >> lit(")"));
+	BOOST_AUTO(conditionRule, lit("(") >> conExpRule >> lit(")"));
 
 	BOOST_AUTO(nodeRule, ( 
-		(attr_keywords[onType] >> attrLstRule) 
-		| (relation_keywords[onType] >> relationRule ) 
-		| (condition_keywords[onType] >> conditionRule) 
-		| (null_keywords[onType]) 
+		(attr_keywords >> attrLstRule) 
+		| (relation_keywords >> relationRule ) 
+		| (condition_keywords>> conditionRule) 
+		| (null_keywords) 
 		) );
 
 	BOOST_AUTO(begRule, nodeRule );
 	BOOST_AUTO(expRule, levelsRule >> nodeRule );
 
-	BOOST_AUTO(start, begRule >> * expRule );
+	BOOST_AUTO(start, begRule[onRoot] >> * expRule[onNode] );
 
-	qi::phrase_parse(first, last, start, space);
+	bool ret = true;
+	while (first != last && ret == true)
+	{
+		ret = qi::phrase_parse(first, last, start, space);
+	}
 
 	return 0;
 }
