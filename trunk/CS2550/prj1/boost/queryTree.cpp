@@ -28,7 +28,7 @@ typedef std::vector<int> IntVec;
 // enum for node type
 //////////////////////////////////////////////////////////////////////////
 enum NodeType{
-	NULL,
+	UNDEF,
 	SCAN,
 	INDEX_SCAN,
 	HASH_SCAN,
@@ -86,49 +86,45 @@ struct null_keywords_ : qi::symbols<char, NodeType>
 
 } null_keywords;
 
-namespace client
+class QueryTreeNode{
+public:
+	typedef boost::variant<std::string, StringVec> Attribute;
+	typedef std::set<boost::shared_ptr<QueryTreeNode> > Children;
+	QueryTreeNode():id(-1),ty(UNDEF){}
+
+private:
+	int id;//0 stands for root -1 stands for error
+	NodeType ty;//UNDEF for error
+	Attribute attr;
+	//
+	Children children;
+};
+
+void onlevelLst (IntVec& iVec)
 {
-	class QueryTreeNode{
-	public:
-		typedef boost::variant<std::string, StringVec> Attribute;
-		typedef std::set<boost::shared_ptr<QueryTreeNode> > Children;
-		QueryTreeNode():id(-1),ty(NULL){}
 
-	private:
-		int id;//0 stands for root -1 stands for error
-		NodeType ty;//NULL for error
-		Attribute attr;
-		//
-		Children children;
-	};
-
-	void onlevelLst (IntVec& iVec)
-	{
-
-	}
-
-	void onType (NodeType& ty)
-	{
-
-	}
-
-	void onAttrLst(const StringVec& attrLst)
-	{
-
-	}
-
-	void onRelation(const std::string& rel)
-	{
-
-	}
-
-	void onCondition(const std::string& con)
-	{
-
-	}
 }
 
-using namespace client;
+void onType (NodeType& ty)
+{
+
+}
+
+void onAttrLst(const StringVec& attrLst)
+{
+
+}
+
+void onRelation(const std::string& rel)
+{
+
+}
+
+void onCondition(const std::string& con)
+{
+
+}
+
 
 int main()
 {
