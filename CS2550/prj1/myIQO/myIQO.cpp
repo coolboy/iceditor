@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 
 	if (argc != 5){
 		cerr<<"Wrong arguments number!\n";
-		//	return 1;
+		return 1;
 	}
 
 	dbSchemaPath = argv[1];
@@ -46,13 +46,13 @@ int main(int argc, char* argv[])
 	queryTreesPath = argv[4];
 
 	// read input files to strings
-	dbSchemaStr = ReadAll(dbSchemaPath);
+	//dbSchemaStr = ReadAll(dbSchemaPath);
 	//	dbIndexingStr = ReadAll(dbIndexingPath);
 	//	dbConfigStr = ReadAll(dbmsConfigPath);
 	queryTreesStr = ReadAll(queryTreesPath);
 
 	//create catalog module for the database
-	dbCata = new DbCatalog(dbSchemaStr, "s", "s");
+	//dbCata = new DbCatalog(dbSchemaStr, "s", "s");
 
 	//deal with db schema
 
