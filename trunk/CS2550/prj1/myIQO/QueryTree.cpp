@@ -105,7 +105,7 @@ QueryTreeNodePtr ParseQueryTree(const std::string& text){
 		stringRule = *(qi::alnum | '_' | '.');
 
 	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
-		conExpRule = *(qi::alnum | '_' | '.' | '>' | '=' | '<');
+		conExpRule = *(qi::alnum | '_' | '.' | '\'' | '>' | '=' | '<');
 
 	BOOST_AUTO(attrLstRule, lit("([") >> stringRule % ',' >> lit("])") );
 	BOOST_AUTO(relationRule, lit("(") >> stringRule >> lit(")"));
@@ -138,20 +138,118 @@ QueryTreeNodePtr ParseQueryTree(const std::string& text){
 }
 
 //////////////////////////////////////////////////////////////////////////
-//
+// Swap node functions
 //////////////////////////////////////////////////////////////////////////
-bool SwapNode(QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2)
+
+struct NodeInfo {
+	NodeInfo ():id (-1) {}
+	QueryTreeNodePtr node;
+	QueryTreeNodePtr parent;
+	int id;
+};
+
+NodeInfo getNode (const QueryTreeNodePtr root, const IntVec& levels)
 {
-	return false;
+	NodeInfo ret;
+	if (!root)
+		return ret;
+
+	if (levels.size() == 0)
+	{
+		ret.id = 0;//0 stands for the root
+		ret.node = root;
+		return ret;
+	}
+
+	QueryTreeNodePtr tmpPar = root;
+	int index;
+	for (index = 0; index != levels.size() - 1; ++index){
+		tmpPar = tmpPar->children[index];
+	}
+
+	ret.id = levels[levels.size() - 1];//last
+	ret.parent = tmpPar;
+	ret.node = tmpPar->children[ret.id];
+
+	return ret;
 }
+
+bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2)
+{
+	NodeInfo node1 = getNode(root, lv1);
+	NodeInfo node2 = getNode(root, lv2);
+
+	if (node1.id == -1 || node2.id == -1)
+		return false;
+
+	std::swap(node1.node->children, node2.node->children);
+	node1.parent->children[node1.id] = node2.node;
+	node2.parent->children[node2.id] = node1.node;
+
+	return true;
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Print Tree Helper
+//////////////////////////////////////////////////////////////////////////
+char* NodeType2Str(NodeType ty)
+{
+	switch (ty)
+	{
+	case UNDEF:
+		return "UNDEF";
+
+	case SCAN:
+		return "SCAN";
+
+	case  INDEX_SCAN:
+		return "INDEX_SCAN";
+
+	case HASH_SCAN:
+		return "HASH_SCAN";
+		
+	case SELECT:
+		return "SELECT";
+
+	case JOIN:
+		return "JOIN";
+
+	case UNION:
+		return "UNION";
+
+	case PRODUCT:
+		return "PRODUCT";
+
+	case PROJECT:
+		return "PROJECT";
+
+	default :
+		assert(0);
+	}
+}
+
+#include <iostream>
+
+void PrintTree( const QueryTreeNodePtr root )
+{//mid left->right
+	using namespace std;
+	cout<< ' '<< NodeType2Str(root->getType())<< endl;
+
+	if (root->children.size() == 0)
+		return;
+
+	BOOST_FOREACH (QueryTreeNode::Children::value_type val,
+		root->children){
+			cout<< " id: "<<val.first;
+			PrintTree(val.second);
+	}
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Tree Nodes
 //////////////////////////////////////////////////////////////////////////
 
-QueryTreeNode::QueryTreeNode() :ty(UNDEF)
-{
-
-}
+QueryTreeNode::QueryTreeNode() :ty(UNDEF){}
 
 NodeType QueryTreeNode::getType() const
 {
@@ -238,4 +336,5 @@ void TreeBuilder::onNode( SubNode& val )
 	QueryTreeNode node = boost::apply_visitor( node_visitor(), fu::at_c<1>(val) );
 	parent->children[nodeId] = QueryTreeNodePtr (new QueryTreeNode(node));
 }
+
 };
