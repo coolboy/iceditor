@@ -5,6 +5,8 @@
 #include "DbCatalog.h"
 #include "QueryTree.h"
 
+#include <boost/assign/std/vector.hpp>
+
 using namespace std;
 
 DbCatalog *dbCata;
@@ -63,6 +65,17 @@ int main(int argc, char* argv[])
 	//deal with query trees
 	using namespace client;
 	QueryTreeNodePtr root = ParseQueryTree(queryTreesStr);
+
+	PrintTree(root);
+
+	using namespace boost::assign;
+	IntVec v1, v2;
+	v1 += 1;
+	v2 += 2;
+
+	SwapNode(root, v1, v2);
+
+	PrintTree( root );
 
 	return 0;
 }
