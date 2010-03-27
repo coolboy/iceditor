@@ -149,6 +149,7 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 
 		SetIdx(CurTabName, attr, IdxType, atoi(IdxBfr.c_str()));
 
+		lastPos = dbIndexing.find_first_of("\n", lastPos);
 		lastPos = dbIndexing.find_first_not_of(delimiters, lastPos);  //read next line
 		pos = dbIndexing.find_first_of(delimiters, lastPos);
 
@@ -164,18 +165,18 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 		// Found a token, add it to the vector.
 
 		pre_token = dbConfig.substr(lastPos, pos - lastPos);
-		if(pre_token.compare(0,1,"#") || pre_token.compare("}"))
+		if(pre_token.compare(0,1,"#") == 0 || pre_token.compare("}") == 0)
 		{
-			lastPos = dbSchema.find_first_of("\n", pos);
-			lastPos = dbSchema.find_first_not_of(delimiters, lastPos);  //read next line
-			pos = dbSchema.find_first_of(delimiters, lastPos);
+			lastPos = dbConfig.find_first_of("\n", pos);
+			lastPos = dbConfig.find_first_not_of(delimiters, lastPos);  //read next line
+			pos = dbConfig.find_first_of(delimiters, lastPos);
 			continue;
 		}
 
-		lastPos = dbConfig.find_first_not_of(delimiters, 0);
+		lastPos = dbConfig.find_first_not_of(delimiters, pos);
 		pos = dbConfig.find_first_of(delimiters, lastPos);
 		token = dbConfig.substr(lastPos, pos - lastPos);
-		lastPos = dbConfig.find_first_not_of(delimiters, 0);
+		lastPos = dbConfig.find_first_not_of(delimiters, pos);
 		pos = dbConfig.find_first_of(delimiters, lastPos);
 
 		if (pre_token.compare("Page") == 0 && token.compare("Size") == 0)
@@ -192,9 +193,9 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 		else if(pre_token.compare("Memory") == 0 && token.compare("Buffer") == 0)
 		{
 			BuffSize = dbConfig.substr(lastPos, pos - lastPos);
-			lastPos = dbSchema.find_first_of("\n", pos);
-			lastPos = dbSchema.find_first_not_of(delimiters, lastPos);  //read next line
-			pos = dbSchema.find_first_of(delimiters, lastPos);
+			lastPos = dbConfig.find_first_of("\n", pos);
+			lastPos = dbConfig.find_first_not_of(delimiters, lastPos);  //read next line
+			pos = dbConfig.find_first_of(delimiters, lastPos);
 		}
 
 		else if(token.compare("{")==0 )
@@ -217,6 +218,7 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 		}
 
 	}
+	return;
 
 }
 
@@ -330,8 +332,12 @@ void DbCatalog::SetCardi(string tab_name, long int cardi)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			tab_iter->SetCardi(cardi);
+			return;
+		}
 	}
+	return;
 }
 
 void DbCatalog::SetBfr(string tab_name, int bfr)
@@ -340,8 +346,12 @@ void DbCatalog::SetBfr(string tab_name, int bfr)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			tab_iter->SetBfr(bfr);
+			return;
+		}
 	}
+	return;
 }
 
 void DbCatalog::SetPk(string tab_name, string pk)
@@ -350,8 +360,12 @@ void DbCatalog::SetPk(string tab_name, string pk)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			tab_iter->SetPk(pk);
+			return;
+		}
 	}
+	return;
 }
 
 void DbCatalog::SetIdxBfr(string tab_name, string attr_name, int ibfr)
@@ -361,13 +375,21 @@ void DbCatalog::SetIdxBfr(string tab_name, string attr_name, int ibfr)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
 			{
 				if (attr_iter->GetName() == attr_name)
+				{
 					attr_iter->SetIdxBfr(ibfr);
+					return;
+				}
+
 			}
+			break;
+		}
 
 	}
+	return;
 }
 
 void DbCatalog::AddFks(string tab_name, string fk)
@@ -376,8 +398,12 @@ void DbCatalog::AddFks(string tab_name, string fk)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			tab_iter->AddFks(fk);
+			return;
+		}
 	}
+	return;
 }
 
 void DbCatalog::AddAtr(string tab_name, string n, Atr_Type t,int l)
@@ -386,8 +412,12 @@ void DbCatalog::AddAtr(string tab_name, string n, Atr_Type t,int l)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			tab_iter->AddAtr(n,t,l);
+			return;
+		}
 	}
+	return;
 }
 
 void DbCatalog::AddAtr(string tab_name, string n, Atr_Type t)
@@ -396,8 +426,12 @@ void DbCatalog::AddAtr(string tab_name, string n, Atr_Type t)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			tab_iter->AddAtr(n,t);
+			return;
+		}
 	}
+	return;
 }
 
 void DbCatalog::SetSel(string tab_name, string attr_name,double d)
@@ -407,13 +441,20 @@ void DbCatalog::SetSel(string tab_name, string attr_name,double d)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
 			{
 				if (attr_iter->GetName() == attr_name)
+				{
 					attr_iter->SetSel(d);
+					return;
+				}
 			}
+			break;
+		}
 
 	}
+	return;
 }
 
 void DbCatalog::SetIdx(string tab_name, string attr_name, Idx_Type it, int ibfr)
@@ -423,19 +464,24 @@ void DbCatalog::SetIdx(string tab_name, string attr_name, Idx_Type it, int ibfr)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
+		{
 			for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
 			{
 				if (attr_iter->GetName() == attr_name)
 			 {
 				 attr_iter->SetIdx(it);
 				 attr_iter->SetIdxBfr(ibfr);
+				 return;
 			 }
 			}
-
+			break;
+		}
 	}
+	return;
 }
 
 
 DbCatalog::~DbCatalog(void)
 {
+	return;
 }

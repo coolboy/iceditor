@@ -32,7 +32,7 @@ string ReadAll(const char* fileName){
 
 int main(int argc, char* argv[])
 {
-	const char* dbSchemaPath = "dbSchema.txt", *dbIndexingPath = 0,
+	const char* dbSchemaPath = 0, *dbIndexingPath = 0,
 		*dbmsConfigPath = 0, *queryTreesPath = 0;
 
 	string dbSchemaStr, dbIndexingStr, dbConfigStr, queryTreesStr;  // strings used to store input files
@@ -48,13 +48,13 @@ int main(int argc, char* argv[])
 	queryTreesPath = argv[4];
 
 	// read input files to strings
-	//dbSchemaStr = ReadAll(dbSchemaPath);
-	//	dbIndexingStr = ReadAll(dbIndexingPath);
-	//	dbConfigStr = ReadAll(dbmsConfigPath);
+	dbSchemaStr = ReadAll(dbSchemaPath);
+	dbIndexingStr = ReadAll(dbIndexingPath);
+	dbConfigStr = ReadAll(dbmsConfigPath);
 	queryTreesStr = ReadAll(queryTreesPath);
 
 	//create catalog module for the database
-	//dbCata = new DbCatalog(dbSchemaStr, "s", "s");
+	dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
 
 	//deal with db schema
 
