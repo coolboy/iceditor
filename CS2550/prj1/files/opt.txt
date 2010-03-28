@@ -1,0 +1,12 @@
+1.? Break up selections (with conjunctive conditions) into
+a cascade of selection operators!
+2.? Push selection operators as far down in the tree as 
+possible!
+3.? Convert Cartesian products into joins!
+4.? Rearrange leaf nodes to:!
+? Execute ?rst the most restrictive select operators!
+¨C? What is restrictive? (Fewest tuples or Smallest size) !
+? Make sure we don?t have Cartesian products!
+5.? Move projections as far down as possible!
+6.? Identify subtrees that represent groups of operations
+which can be executed by single algorithm!

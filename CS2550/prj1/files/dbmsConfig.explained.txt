@@ -1,0 +1,17 @@
+Page Size: 4KBTotal Memory Buffer: 1 MB
+
+#----------------------------#
+#Comments are preceeded by a #
+#bfr = blocking factor
+#----------------------------#
+PATIENT {
+Cardinality 100000 #How many tuples in that table
+bfr 50 #
+
+#selectivity #distinction value number / total number of tuples
+#if Male/Female in 10000 records, it mean2 2/10000 == 1/5000
+#So using selectivity we can estimate the rest tuple number after selecting some value.
+FirstName,0.05
+LastName,0.08
+DateofBirth,0.04
+}
