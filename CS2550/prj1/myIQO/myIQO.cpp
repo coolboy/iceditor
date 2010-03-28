@@ -2,14 +2,16 @@
 //
 
 #include "stdafx.h"
+
 #include "DbCatalog.h"
+
 #include "QueryTree.h"
 
 #include <boost/assign/std/vector.hpp>
 
 using namespace std;
 
-DbCatalog *dbCata;
+//DbCatalog *dbCata;
 
 void FileOpenError(const char* fileName){
 	cerr<<"Can't open : "<<fileName<<endl;
