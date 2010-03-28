@@ -143,9 +143,11 @@ QueryTreeNodePtr ParseQueryTree(const std::string& text){
 
 struct NodeInfo {
 	NodeInfo ():id (-1) {}
+	bool isEmpty(){return id == -1;}
+	//
+	int id;//id for node
 	QueryTreeNodePtr node;
 	QueryTreeNodePtr parent;
-	int id;
 };
 
 NodeInfo getNode (const QueryTreeNodePtr root, const IntVec& levels)
@@ -230,7 +232,7 @@ char* NodeType2Str(NodeType ty)
 
 #include <iostream>
 
-void PrintTree( const QueryTreeNodePtr root )
+void PrintTree( const QueryTreeNodePtr root , int depth)
 {//mid left->right
 	using namespace std;
 	cout<< ' '<< NodeType2Str(root->getType())<< endl;
@@ -240,8 +242,13 @@ void PrintTree( const QueryTreeNodePtr root )
 
 	BOOST_FOREACH (QueryTreeNode::Children::value_type val,
 		root->children){
-			cout<< " id: "<<val.first;
-			PrintTree(val.second);
+			int dep = depth + 1;
+
+			while (dep-- != 0)
+				cout<<'\t';
+
+			cout<< " "<<val.first;
+			PrintTree(val.second, depth + 1);
 	}
 }
 
@@ -335,6 +342,34 @@ void TreeBuilder::onNode( SubNode& val )
 
 	QueryTreeNode node = boost::apply_visitor( node_visitor(), fu::at_c<1>(val) );
 	parent->children[nodeId] = QueryTreeNodePtr (new QueryTreeNode(node));
+}
+
+//////////////////////////////////////////////////////////////////////////
+// Insert/Append node functions
+//////////////////////////////////////////////////////////////////////////
+bool InsertNode( const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1 ){
+	NodeInfo curNode = getNode(root, lv1);
+	if (curNode.isEmpty())
+		return false;
+
+	assert (curNode.parent->children[curNode.id] == curNode.node);
+
+	curNode.parent->children[curNode.id] = node;
+	node->children[1] = curNode.node;//insert node at the begining
+
+	return true;
+}
+
+bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1){
+	NodeInfo curNode = getNode(root, lv1);
+	if (curNode.isEmpty())
+		return false;
+
+	int index = curNode.node->children.size();
+	assert (curNode.node->children.find(index + 1) == curNode.node->children.end());
+	curNode.node->children[index + 1] = node;
+
+	return true;
 }
 
 };

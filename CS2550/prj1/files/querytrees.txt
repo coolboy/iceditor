@@ -2,4 +2,4 @@ UNION
 	1 PROJECT([FirstName, MiddleName, LastName])
 		1,1 SCAN(DOCTOR)
     2 UNION
-		2,1 SCAN(PATIENT)
+		2,1 INDEX_SCAN(PATIENT)

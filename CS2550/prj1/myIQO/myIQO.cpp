@@ -11,8 +11,6 @@
 
 using namespace std;
 
-//DbCatalog *dbCata;
-
 void FileOpenError(const char* fileName){
 	cerr<<"Can't open : "<<fileName<<endl;
 }
@@ -56,7 +54,7 @@ int main(int argc, char* argv[])
 	queryTreesStr = ReadAll(queryTreesPath);
 
 	//create catalog module for the database
-	dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
+	DbCatalog *	dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
 
 	//deal with db schema
 
@@ -65,9 +63,12 @@ int main(int argc, char* argv[])
 	//deal with dbms config
 
 	//deal with query trees
+
+	//test cases
 	using namespace client;
 	QueryTreeNodePtr root = ParseQueryTree(queryTreesStr);
 
+	cout<<"Original tree: \n";
 	PrintTree(root);
 
 	using namespace boost::assign;
@@ -75,8 +76,21 @@ int main(int argc, char* argv[])
 	v1 += 1;
 	v2 += 2;
 
+	cout<<"After swap [1] [2]: \n";
 	SwapNode(root, v1, v2);
+	PrintTree( root );
 
+	QueryTreeNode node;
+	node.setType(client::UNION);
+	QueryTreeNodePtr pnode = QueryTreeNodePtr(new QueryTreeNode(node));
+
+	cout<<"After append [1]: \n";
+	AppendNode(root, pnode, v1);
+	PrintTree( root );
+
+	pnode = QueryTreeNodePtr(new QueryTreeNode(node));
+	cout<<"After insert [2]: \n";
+	InsertNode(root, pnode, v2);
 	PrintTree( root );
 
 	return 0;
