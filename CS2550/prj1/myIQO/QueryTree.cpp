@@ -194,7 +194,7 @@ bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2)
 //////////////////////////////////////////////////////////////////////////
 // Print Tree Helper
 //////////////////////////////////////////////////////////////////////////
-char* NodeType2Str(NodeType ty)
+const char* NodeType2Str(NodeType ty)
 {
 	switch (ty)
 	{
@@ -247,7 +247,7 @@ void PrintTree( const QueryTreeNodePtr root , int depth)
 			while (dep-- != 0)
 				cout<<'\t';
 
-			cout<< " "<<val.first;
+			cout<<val.first;
 			PrintTree(val.second, depth + 1);
 	}
 }
