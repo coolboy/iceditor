@@ -21,22 +21,81 @@ typedef NodeType NodeType3;
 typedef boost::variant <NodeType1, NodeType2, NodeType3> NodeVar;
 typedef boost::fusion::vector2< IntVec, NodeVar> SubNode;
 
+
+//////////////////////////////////////////////////////////////////////////
+// Node variant visitor
+//////////////////////////////////////////////////////////////////////////
+
+class node_visitor : public boost::static_visitor<QueryTreeNode>
+{
+public:
+
+	QueryTreeNode operator()( const NodeType1& node ) const
+	{
+		QueryTreeNode qtn;
+		qtn.setType (fu::at_c<0>(node));
+		qtn.setAttr (fu::at_c<1>(node));
+		return qtn;
+	}
+
+	QueryTreeNode operator()( const NodeType2& node ) const
+	{
+		QueryTreeNode qtn;
+		qtn.setType (fu::at_c<0>(node));
+		qtn.setAttr (fu::at_c<1>(node));
+		return qtn;
+	}
+
+	QueryTreeNode operator()( const NodeType3& node ) const
+	{
+		QueryTreeNode qtn;
+		qtn.setType(node);
+		return qtn;
+	}
+};
+
 //////////////////////////////////////////////////////////////////////////
 //Tree build helper
 //////////////////////////////////////////////////////////////////////////
 
 class TreeBuilder{
 public:
-	QueryTreeNodePtr getRoot();
 
-	// Root node call back
-	void onRoot(NodeVar& val);
+	QueryTreeNodePtrs getTrees()
+	{
+		return rlz;
+	}
 
-	// Normal node call back
-	void onNode(SubNode& val);
+	void onRoot( NodeVar& val )
+	{
+		currentRoot = QueryTreeNodePtr (
+			new QueryTreeNode(boost::apply_visitor( node_visitor(), val ) ));
+
+		rlz.push_back(currentRoot);
+	}
+
+	void onNode( SubNode& val )
+	{
+		IntVec lvl = fu::at_c<0>(val);
+
+		int depth = 0;
+
+		QueryTreeNodePtr parent = currentRoot;
+		while (++depth != lvl.size())
+		{
+			int childId = lvl.at(depth - 1);//array starts at 0
+			parent = parent->children[childId];
+		}
+
+		int nodeId = lvl.at(lvl.size() - 1);//last
+
+		QueryTreeNode node = boost::apply_visitor( node_visitor(), fu::at_c<1>(val) );
+		parent->children[nodeId] = QueryTreeNodePtr (new QueryTreeNode(node));
+	}
 
 private:
-	QueryTreeNodePtr root;
+	QueryTreeNodePtrs rlz;
+	QueryTreeNodePtr currentRoot;
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -89,7 +148,7 @@ struct null_keywords_ : qi::symbols<char, NodeType>
 //////////////////////////////////////////////////////////////////////////
 // Covert raw text to Tree
 //////////////////////////////////////////////////////////////////////////
-QueryTreeNodePtr ParseQueryTree(const std::string& text){
+QueryTreeNodePtrs ParseQueryTree(const std::string& text){
 	using qi::int_;
 	using qi::parse;
 	using qi::lit;
@@ -123,10 +182,11 @@ QueryTreeNodePtr ParseQueryTree(const std::string& text){
 
 	TreeBuilder tb;
 
-	BOOST_AUTO(start,
+	BOOST_AUTO (treeRule, 
 		begRule[boost::bind(&TreeBuilder::onRoot, &tb, _1)] >> 
-		* expRule[boost::bind(&TreeBuilder::onNode, &tb, _1)] 
-	);
+		* expRule[boost::bind(&TreeBuilder::onNode, &tb, _1)]);
+
+	BOOST_AUTO(start, *treeRule);
 
 	bool ret = true;
 	while (first != last && ret == true)
@@ -134,7 +194,7 @@ QueryTreeNodePtr ParseQueryTree(const std::string& text){
 		ret = qi::phrase_parse(first, last, start, space);
 	}
 
-	return tb.getRoot();
+	return tb.getTrees();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -287,71 +347,6 @@ void QueryTreeNode::setAttr( const Attribute& val )
 bool QueryTreeNode::hasChild( int id )
 {
 	return children.find(id) != children.end();
-}
-//////////////////////////////////////////////////////////////////////////
-// Node variant visitor
-//////////////////////////////////////////////////////////////////////////
-
-class node_visitor : public boost::static_visitor<QueryTreeNode>
-{
-public:
-	QueryTreeNode operator()(const NodeType1& node) const;
-
-	QueryTreeNode operator()(const NodeType2& node) const;
-
-	QueryTreeNode operator()(const NodeType3& node) const;
-};
-
-QueryTreeNode node_visitor::operator()( const NodeType1& node ) const
-{
-	QueryTreeNode qtn;
-	qtn.setType (fu::at_c<0>(node));
-	qtn.setAttr (fu::at_c<1>(node));
-	return qtn;
-}
-
-QueryTreeNode node_visitor::operator()( const NodeType2& node ) const
-{
-	QueryTreeNode qtn;
-	qtn.setType (fu::at_c<0>(node));
-	qtn.setAttr (fu::at_c<1>(node));
-	return qtn;
-}
-
-QueryTreeNode node_visitor::operator()( const NodeType3& node ) const
-{
-	QueryTreeNode qtn;
-	qtn.setType(node);
-	return qtn;
-}
-
-QueryTreeNodePtr TreeBuilder::getRoot()
-{
-	return root;
-}
-
-void TreeBuilder::onRoot( NodeVar& val )
-{
-	root = QueryTreeNodePtr (new QueryTreeNode(boost::apply_visitor( node_visitor(), val ) ));
-}
-
-void TreeBuilder::onNode( SubNode& val )
-{
-	IntVec lvl = fu::at_c<0>(val);
-
-	int depth = 0;
-
-	QueryTreeNodePtr parent = root;
-	while (++depth != lvl.size())
-	{
-		int childId = lvl.at(depth - 1);//array starts at 0
-		parent = parent->children[childId];
-	}
-
-	int nodeId = lvl.at(lvl.size() - 1);//last
-
-	QueryTreeNode node = boost::apply_visitor( node_visitor(), fu::at_c<1>(val) );
-	parent->children[nodeId] = QueryTreeNodePtr (new QueryTreeNode(node));
 }
 
 //////////////////////////////////////////////////////////////////////////

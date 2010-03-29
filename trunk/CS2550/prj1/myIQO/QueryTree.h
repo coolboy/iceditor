@@ -56,8 +56,9 @@ private:
 	Attribute attr;
 };
 typedef QueryTreeNode::QueryTreeNodePtr QueryTreeNodePtr;
+typedef std::vector<QueryTreeNodePtr> QueryTreeNodePtrs;
 
-QueryTreeNodePtr ParseQueryTree(const std::string& text);
+QueryTreeNodePtrs ParseQueryTree(const std::string& text);
 
 bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2);
 

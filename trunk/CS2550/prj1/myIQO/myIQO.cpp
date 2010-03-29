@@ -8,6 +8,7 @@
 #include "QueryTree.h"
 
 #include <boost/assign/std/vector.hpp>
+#include <boost/foreach.hpp>
 
 using namespace std;
 
@@ -66,7 +67,14 @@ int main(int argc, char* argv[])
 
 	//test cases
 	using namespace client;
-	QueryTreeNodePtr root = ParseQueryTree(queryTreesStr);
+	QueryTreeNodePtrs trees = ParseQueryTree(queryTreesStr);
+
+	BOOST_FOREACH(QueryTreeNodePtr pnode, trees)
+	{
+		PrintTree(pnode);
+	}
+
+	QueryTreeNodePtr root = trees[0];
 
 	cout<<"Original tree: \n";
 	PrintTree(root);
