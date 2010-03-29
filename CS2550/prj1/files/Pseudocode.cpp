@@ -42,11 +42,11 @@ foreach node in the querytree
   		 	    break the select into two simple selects
   		 	    and do the similar things above
   		 	    
-  		 	  else if OR,
+  		 else if (condition has an OR)
   		 	  	
   		 	  	do nothing
   		 	  	
-  		 	  else if NOT,
+  		 else if (condition has an NOT)
   		    
   		      do similar as first and second condition, but
   		      use different cost famular? 
@@ -57,13 +57,29 @@ foreach node in the querytree
 
 for each node
 {
-	 choose join order based on js , how?  some child has select sub-child should be first
+	 choose join order based on js , how?  some child has select sub-child should be first  //there is an alternative: page543
 	 choose algorithm based on index available, whether sorted or not 
-	 calculate cost
-	
-	 
-	 
 }
 
 /* step 3(step 5 in the slide): put down the project node as low as possible 
-while keep the relevant fields
+while keeping the relevant fields */
+
+for each node 
+{
+	 if(node.type = SCAN)
+	 	  retrive the table in the SCAN, and traverse the querytree backwards to find all 
+	 	  attribute of the table involved in all ancestors of this SCAN node. 
+	 	  these attributes form a list L. Add project(L) node above the SCAN node as its parent. 
+	 	 
+}
+
+/* step 4(calculate the cost) */
+    
+    
+   calculate the cost, using formulas on page 536(for select, project can be also
+   calculated?),  539(for join), 509(for union, need to figure out details) and 
+   542/543(materialized cost, namely, how the execution of first node effects the 
+   cost of subsequent nodes.)
+   
+   
+   
