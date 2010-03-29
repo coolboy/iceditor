@@ -47,6 +47,8 @@ public:
 	Attribute getAttr() const;
 	void setAttr(const Attribute& val);
 
+	bool hasChild(int id);
+
 	Children children;//map (id,ptr)
 
 private:
