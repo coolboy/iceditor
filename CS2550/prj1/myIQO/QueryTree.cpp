@@ -164,14 +164,20 @@ NodeInfo getNode (const QueryTreeNodePtr root, const IntVec& levels)
 	}
 
 	QueryTreeNodePtr tmpPar = root;
-	int index;
-	for (index = 0; index != levels.size() - 1; ++index){
-		tmpPar = tmpPar->children[index];
+	for (int index = 0; index != levels.size() - 1; ++index){
+		if (!tmpPar->hasChild(index))
+			return ret;
+		else
+			tmpPar = tmpPar->children[index];
 	}
 
-	ret.id = levels[levels.size() - 1];//last
-	ret.parent = tmpPar;
-	ret.node = tmpPar->children[ret.id];
+	int id = levels[levels.size() - 1];//last
+
+	if (tmpPar->hasChild(id)){
+		ret.id = id;
+		ret.parent = tmpPar;
+		ret.node = tmpPar->children[ret.id];
+	}
 
 	return ret;
 }
@@ -278,6 +284,10 @@ void QueryTreeNode::setAttr( const Attribute& val )
 	attr = val;
 }
 
+bool QueryTreeNode::hasChild( int id )
+{
+	return children.find(id) != children.end();
+}
 //////////////////////////////////////////////////////////////////////////
 // Node variant visitor
 //////////////////////////////////////////////////////////////////////////
