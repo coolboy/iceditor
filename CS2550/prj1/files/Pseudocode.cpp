@@ -30,6 +30,8 @@ foreach node in the querytree
   		    		A and B respectively 
   		    	if right child has no A or B, go to left and do the 
   		    		similar thing
+  		    remove the found PRODUCT , add JOIN with condition A=B 
+  		    at the same place
   		    		
   		 else if(condition A.C=B.D)
   		     similar to condition A=B, but simplier because we
@@ -50,3 +52,18 @@ foreach node in the querytree
   		      use different cost famular? 
   	}
 }
+
+/* step 2(step 4 in the slide): choose the join order and method*/
+
+for each node
+{
+	 choose join order based on js , how?  some child has select sub-child should be first
+	 choose algorithm based on index available, whether sorted or not 
+	 calculate cost
+	
+	 
+	 
+}
+
+/* step 3(step 5 in the slide): put down the project node as low as possible 
+while keep the relevant fields
