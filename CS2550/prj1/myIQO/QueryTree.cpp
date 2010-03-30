@@ -250,10 +250,9 @@ bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2)
 	if (node1.id == -1 || node2.id == -1)
 		return false;
 
-	//////////////////////////////////////////////////////////////////////////
 	std::swap(node1.node->children, node2.node->children);
-	node1.parent->children[node1.id] = node2.node;
-	node2.parent->children[node2.id] = node1.node;
+	node1.parent->setChild(node1.id, node2.node);
+	node2.parent->setChild(node2.id, node1.node);
 
 	return true;
 }
@@ -386,6 +385,25 @@ boost::any QueryTreeNode::getExInfo( const std::string& name )
 void QueryTreeNode::setExInfo( const std::string& name, const boost::any& val )
 {
 	exInfo[name] = val;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+QueryTreeNodePtr CloneHelper(QueryTreeNodePtr node)
+{
+	QueryTreeNodePtr newNode = QueryTreeNodePtr(new QueryTreeNode(*node));
+
+	BOOST_FOREACH (QueryTreeNode::Children::value_type val,
+		node->children){
+			newNode->children[val.first] = CloneHelper(val.second);
+	}
+
+	return newNode;
+}
+
+QueryTreeNode::QueryTreeNodePtr QueryTreeNode::clone()
+{
+	return CloneHelper(QueryTreeNodePtr(new QueryTreeNode(*this)));
 }
 //////////////////////////////////////////////////////////////////////////
 // Insert/Append node functions

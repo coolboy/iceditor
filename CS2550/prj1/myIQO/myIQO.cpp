@@ -91,6 +91,10 @@ int main(int argc, char* argv[])
 	cout<<"Original tree: \n";
 	PrintTree(root);
 
+	cout<<"Clone tree: \n";
+	QueryTreeNodePtr root_clone = root->clone();
+	PrintTree(root_clone);
+
 	using namespace boost::assign;
 	IntVec v1, v2;
 	v1 += 1,1;
@@ -116,6 +120,9 @@ int main(int argc, char* argv[])
 	cout<<"After remove"<< v1<<"\n";
 	RemoveNode(root, v1);
 	PrintTree( root );
+
+	//verify the clone tree is ok
+	PrintTree(root_clone);
 
 	return 0;
 }

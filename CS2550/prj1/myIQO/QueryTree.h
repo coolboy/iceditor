@@ -63,10 +63,15 @@ public:
 	//example: setExInfo("Number", 102);
 	void setExInfo(const std::string& name, const boost::any& val);
 
+	QueryTreeNodePtr clone();
+
+public:
 	friend bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2);
 	friend void PrintTree(const QueryTreeNodePtr root, int depth);
 	friend bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
 	friend bool RemoveNode(const QueryTreeNodePtr root, const IntVec& lv1);
+
+	friend QueryTreeNodePtr CloneHelper(QueryTreeNodePtr node);
 
 private:
 	NodeType ty;//UNDEF for error
