@@ -84,13 +84,13 @@ public:
 		while (++depth != lvl.size())
 		{
 			int childId = lvl.at(depth - 1);//array starts at 0
-			parent = parent->children[childId];
+			parent = parent->getChild(childId);
 		}
 
 		int nodeId = lvl.at(lvl.size() - 1);//last
 
 		QueryTreeNode node = boost::apply_visitor( node_visitor(), fu::at_c<1>(val) );
-		parent->children[nodeId] = QueryTreeNodePtr (new QueryTreeNode(node));
+		parent->setChild(nodeId, QueryTreeNodePtr (new QueryTreeNode(node)));
 	}
 
 private:
@@ -228,7 +228,7 @@ NodeInfo getNode (const QueryTreeNodePtr root, const IntVec& levels)
 		if (!tmpPar->hasChild(levels.at(depth)))
 			return ret;
 		else
-			tmpPar = tmpPar->children[levels.at(depth)];
+			tmpPar = tmpPar->getChild(levels.at(depth));
 	}
 
 	int id = levels[levels.size() - 1];//last
@@ -236,7 +236,7 @@ NodeInfo getNode (const QueryTreeNodePtr root, const IntVec& levels)
 	if (tmpPar->hasChild(id)){
 		ret.id = id;
 		ret.parent = tmpPar;
-		ret.node = tmpPar->children[ret.id];
+		ret.node = tmpPar->getChild(ret.id);
 	}
 
 	return ret;
@@ -250,6 +250,7 @@ bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2)
 	if (node1.id == -1 || node2.id == -1)
 		return false;
 
+	//////////////////////////////////////////////////////////////////////////
 	std::swap(node1.node->children, node2.node->children);
 	node1.parent->children[node1.id] = node2.node;
 	node2.parent->children[node2.id] = node1.node;
@@ -303,8 +304,10 @@ void PrintTree( const QueryTreeNodePtr root , int depth)
 	using namespace std;
 	cout<< ' '<< NodeType2Str(root->getType())<< endl;
 
-	if (root->children.size() == 0)
+	if (!root->hasChild())
 		return;
+
+	//////////////////////////////////////////////////////////////////////////
 
 	BOOST_FOREACH (QueryTreeNode::Children::value_type val,
 		root->children){
@@ -349,6 +352,29 @@ bool QueryTreeNode::hasChild( int id )
 	return children.find(id) != children.end();
 }
 
+bool QueryTreeNode::hasChild()
+{
+	return children.size() != 0;
+}
+
+QueryTreeNode::QueryTreeNodePtr QueryTreeNode::getChild( int id )
+{
+	if (hasChild(id))
+		return children[id];
+	else
+		return QueryTreeNodePtr();
+}
+
+bool QueryTreeNode::setChild( int id, QueryTreeNodePtr node, bool bFailOnExist)
+{
+	if (bFailOnExist)
+		if (hasChild(id))
+			return false;
+
+	children[id] = node;
+	return true;
+}
+
 //////////////////////////////////////////////////////////////////////////
 // Insert/Append node functions
 //////////////////////////////////////////////////////////////////////////
@@ -357,10 +383,10 @@ bool InsertNode( const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVe
 	if (curNode.isEmpty())
 		return false;
 
-	assert (curNode.parent->children[curNode.id] == curNode.node);
+	assert (curNode.parent->getChild(curNode.id) == curNode.node);
 
-	curNode.parent->children[curNode.id] = node;
-	node->children[1] = curNode.node;//insert node at the begining
+	curNode.parent->setChild(curNode.id, node);
+	node->setChild(1, curNode.node);//insert node at the beginning
 
 	return true;
 }
@@ -371,8 +397,22 @@ bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec
 		return false;
 
 	int index = curNode.node->children.size();
-	assert (curNode.node->children.find(index + 1) == curNode.node->children.end());
-	curNode.node->children[index + 1] = node;
+
+	assert (!curNode.node->getChild(index + 1));
+	curNode.node->setChild(index + 1, node);
+
+	return true;
+}
+
+bool RemoveNode( const QueryTreeNodePtr root, const IntVec& lv1 )
+{
+	//temp disabled because the index of other node may changed
+	//may change map to vector?
+	//NodeInfo curNode = getNode(root, lv1);
+	//if (curNode.isEmpty())
+		//return false;
+
+	//curNode.parent -> children.erase(curNode.id);
 
 	return true;
 }

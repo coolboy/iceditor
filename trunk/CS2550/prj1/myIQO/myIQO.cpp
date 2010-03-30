@@ -113,5 +113,9 @@ int main(int argc, char* argv[])
 	InsertNode(root, pnode, v2);
 	PrintTree( root );
 
+	cout<<"After remove"<< v1<<"\n";
+	RemoveNode(root, v1);
+	PrintTree( root );
+
 	return 0;
 }

@@ -47,13 +47,21 @@ public:
 	Attribute getAttr() const;
 	void setAttr(const Attribute& val);
 
+	bool hasChild();
 	bool hasChild(int id);
 
-	Children children;//map (id,ptr)
+	QueryTreeNodePtr getChild(int id);
+	bool setChild(int id, QueryTreeNodePtr node, bool bFailOnExist = false);
+
+	friend bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2);
+	friend void PrintTree(const QueryTreeNodePtr root, int depth);
+	friend bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
+	friend bool RemoveNode(const QueryTreeNodePtr root, const IntVec& lv1);
 
 private:
 	NodeType ty;//UNDEF for error
 	Attribute attr;
+	Children children;//map (id,ptr)
 };
 typedef QueryTreeNode::QueryTreeNodePtr QueryTreeNodePtr;
 typedef std::vector<QueryTreeNodePtr> QueryTreeNodePtrs;
@@ -61,6 +69,8 @@ typedef std::vector<QueryTreeNodePtr> QueryTreeNodePtrs;
 QueryTreeNodePtrs ParseQueryTree(const std::string& text);
 
 bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2);
+
+bool RemoveNode(const QueryTreeNodePtr root, const IntVec& lv1);
 
 bool InsertNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
 
