@@ -40,10 +40,10 @@ foreach node in the querytree
   		     similar to condition A=B, but simplier because we
   		     now know the table name
   		     
-  		 else if(condition combination of above using AND,OR,NOT)   	
-  		 	  if AND,
-  		 	    break the select into two simple selects
-  		 	    and do the similar things above
+  		 //else if(condition combination of above using AND,OR,NOT)   	
+  		 	  //if AND,
+  		 	    //break the select into two simple selects
+  		 	    //and do the similar things above
   		 	    
   		 else if (condition has an OR)
   		 	  	do nothing

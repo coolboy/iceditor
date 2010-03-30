@@ -13,8 +13,8 @@ public:
 	QueryTreeNodePtr optimize(QueryTreeNodePtr node);
 
 private:
-	void step1();
-	void step2();
+	void step1();//break up selection
+	void step2();//push selection down
 	void step3();
 	void step4();
 	void step5();
