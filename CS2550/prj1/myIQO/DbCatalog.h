@@ -1,7 +1,7 @@
 #pragma once
 #include "DbTable.h"
-using namespace std;
 
+using namespace std;
 class DbCatalog
 {
 private:
