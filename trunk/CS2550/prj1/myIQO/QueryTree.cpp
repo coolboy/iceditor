@@ -375,6 +375,18 @@ bool QueryTreeNode::setChild( int id, QueryTreeNodePtr node, bool bFailOnExist)
 	return true;
 }
 
+boost::any QueryTreeNode::getExInfo( const std::string& name )
+{
+	if (exInfo.find(name) == exInfo.end())
+		return boost::any();
+
+	return exInfo[name];
+}
+
+void QueryTreeNode::setExInfo( const std::string& name, const boost::any& val )
+{
+	exInfo[name] = val;
+}
 //////////////////////////////////////////////////////////////////////////
 // Insert/Append node functions
 //////////////////////////////////////////////////////////////////////////
