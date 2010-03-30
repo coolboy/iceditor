@@ -1,5 +1,3 @@
-#pragma once
-
 typedef enum 
 {
 	CHAR_T = 0,
@@ -26,5 +24,5 @@ typedef enum
 	PROJECT_T = 4,
 	JOIN_T = 5,
 	CPRODUCT_T = 6,
-	UNION = 7
+	UNION_T = 7
 } Op_Type;
