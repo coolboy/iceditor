@@ -224,11 +224,11 @@ NodeInfo getNode (const QueryTreeNodePtr root, const IntVec& levels)
 	}
 
 	QueryTreeNodePtr tmpPar = root;
-	for (int index = 0; index != levels.size() - 1; ++index){
-		if (!tmpPar->hasChild(index))
+	for (int depth = 0; depth != levels.size() - 1; ++depth){
+		if (!tmpPar->hasChild(levels.at(depth)))
 			return ret;
 		else
-			tmpPar = tmpPar->children[index];
+			tmpPar = tmpPar->children[levels.at(depth)];
 	}
 
 	int id = levels[levels.size() - 1];//last
@@ -311,7 +311,7 @@ void PrintTree( const QueryTreeNodePtr root , int depth)
 			int dep = depth + 1;
 
 			while (dep-- != 0)
-				cout<<'\t';
+				cout<<' ';
 
 			cout<<val.first;
 			PrintTree(val.second, depth + 1);

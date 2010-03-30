@@ -31,6 +31,18 @@ string ReadAll(const char* fileName){
 	return inFileBuf;
 }
 
+template<typename T>
+std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
+{
+	out<<'[';
+	for (std::vector<T>::size_type i = 0; i < vec.size() - 1; ++i)
+		out << vec[i] << ", ";
+
+	out<< vec[vec.size() - 1]<<']';
+
+	return out;
+}
+
 int main(int argc, char* argv[])
 {
 	const char* dbSchemaPath = 0, *dbIndexingPath = 0,
@@ -81,10 +93,10 @@ int main(int argc, char* argv[])
 
 	using namespace boost::assign;
 	IntVec v1, v2;
-	v1 += 1;
-	v2 += 2;
+	v1 += 1,1;
+	v2 += 1,2;
 
-	cout<<"After swap [1] [2]: \n";
+	cout<<"After swap"<< v1 <<" "<< v2 << "\n";
 	SwapNode(root, v1, v2);
 	PrintTree( root );
 
@@ -92,12 +104,12 @@ int main(int argc, char* argv[])
 	node.setType(client::UNION);
 	QueryTreeNodePtr pnode = QueryTreeNodePtr(new QueryTreeNode(node));
 
-	cout<<"After append [1]: \n";
+	cout<<"After append"<< v1<<"\n";
 	AppendNode(root, pnode, v1);
 	PrintTree( root );
 
 	pnode = QueryTreeNodePtr(new QueryTreeNode(node));
-	cout<<"After insert [2]: \n";
+	cout<<"After insert"<< v2<<"\n";
 	InsertNode(root, pnode, v2);
 	PrintTree( root );
 
