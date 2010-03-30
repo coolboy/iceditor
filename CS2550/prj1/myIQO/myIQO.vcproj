@@ -210,6 +210,10 @@
 				RelativePath=".\TabAtr.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\TreeOptimizer.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -242,6 +246,10 @@
 			</File>
 			<File
 				RelativePath=".\targetver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TreeOptimizer.h"
 				>
 			</File>
 		</Filter>
