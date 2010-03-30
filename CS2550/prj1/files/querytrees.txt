@@ -1,6 +1,7 @@
 PROJECT([FirstName,MiddleName,LastName])
 	1 SELECT(YearofExperience>10)
-             1,1 SCAN(DOCTOR)			
+             1,1 SCAN(DOCTOR)
+             1,2 INDEX_SCAN(DOCTOR)		
 
 
 PROJECT([DRUG.Name])
