@@ -256,7 +256,7 @@ long int DbCatalog::GetCardi(string tab_name)
 		if (tab_iter->GetName() == tab_name)
 			return tab_iter->GetCardi();
 	}
-	return 0;
+	return -1;
 }
 
 int DbCatalog::GetBfr(string tab_name)
@@ -267,7 +267,7 @@ int DbCatalog::GetBfr(string tab_name)
 		if (tab_iter->GetName() == tab_name)
 			return tab_iter->GetBfr();
 	}
-	return 0;
+	return -1;
 }
 
 string DbCatalog::GetPk(string tab_name)
@@ -300,7 +300,7 @@ double DbCatalog::GetSel(string tab_name, string attr_name)
 		if (tab_iter->GetName() == tab_name)
 			return tab_iter->GetSel(attr_name);
 	}
-	return 0;
+	return -1;
 }
 
 Idx_Type DbCatalog::GetIdx(string tab_name, string attr_name)
@@ -322,7 +322,7 @@ int DbCatalog::GetIdxBfr(string tab_name, string attr_name)
 		if (tab_iter->GetName() == tab_name)
 			return tab_iter->GetIdxBfr(attr_name);
 	}
-	return 0;
+	return -1;
 }
 
 
@@ -484,4 +484,25 @@ void DbCatalog::SetIdx(string tab_name, string attr_name, Idx_Type it, int ibfr)
 DbCatalog::~DbCatalog(void)
 {
 	return;
+}
+
+std::list<std::string> DbCatalog:: GetTables(string attr_name)
+{
+  	list<DbTable>::iterator tab_iter;
+	list<TabAtr>::iterator attr_iter;
+	list<std::string> tab_list;
+
+	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+	{
+			for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
+			{
+				if (attr_iter->GetName() == attr_name)
+			 {
+				 tab_list.push_back(tab_iter->GetName());
+				 break;
+			 }
+			}	
+		
+	}
+	return tab_list;
 }
