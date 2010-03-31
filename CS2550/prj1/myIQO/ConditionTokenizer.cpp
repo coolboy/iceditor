@@ -1,5 +1,9 @@
 #include "StdAfx.h"
+
+#include "DbCatalog.h"
 #include "ConditionTokenizer.h"
+
+extern DbCatalog *dbCata;
 
 //! Maintains a collection of substrings that are
 //! delimited by a string of one or more characters
@@ -107,13 +111,7 @@ ConditionTokenizer::~ConditionTokenizer()
 
 }
 
-int main(int argc, char* argv[]){
-	ConditionTokenizer con("PATIENT.FirstName='Michael' AND PATIENT.FirstName=DOCTOR.FirstName");
-	return 0;
-}
-
 //////////////////////////////////////////////////////////////////////////
-//PATIENT.FirstName='Michael'
 
 #include <boost/algorithm/string.hpp> 
 
@@ -132,8 +130,10 @@ Condition::Condition( const std::string& text ) :is_equ(false)
 		lfield_name = names[1];
 	}
 	else
+	{
 		lfield_name = fields[0];
-	//////////////////////////////////////////////////////////////////////////
+		ltable_name = *dbCata->GetTables(lfield_name).begin();
+	}
 
 	
 	if (fields[1].find_first_of('\'') != std::string::npos)
@@ -148,6 +148,8 @@ Condition::Condition( const std::string& text ) :is_equ(false)
 		rfield_name = names[1];
 	}
 	else
+	{
 		rfield_name = fields[1];
-	//////////////////////////////////////////////////////////////////////////
+		rtable_name = *dbCata->GetTables(rfield_name).begin();
+	}
 }
