@@ -31,7 +31,7 @@ public:
 	double GetSel(string tab_name, string attr_name);
 	Idx_Type GetIdx(string tab_name, string attr_name);
 	int GetIdxBfr(string tab_name, string attr_name);
-	std::vector<std::string> GetTables(string attr_name);
+	std::list<std::string> GetTables(string attr_name);
 	//Idx_Type GetIdx(string tab_name, string attr_name);
 
 	
