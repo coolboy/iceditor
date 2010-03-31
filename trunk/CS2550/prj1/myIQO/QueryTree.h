@@ -1,7 +1,6 @@
 #pragma once
 
 #include <boost/shared_ptr.hpp>
-#include <boost/optional.hpp>
 #include <boost/variant.hpp>
 #include <boost/any.hpp>
 
@@ -15,7 +14,7 @@ namespace client{
 //////////////////////////////////////////////////////////////////////////
 typedef std::vector<std::string> StringVec;
 typedef std::vector<int> IntVec;
-typedef std::vector<boost::optional<char>> ConVec;
+
 //////////////////////////////////////////////////////////////////////////
 // enum for node type
 //////////////////////////////////////////////////////////////////////////
@@ -37,7 +36,7 @@ enum NodeType{
 
 class QueryTreeNode{
 public:
-	typedef boost::variant<std::string, StringVec, ConVec> Attribute;
+	typedef boost::variant<std::string, StringVec> Attribute;
 	typedef boost::shared_ptr<QueryTreeNode> QueryTreeNodePtr;
 	typedef std::map<int, QueryTreeNodePtr > Children;
 	typedef std::map<std::string, boost::any > ExInfo;

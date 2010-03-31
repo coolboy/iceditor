@@ -43,7 +43,7 @@ std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
 	return out;
 }
 
-int main(int argc, char* argv[])
+int main_1(int argc, char* argv[])
 {
 	const char* dbSchemaPath = 0, *dbIndexingPath = 0,
 		*dbmsConfigPath = 0, *queryTreesPath = 0;
