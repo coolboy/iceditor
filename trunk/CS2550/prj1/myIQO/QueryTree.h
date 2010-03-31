@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <string>
+#include <list>
 #include <map>
 
 namespace client{
@@ -13,6 +14,7 @@ namespace client{
 // Typedefs
 //////////////////////////////////////////////////////////////////////////
 typedef std::vector<std::string> StringVec;
+typedef std::list<int> IntLst;
 typedef std::vector<int> IntVec;
 
 //////////////////////////////////////////////////////////////////////////
@@ -70,6 +72,7 @@ public:
 	friend void PrintTree(const QueryTreeNodePtr root, int depth);
 	friend bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
 	friend bool RemoveNode(const QueryTreeNodePtr root, const IntVec& lv1);
+	friend bool GetNodePath(const QueryTreeNodePtr root, QueryTreeNodePtr node, IntLst& lv1, int id);
 
 	friend QueryTreeNodePtr CloneHelper(QueryTreeNodePtr node);
 
@@ -91,6 +94,8 @@ bool RemoveNode(const QueryTreeNodePtr root, const IntVec& lv1);
 bool InsertNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
 
 bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
+
+bool GetNodePath(const QueryTreeNodePtr root, QueryTreeNodePtr node, IntLst& lv1, int id = 0);
 
 void PrintTree(const QueryTreeNodePtr root, int depth = 0);
 
