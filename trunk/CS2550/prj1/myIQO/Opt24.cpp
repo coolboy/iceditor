@@ -150,7 +150,7 @@ int CostCalcTree(QueryTreeNodePtr SubTreeRoot,  DbCatalog* dbCatalog)  //should 
 				case BTREE_T:
 					{
 					int btreeBft = dbCatalog->GetIdxBfr(TableName,AttrInCond);
-					int level = (int) log(dbCatalog->GetCardi(TableName)/btreeBft);
+					int level = (int) log(dbCatalog->GetCardi(TableName)/dbCatalog->GetBfr(TableName));
 
 					if(dbCatalog->IsPk(TableName, AttrInCond) && CondType)
 					{
@@ -184,12 +184,42 @@ int CostCalcTree(QueryTreeNodePtr SubTreeRoot,  DbCatalog* dbCatalog)  //should 
 					}
 				case EHASH_T:
 					{
+					
+					if(CondType)
+					{
+					    costs =  2;
+						blocks = 1;
+						LeftChild->setExInfo("Algorithm","E-HASH");
+					}
 
+					else if(!CondType)
+					{
+					blocks =  dbCatalog->GetCardi(TableName)/(dbCatalog->GetBfr(TableName)*2);
+					costs = 2*blocks;
+					LeftChild->setExInfo("Algorithm","LINEAR_SEARCH");
+				          
+					}
+					LeftChild->setExInfo("Cost",costs);
+					
 					break;
 					}
 				case LHASH_T:
 					{
+					if(CondType)
+					{
+					    costs =  1;
+						blocks = 1;
+						LeftChild->setExInfo("Algorithm","L-HASH");
+					}
 
+					else if(!CondType)
+					{
+					blocks =  dbCatalog->GetCardi(TableName)/(dbCatalog->GetBfr(TableName)*2);
+					costs = 2*blocks;
+					LeftChild->setExInfo("Algorithm","LINEAR_SEARCH");
+				          
+					}
+					LeftChild->setExInfo("Cost",costs);
 					break;
 					}
 				}
@@ -202,26 +232,202 @@ int CostCalcTree(QueryTreeNodePtr SubTreeRoot,  DbCatalog* dbCatalog)  //should 
                 blocks = CostCalcTree(LeftChild,dbCatalog);
 				
 			}
-			
+			SubTreeRoot->setExInfo("Cost",costs);
+			SubTreeRoot->setExInfo("Algorithm",LeftChild->getExInfo("Algorithm"));
 		    break;
 		}
 	case	JOIN:
 		{
-		    
+		    assert(SubTreeRoot->hasChild(1));
+			assert(SubTreeRoot->hasChild(2));
+			costs = 0;
+			int BuffSizeBlock = dbCatalog->GetBuffSize()/dbCatalog->GetPageSize();
+			int CostsSingle, CostsNest, CostsHash;
+			int BlocksLeft, BlocksRight, BlocksResult;
+			Idx_Type LeftType; //only test if left attribute has an index for single loop join
+			                   //during the join order optimization, left and right child will
+			                   //be switched and their costs will be compared
+			int IdxLev;
+			std::string alg;
+			std::string Condition = boost::get<std::string>(SubTreeRoot->getAttr());
+			std::string TableInCondL,TableInCondR;
+			std::string AttrInCondL,AttrInCondR;
+			std::string token;
+
+			QueryTreeNodePtr LeftChild = SubTreeRoot->getChild(1);
+			LeftType = dbCatalog->GetIdx(TableInCondL, AttrInCondL);
+			QueryTreeNodePtr RightChild = SubTreeRoot->getChild(2);
+
+			BlocksLeft = CostCalcTree(LeftChild, dbCatalog);
+			BlocksRight = CostCalcTree(RightChild, dbCatalog);
+			
+			if(dbCatalog->IsPk(TableInCondL,AttrInCondL))
+			BlocksResult = BlocksRight;
+			else if(dbCatalog->IsPk(TableInCondR,AttrInCondR))
+			BlocksResult = BlocksLeft;
+			else
+            BlocksResult = BlocksLeft * BlocksRight/2;
+			
+			switch(LeftType)
+			{
+			case BTREE_T:
+				{
+				  IdxLev = log(dbCatalog->GetCardi(TableInCondL)/dbCatalog->GetBfr(TableInCondL));
+				  CostsSingle = BlocksRight + BlocksRight*dbCatalog->GetBfr(TableInCondR)*(IdxLev-1);
+				break;
+				}
+			case EHASH_T:
+				{
+				 IdxLev = 2;
+				 CostsSingle = BlocksRight + BlocksRight*dbCatalog->GetBfr(TableInCondR)*(IdxLev-1);
+				break;
+				}
+			case LHASH_T:
+				{
+				 IdxLev = 1;
+				 CostsSingle = BlocksRight + BlocksRight*dbCatalog->GetBfr(TableInCondR)*(IdxLev-1);
+				break;
+				}
+			case NONE_T:
+				{
+                 CostsSingle = 10000000;  //make it impossible to be used 
+				break;
+				}
+			}
+			
+
+			CostsNest = BlocksRight + BlocksLeft*(BlocksRight/(BuffSizeBlock-2));
+			
+			CostsHash = 3*(BlocksLeft + BlocksRight);
+
+			if(CostsNest >= CostsHash)
+			{
+				costs = CostsHash;
+				alg = "PARTITION_HASH_JOIN";
+			}
+			else
+			{
+			   costs = CostsNest;
+			   alg = "NESTED_LOOP_JOIN";
+			}
+
+			if(costs >= CostsSingle)
+			{
+			   costs = CostsSingle;
+			   alg = "SINGLE_LOOP_JOIN";
+			}
+            
+			blocks = BlocksResult;
+
+			costs += blocks;
+
+			SubTreeRoot->setExInfo("Cost",costs);
+			SubTreeRoot->setExInfo("Algorithm",alg);
+
 			break;
 		}
 	case	UNION:
-		break;
-	case	PRODUCT:
+		{
+		    assert(SubTreeRoot->hasChild(1));
+			assert(SubTreeRoot->hasChild(2));
+						
+			int BlocksLeft, BlocksRight, BlocksResult;
 
+			QueryTreeNodePtr LeftChild = SubTreeRoot->getChild(1);
+			QueryTreeNodePtr RightChild = SubTreeRoot->getChild(2);
+
+			BlocksLeft = CostCalcTree(LeftChild, dbCatalog);
+			BlocksRight = CostCalcTree(RightChild, dbCatalog);
+			
+			BlocksResult=BlocksLeft + BlocksRight;
+			
+			blocks = BlocksResult;
+			costs = blocks;
+		break;
+		}
+	case	PRODUCT:
+		{
+		    assert(SubTreeRoot->hasChild(1));
+			assert(SubTreeRoot->hasChild(2));
+			costs = 0;
+			
+			int BlocksLeft, BlocksRight, BlocksResult;
+
+			QueryTreeNodePtr LeftChild = SubTreeRoot->getChild(1);
+			QueryTreeNodePtr RightChild = SubTreeRoot->getChild(2);
+
+			BlocksLeft = CostCalcTree(LeftChild, dbCatalog);
+			BlocksRight = CostCalcTree(RightChild, dbCatalog);
+			
+			BlocksResult=BlocksLeft * BlocksRight;
+			
+			blocks = BlocksResult;
+			costs = blocks;
         //there should be no PRODUCT in the optimized querytree, no need to handle
 		break;
+		}
 	case	PROJECT:
 		{
 		    assert(SubTreeRoot->hasChild(1));
 			assert(!SubTreeRoot->hasChild(2));
-			costs = 0;
-			blocks = CostCalcTree(SubTreeRoot->getChild(1), dbCatalog);
+						
+			std::string Condition = boost::get<std::string>(SubTreeRoot->getAttr());
+			std::string TableInCond;
+			std::string AttrInCond;
+			std::string token;
+			int CondType;  //0 equal;  1 not equal
+			float ProjFrac =0.25; //The fraction of blokcs filtered by the project.
+
+			// calculate the project fraction here:
+
+			
+
+			QueryTreeNodePtr LeftChild = SubTreeRoot->getChild(1);
+
+			if(LeftChild->getType() != SCAN)
+			{
+			   blocks = CostCalcTree(SubTreeRoot->getChild(1), dbCatalog);
+
+			   costs = 0;
+
+	           blocks = blocks * ProjFrac;
+
+			   SubTreeRoot->setExInfo("Algorithm","MERGE_SORT");
+			   SubTreeRoot->setExInfo("Cost",costs);
+			}
+
+			else if(LeftChild->getType() == SCAN)
+			{
+               int HasKey = 1;
+			   std::string TableName = boost::get<std::string>(LeftChild->getAttr());
+
+			   blocks = dbCatalog->GetCardi(TableName)/dbCatalog->GetBfr(TableName);
+			   
+			   
+			   if(HasKey)
+			   {
+			      costs = blocks;
+				  LeftChild->setExInfo("Algorithm","LINEAR_SEARCH");
+			   }
+			   else
+			   {
+				  costs = 4*blocks;
+				  LeftChild->setExInfo("Algorithm","MERGE_SORT");
+
+			   }
+
+			   blocks = blocks * ProjFrac;
+
+			   LeftChild->setExInfo("Cost",costs);
+			   
+			   SubTreeRoot->setExInfo("Algorithm",LeftChild->getExInfo("Algorithm"));
+			   SubTreeRoot->setExInfo("Cost",costs);
+			}
+
+
+
+			
+
 		break;
 		}
 	}

@@ -2,9 +2,9 @@
 #include "DbCatalog.h"
 
 
-DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
+DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig):PageSize(4),BuffSize(1024)
 {
-
+   
 	string delimiters = " \t\n();:>,";
 	string token;
 	string CurTabName;
@@ -13,8 +13,8 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 	string index;
 	string IdxBfr;
 	string pre_token;
-	string PageSize;  //is this needed to be stored in the class?
-	string BuffSize;  //is this needed to be stored in the class?
+	string PageSizeStr;  //is this needed to be stored in the class?
+	string BuffSizeStr;  //is this needed to be stored in the class?
 	Idx_Type IdxType;
 	Atr_Type type;
 
@@ -194,7 +194,10 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 		if (pre_token.compare("Page") == 0 && token.compare("Size") == 0)
 		{
 			// read next token(page size)
-			PageSize = dbConfig.substr(lastPos, pos - lastPos);
+			string::size_type tmp_pos;
+			PageSizeStr = dbConfig.substr(lastPos, pos - lastPos);
+			tmp_pos = dbConfig.find_first_of(" Kk", lastPos);
+			PageSize = atoi((PageSizeStr.substr(0, tmp_pos - 0)).c_str());
 
 			lastPos = dbConfig.find_first_not_of(delimiters, pos);
 			pos = dbConfig.find_first_of(delimiters, lastPos);
@@ -204,7 +207,12 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 		}
 		else if(pre_token.compare("Memory") == 0 && token.compare("Buffer") == 0)
 		{
-			BuffSize = dbConfig.substr(lastPos, pos - lastPos);
+			string::size_type tmp_pos;
+			BuffSizeStr = dbConfig.substr(lastPos, pos - lastPos);
+			tmp_pos = dbConfig.find_first_of(" Mm", lastPos);
+			BuffSize = 1024*atoi((PageSizeStr.substr(0, tmp_pos - 0)).c_str());
+
+
 			lastPos = dbConfig.find_first_of("\n", pos);
 			lastPos = dbConfig.find_first_not_of(delimiters, lastPos);  //read next line
 			pos = dbConfig.find_first_of(delimiters, lastPos);
@@ -573,4 +581,14 @@ std::list<std::string> DbCatalog:: GetTables(string attr_name)
 		
 	}
 	return tab_list;
+}
+
+int DbCatalog::GetPageSize()
+{
+    return PageSize;
+}
+
+int DbCatalog::GetBuffSize()
+{
+   return BuffSize;
 }
