@@ -14,11 +14,12 @@ Need the following Macros
 #define LINEAR_SEARCH 0
 #define BINARY_SEARCH 1
 #define BTREE_SEARCH 2
-#define HASH_KEY 3
-#define NESTED_LOOP_JOIN 4
-#define SINGLE_LOOP_JOIN 5
-#define PARTITION_HASH_JOIN 6
-#define MERGE_SORT 7
+#define E-HASH 3
+#define L-HASH 4
+#define NESTED_LOOP_JOIN 5
+#define SINGLE_LOOP_JOIN 6
+#define PARTITION_HASH_JOIN 7
+#define MERGE_SORT 8
 
 int CostCalcTree(client::QueryTreeNodePtr root, DbCatalog * dbCatalog);
 client::QueryTreeNodePtr JoinOptTree(const client::QueryTreeNodePtr root);

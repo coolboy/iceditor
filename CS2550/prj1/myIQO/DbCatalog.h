@@ -6,7 +6,8 @@ class DbCatalog
 {
 private:
 	list<DbTable> TableList;   //this include all relevant information: schemas and the informations attached with them: index, cardinality, selectivity, etc
-
+	int PageSize; //in unit of K bytes;
+	int BuffSize; //in unit of M or Kbytes;
 public:
 	DbCatalog(string dbSchema, string dbIndexing, string dbConfig); //
 	DbCatalog(void);
@@ -40,7 +41,8 @@ public:
 	std::list<std::string> GetTables(string attr_name);
 	//Idx_Type GetIdx(string tab_name, string attr_name);
 
-	
+	int GetPageSize();
+	int GetBuffSize();
 	/* */
 
 	~DbCatalog(void);
