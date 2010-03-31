@@ -2,6 +2,7 @@
 #include "QueryTree.h"
 #include "Opt24.h"
 #include "dbCatalog.h"
+#include <math.h>
 
 using namespace client;
 
@@ -98,30 +99,108 @@ int CostCalcTree(QueryTreeNodePtr SubTreeRoot,  DbCatalog* dbCatalog)  //should 
 				*/
 				if(dbCatalog->GetCardi(TableName)/dbCatalog->GetBfr(TableName) <= 10)
 				{
+					if(dbCatalog->IsPk(TableName, AttrInCond) && CondType)
+					{
+					    costs =  dbCatalog->GetCardi(TableName)/(dbCatalog->GetBfr(TableName)*2);
+						blocks = 1;
+					}
+					else
+					{
+					    costs =  dbCatalog->GetCardi(TableName)/dbCatalog->GetBfr(TableName);
+						if(dbCatalog->GetSel(TableName,AttrInCond)>0 && dbCatalog->GetCardi(TableName)>0 && CondType)
+						{
+						   blocks = (dbCatalog->GetSel(TableName,AttrInCond)*dbCatalog->GetCardi(TableName))/
+							   dbCatalog->GetBfr(TableName));
+						}
+						else
+						   blocks = (int) costs/2;
+					}
+
+					LeftChild->setExInfo("Cost",costs);
+				    LeftChild->setExInfo("Algorithm","LINEAR_SEARCH");
+
 				}
 				else
 				switch(dbCatalog->GetIdx(TableName,AttrInCond))
 				{
 				case NONE_T:
 					{
-						if(dbCatalog->IsPk(TableName,AttrInCond))
+					if(dbCatalog->IsPk(TableName, AttrInCond) && CondType)
+					{
+					    costs =  dbCatalog->GetCardi(TableName)/(dbCatalog->GetBfr(TableName)*2);
+						blocks = 1;
+					}
+					else
+					{
+						costs =  dbCatalog->GetCardi(TableName)/dbCatalog->GetBfr(TableName);
+						if(dbCatalog->GetSel(TableName,AttrInCond)>0 && dbCatalog->GetCardi(TableName)>0 && CondType)
+						{
+						   blocks = (dbCatalog->GetSel(TableName,AttrInCond)*dbCatalog->GetCardi(TableName)
+							   /dbCatalog->GetBfr(TableName));
+						}
+						else
+						   blocks = (int) costs/2;
+					}
+
+					LeftChild->setExInfo("Cost",costs);
+				    LeftChild->setExInfo("Algorithm","LINEAR_SEARCH");
 
 					break;
 					}
 				case BTREE_T:
+					{
+					int btreeBft = dbCatalog->GetIdxBfr(TableName,AttrInCond);
+					int level = (int) log(dbCatalog->GetCardi(TableName)/btreeBft);
+
+					if(dbCatalog->IsPk(TableName, AttrInCond) && CondType)
+					{
+					    costs =  level+1;
+						blocks = 1;
+					}
+					else if(!(dbCatalog->IsPk(TableName, AttrInCond)) && CondType)
+					{
+                        if(dbCatalog->GetSel(TableName,AttrInCond)>0 && dbCatalog->GetCardi(TableName)>0)
+						{
+						   blocks = (dbCatalog->GetSel(TableName,AttrInCond)*dbCatalog->GetCardi(TableName)
+							   /dbCatalog->GetBfr(TableName));
+						   costs = blocks + level;
+						}
+						else
+						{
+							blocks =  dbCatalog->GetCardi(TableName)/(dbCatalog->GetBfr(TableName)*2);
+							costs = blocks + level;
+						}
+				      
+					}
+					else if(!CondType)
+					{
+							blocks =  dbCatalog->GetCardi(TableName)/(dbCatalog->GetBfr(TableName)*2);
+						    costs = blocks + level;
+				          
+					}
+					LeftChild->setExInfo("Cost",costs);
+					LeftChild->setExInfo("Algorithm","BTREE_SEARCH");
 					break;
+					}
 				case EHASH_T:
+					{
+
 					break;
+					}
 				case LHASH_T:
+					{
+
 					break;
+					}
 				}
 				
-				blocks = 
+				
 				//CondType
 			}
 			else 
 			{
                 blocks = CostCalcTree(LeftChild,dbCatalog);
+				
 			}
 			
 		    break;
@@ -138,7 +217,13 @@ int CostCalcTree(QueryTreeNodePtr SubTreeRoot,  DbCatalog* dbCatalog)  //should 
         //there should be no PRODUCT in the optimized querytree, no need to handle
 		break;
 	case	PROJECT:
+		{
+		    assert(SubTreeRoot->hasChild(1));
+			assert(!SubTreeRoot->hasChild(2));
+			costs = 0;
+			blocks = CostCalcTree(SubTreeRoot->getChild(1), dbCatalog);
 		break;
+		}
 	}
 
 	return blocks;

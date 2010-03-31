@@ -76,19 +76,30 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 			token = dbSchema.substr(lastPos, pos - lastPos);
 			if(token.compare("char")==0 || token.compare("CHAR")==0)
 			{
+			    string::size_type lastPos_tmp,pos_tmp;
 				type = CHAR_T;
+				lastPos_tmp = dbSchema.find_first_not_of(" ,\n", pos);
+			    pos_tmp = dbSchema.find_first_of(" ,\n", lastPos);
+
+				lengh = dbSchema.substr(lastPos_tmp, pos_tmp - lastPos_tmp);
+
 			}
 			else if(token.compare("int")==0 || token.compare("INT")==0)
 			{
 				type = INT_T;
+
+				lengh = "4";
 			}
 			else if(token.compare("date")==0 || token.compare("DATE")==0)
 			{
 				type = DATE_T;
+				lengh = "8";
 			}
 			else 
 			{
 				type = UNKNOWN_T;
+
+				lengh = "4";
 			}
 
 			// do not implement the lengh field, do we really need it?
@@ -99,6 +110,7 @@ DbCatalog::DbCatalog(string dbSchema, string dbIndexing, string dbConfig)
 
 			//AddAtr(attr, type, 4);  //fixed lengh, do we really need to read the lengh information?
 			AddAtr(CurTabName, attr, type, 4);
+			SetLen(CurTabName,attr,atoi(lengh.c_str()));
 			continue;
 		}
 
@@ -287,7 +299,7 @@ int DbCatalog::IsPk(string tab_name, string attr_name)
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
-			return tab_iter->IsFk(attr_name);
+			return (attr_name == tab_iter->GetPk());
 	}
 	return -1;
 }
@@ -301,6 +313,39 @@ double DbCatalog::GetSel(string tab_name, string attr_name)
 			return tab_iter->GetSel(attr_name);
 	}
 	return -1;
+}
+
+int DbCatalog::GetLen(string tab_name, string attr_name)
+{
+	list<DbTable>::iterator tab_iter;
+	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+	{
+		if (tab_iter->GetName() == tab_name)
+			return tab_iter->GetLen(attr_name);
+	}
+	return -1;
+}
+
+int DbCatalog::GetAllLen(string tab_name)
+{
+	list<DbTable>::iterator tab_iter;
+	list<TabAtr>::iterator attr_iter;
+	int allLen = 0;
+	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+	{
+		if (tab_iter->GetName() == tab_name)
+		{
+			for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
+			{
+				
+				allLen += attr_iter->GetLen();
+			
+			}
+			break;
+		}
+
+	}
+	return allLen;
 }
 
 Idx_Type DbCatalog::GetIdx(string tab_name, string attr_name)
@@ -447,6 +492,29 @@ void DbCatalog::SetSel(string tab_name, string attr_name,double d)
 				if (attr_iter->GetName() == attr_name)
 				{
 					attr_iter->SetSel(d);
+					return;
+				}
+			}
+			break;
+		}
+
+	}
+	return;
+}
+
+void DbCatalog::SetLen(string tab_name, string attr_name,int len)
+{
+    list<DbTable>::iterator tab_iter;
+	list<TabAtr>::iterator attr_iter;
+	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
+	{
+		if (tab_iter->GetName() == tab_name)
+		{
+			for(attr_iter=tab_iter->TableAttributes.begin(); attr_iter!=tab_iter->TableAttributes.end(); ++attr_iter)
+			{
+				if (attr_iter->GetName() == attr_name)
+				{
+					attr_iter->SetLen(len);
 					return;
 				}
 			}
