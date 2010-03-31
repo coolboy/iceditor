@@ -123,14 +123,19 @@ int main(int argc, char* argv[])
 	InsertNode(root, pnode, v2);
 	PrintTree( root );
 
-	cout<<"After remove"<< v1<<"\n";
-	RemoveNode(root, v1);
-	PrintTree( root );
+	//cout<<"After remove"<< v1<<"\n";
+	//RemoveNode(root, v1);
+	//PrintTree( root );
 
 	//verify the clone tree is ok
-	PrintTree(root_clone);
+	//PrintTree(root_clone);
 
+	//select token
 	ConditionTokenizer con("FirstName='Michael' AND PATIENT.FirstName=DOCTOR.FirstName");
+
+	//get tree node path
+	IntLst lvl;
+	GetNodePath(root, pnode, lvl);
 
 	return 0;
 }

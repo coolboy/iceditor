@@ -447,4 +447,26 @@ bool RemoveNode( const QueryTreeNodePtr root, const IntVec& lv1 )
 	return true;
 }
 
+bool GetNodePath( const QueryTreeNodePtr root, QueryTreeNodePtr node, IntLst& lv1, int id )
+{
+	if (root == node)
+	{
+		if (id != 0)
+			lv1.push_front(id);
+		return true;
+	}
+	BOOST_FOREACH (QueryTreeNode::Children::value_type val,
+		root->children){
+			bool ret = GetNodePath(val.second, node, lv1, val.first);
+			if (ret == true || val.second == node)
+			{
+				if (id != 0)
+					lv1.push_front(id);
+				return true;
+			}
+	}
+
+	return false;
+}
+
 };
