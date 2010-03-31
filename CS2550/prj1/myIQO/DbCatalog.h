@@ -19,13 +19,19 @@ public:
 	void SetIdxBfr(string tab_name, string attr_name, int ibfr);
 	void AddFks(string tab_name, string fk);
 	void AddAtr(string tab_name, string n, Atr_Type t,int l);
-  void AddAtr(string tab_name, string n, Atr_Type t);
+    void AddAtr(string tab_name, string n, Atr_Type t);
 	void SetSel(string tab_name, string attr_name,double d);
 	void SetIdx(string tab_name, string attr_name, Idx_Type it, int ibfr);
+
+	void SetLen(string tab_name, string attr_name,int len);
+	
 
 	long int GetCardi(string tab_name);
 	int GetBfr(string tab_name);
 	string GetPk(string tab_name);
+
+	int GetLen(string tab_name, string attr_name);
+	int GetAllLen(string tab_name);
 
 	int IsPk(string tab_name, string attr_name);
 	double GetSel(string tab_name, string attr_name);

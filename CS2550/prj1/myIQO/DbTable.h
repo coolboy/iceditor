@@ -28,6 +28,8 @@ public:
 	Idx_Type GetIdx(string s);
 	int GetIdxBfr(string s);
 	int IsFk(string s);  // 1 mean fk, 0 mean not
+	//int IsPk(string s);
+	int GetLen(string s);
 
 	void SetCardi(long int cardi);
 	void SetBfr(int i);
@@ -40,6 +42,8 @@ public:
 	int SetSel(string s,double d);
 	int SetIdx(string s, Idx_Type it, int ibfr);
 	
+	void SetLen(string s,int len);
+
 	~DbTable(void);
 };
 

@@ -26,6 +26,7 @@ public:
 	int GetLen(void);
 	
 	void SetSel(double d);
+	void SetLen(int len);
 	void TabAtr::SetIdx(Idx_Type i);
 	void TabAtr::SetIdxBfr(int b);
 

@@ -40,6 +40,11 @@ int TabAtr::GetLen(void)
 	return lengh;
 }
 
+void TabAtr::SetLen(int len)
+{
+	lengh = len;
+}
+
 void TabAtr::SetSel(double d)
 {
     selectivity = d;

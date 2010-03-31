@@ -37,6 +37,17 @@ double DbTable::GetSel(string s)
 
 }
 
+int DbTable::GetLen(string s)
+{
+   list<TabAtr>::iterator str_iter;
+   for(str_iter=TableAttributes.begin(); str_iter!=TableAttributes.end(); ++str_iter)
+   {
+       if (str_iter->GetName() == s)
+		   return str_iter->GetLen();
+   }
+   return 0;
+}
+
 Idx_Type DbTable::GetIdx(string s)
 {
    list<TabAtr>::iterator str_iter;
@@ -98,6 +109,20 @@ int DbTable::SetSel(string s,double d)
 	   }
    }
    return 0; // string does not match any attributes in the list
+}
+
+void DbTable::SetLen(string s,int len)
+{
+  list<TabAtr>::iterator str_iter;
+   for(str_iter=TableAttributes.begin(); str_iter!=TableAttributes.end(); ++str_iter)
+   {
+       if (str_iter->GetName() == s)
+	   {
+		   str_iter->SetLen(len);
+		   return;
+	   }
+   }
+   return;
 }
 
 int DbTable::SetIdx(string s, Idx_Type it, int ibfr)
