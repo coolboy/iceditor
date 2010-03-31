@@ -15,10 +15,11 @@ namespace fu = boost::fusion;
 // Typedef for nodes
 //////////////////////////////////////////////////////////////////////////
 
-typedef boost::fusion::vector2<NodeType,StringVec> NodeType1;
-typedef boost::fusion::vector2<NodeType,std::string> NodeType2;
-typedef NodeType NodeType3;
-typedef boost::variant <NodeType1, NodeType2, NodeType3> NodeVar;
+typedef boost::fusion::vector2<NodeType, StringVec> NodeType1;
+typedef boost::fusion::vector2<NodeType, std::string> NodeType2;
+typedef boost::fusion::vector2<NodeType, ConVec> NodeType3;
+typedef NodeType NodeType4;
+typedef boost::variant <NodeType1, NodeType2, NodeType3, NodeType4> NodeVar;
 typedef boost::fusion::vector2< IntVec, NodeVar> SubNode;
 
 
@@ -47,6 +48,14 @@ public:
 	}
 
 	QueryTreeNode operator()( const NodeType3& node ) const
+	{
+		QueryTreeNode qtn;
+		qtn.setType (fu::at_c<0>(node));
+		qtn.setAttr (fu::at_c<1>(node));
+		return qtn;
+	}
+
+	QueryTreeNode operator()( const NodeType4& node ) const
 	{
 		QueryTreeNode qtn;
 		qtn.setType(node);
@@ -163,8 +172,8 @@ QueryTreeNodePtrs ParseQueryTree(const std::string& text){
 	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
 		stringRule = *(qi::alnum | '_' | '.');
 
-	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
-		conExpRule = *(qi::alnum | '_' | '.' | '\'' | '>' | '=' | '<');
+	//BOOST_AUTO (operatorRule, '<' | '');//
+	BOOST_AUTO (conExpRule, *(qi::alnum | '_' | '.' | '\'' | '>' | '=' | '<'));
 
 	BOOST_AUTO(attrLstRule, lit("([") >> stringRule % ',' >> lit("])") );
 	BOOST_AUTO(relationRule, lit("(") >> stringRule >> lit(")"));
