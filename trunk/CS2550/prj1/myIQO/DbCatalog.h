@@ -19,7 +19,7 @@ public:
 	void SetIdxBfr(string tab_name, string attr_name, int ibfr);
 	void AddFks(string tab_name, string fk);
 	void AddAtr(string tab_name, string n, Atr_Type t,int l);
-    void AddAtr(string tab_name, string n, Atr_Type t);
+  void AddAtr(string tab_name, string n, Atr_Type t);
 	void SetSel(string tab_name, string attr_name,double d);
 	void SetIdx(string tab_name, string attr_name, Idx_Type it, int ibfr);
 

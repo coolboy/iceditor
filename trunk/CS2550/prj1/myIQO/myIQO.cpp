@@ -7,10 +7,16 @@
 
 #include "QueryTree.h"
 
+#include "ConditionTokenizer.h"
+
 #include <boost/assign/std/vector.hpp>
 #include <boost/foreach.hpp>
 
 using namespace std;
+
+//////////////////////////////////////////////////////////////////////////
+DbCatalog *	dbCata = 0;
+//////////////////////////////////////////////////////////////////////////
 
 void FileOpenError(const char* fileName){
 	cerr<<"Can't open : "<<fileName<<endl;
@@ -43,7 +49,7 @@ std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
 	return out;
 }
 
-int main_1(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 	const char* dbSchemaPath = 0, *dbIndexingPath = 0,
 		*dbmsConfigPath = 0, *queryTreesPath = 0;
@@ -67,7 +73,7 @@ int main_1(int argc, char* argv[])
 	queryTreesStr = ReadAll(queryTreesPath);
 
 	//create catalog module for the database
-	DbCatalog *	dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
+	dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
 
 	//deal with db schema
 
@@ -123,6 +129,8 @@ int main_1(int argc, char* argv[])
 
 	//verify the clone tree is ok
 	PrintTree(root_clone);
+
+	ConditionTokenizer con("FirstName='Michael' AND PATIENT.FirstName=DOCTOR.FirstName");
 
 	return 0;
 }

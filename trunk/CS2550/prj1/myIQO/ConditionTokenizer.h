@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 
-
 class Condition{
 public:
 	Condition(const std::string& text);
@@ -14,6 +13,7 @@ public:
 	std::string rtable_name;
 	std::string rfield_name;
 	std::string rtext;
+	
 	bool is_equ;
 };
 
