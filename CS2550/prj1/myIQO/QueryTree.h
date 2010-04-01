@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/shared_ptr.hpp>
+#include <boost/function.hpp>
 #include <boost/variant.hpp>
 #include <boost/any.hpp>
 
@@ -13,9 +14,11 @@ namespace client{
 //////////////////////////////////////////////////////////////////////////
 // Typedefs
 //////////////////////////////////////////////////////////////////////////
+//data
 typedef std::vector<std::string> StringVec;
 typedef std::list<int> IntLst;
 typedef std::vector<int> IntVec;
+//type
 
 //////////////////////////////////////////////////////////////////////////
 // enum for node type
@@ -42,6 +45,7 @@ public:
 	typedef boost::shared_ptr<QueryTreeNode> QueryTreeNodePtr;
 	typedef std::map<int, QueryTreeNodePtr > Children;
 	typedef std::map<std::string, boost::any > ExInfo;
+	typedef boost::function<bool (int id, const QueryTreeNodePtr)> NodeCallBack;
 
 public:
 	QueryTreeNode();
@@ -68,6 +72,7 @@ public:
 	QueryTreeNodePtr clone();
 
 public:
+	friend void ForEachNode_i(int id, const QueryTreeNodePtr node, const NodeCallBack& cb);
 	friend bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2);
 	friend void PrintTree(const QueryTreeNodePtr root, int depth);
 	friend bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
@@ -82,8 +87,14 @@ private:
 	Children children;//map (id,ptr)
 	ExInfo exInfo;
 };
+//
 typedef QueryTreeNode::QueryTreeNodePtr QueryTreeNodePtr;
 typedef std::vector<QueryTreeNodePtr> QueryTreeNodePtrs;
+//Func Obj
+typedef QueryTreeNode::NodeCallBack NodeCallBack;
+
+void ForEachNode (const QueryTreeNodePtr root, const NodeCallBack& cb);
+//void ForEachNode_i(int id, const QueryTreeNodePtr node, const NodeCallBack& cb);
 
 QueryTreeNodePtrs ParseQueryTree(const std::string& text);
 
@@ -96,6 +107,10 @@ bool InsertNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec
 bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
 
 bool GetNodePath(const QueryTreeNodePtr root, QueryTreeNodePtr node, IntLst& lv1, int id = 0);
+
+QueryTreeNodePtr GetNearestAncestor(const QueryTreeNodePtr root, QueryTreeNodePtr node1, QueryTreeNodePtr node2);
+
+QueryTreeNodePtrs GetNodesByType(const QueryTreeNodePtr root, NodeType type);
 
 void PrintTree(const QueryTreeNodePtr root, int depth = 0);
 

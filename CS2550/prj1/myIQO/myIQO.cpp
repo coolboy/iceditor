@@ -135,7 +135,9 @@ int main(int argc, char* argv[])
 
 	//get tree node path
 	IntLst lvl;
-	GetNodePath(root, pnode, lvl);
+	GetNodePath(root, root, lvl);
+
+	GetNodesByType(root, SCAN);
 
 	return 0;
 }

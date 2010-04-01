@@ -1,9 +1,3 @@
-PROJECT([FirstName,MiddleName,LastName])
-	1 SELECT(YearofExperience>10)
-             1,1 SCAN(DOCTOR)
-             1,2 INDEX_SCAN(DOCTOR)		
-
-
 PROJECT([DRUG.Name])
 	1 SELECT(SELL.Store='Oakland pharmacy' AND PHARMACEUTICAL_CO.Name='JohnsonJohnson')			
 		1,1 SELECT (PCM_Registration=Manufacturer_Registration)
