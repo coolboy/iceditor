@@ -13,6 +13,7 @@
 #include <boost/foreach.hpp>
 
 using namespace std;
+using namespace client;
 
 //////////////////////////////////////////////////////////////////////////
 DbCatalog *	dbCata = 0;
@@ -47,6 +48,24 @@ std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
 	out<< vec[vec.size() - 1]<<']';
 
 	return out;
+}
+
+#include <boost/bind.hpp>
+typedef std::vector<std::pair<QueryTreeNodePtr, QueryTreeNodePtr>> NodePairs;
+bool GetMergeNodes(int /*id*/,
+									 const QueryTreeNodePtr parent, 
+									 const QueryTreeNodePtr node,
+									 NodePairs& np)
+{
+	if (!parent || !node)
+		return true;
+
+	if (parent->getType() != SELECT || node->getType() != PRODUCT)
+		return true;
+
+	np.push_back(std::make_pair(parent, node));
+
+	return true;
 }
 
 int main(int argc, char* argv[])
@@ -84,7 +103,6 @@ int main(int argc, char* argv[])
 	//deal with query trees
 
 	//test cases
-	using namespace client;
 	QueryTreeNodePtrs trees = ParseQueryTree(queryTreesStr);
 
 	BOOST_FOREACH(QueryTreeNodePtr pnode, trees)
@@ -97,31 +115,31 @@ int main(int argc, char* argv[])
 	cout<<"Original tree: \n";
 	PrintTree(root);
 
-	cout<<"Clone tree: \n";
-	QueryTreeNodePtr root_clone = root->clone();
-	PrintTree(root_clone);
+	//cout<<"Clone tree: \n";
+	//QueryTreeNodePtr root_clone = root->clone();
+	//PrintTree(root_clone);
 
-	using namespace boost::assign;
-	IntVec v1, v2;
-	v1 += 1,1;
-	v2 += 1,2;
+	//using namespace boost::assign;
+	//IntVec v1, v2;
+	//v1 += 1,1;
+	//v2 += 1,2;
 
-	cout<<"After swap"<< v1 <<" "<< v2 << "\n";
-	SwapNode(root, v1, v2);
-	PrintTree( root );
+	//cout<<"After swap"<< v1 <<" "<< v2 << "\n";
+	//SwapNode(root, v1, v2);
+	//PrintTree( root );
 
-	QueryTreeNode node;
-	node.setType(client::UNION);
-	QueryTreeNodePtr pnode = QueryTreeNodePtr(new QueryTreeNode(node));
+	//QueryTreeNode node;
+	//node.setType(client::UNION);
+	//QueryTreeNodePtr pnode = QueryTreeNodePtr(new QueryTreeNode(node));
 
-	cout<<"After append"<< v1<<"\n";
-	AppendNode(root, pnode, v1);
-	PrintTree( root );
+	//cout<<"After append"<< v1<<"\n";
+	//AppendNode(root, pnode, v1);
+	//PrintTree( root );
 
-	pnode = QueryTreeNodePtr(new QueryTreeNode(node));
-	cout<<"After insert"<< v2<<"\n";
-	InsertNode(root, pnode, v2);
-	PrintTree( root );
+	//pnode = QueryTreeNodePtr(new QueryTreeNode(node));
+	//cout<<"After insert"<< v2<<"\n";
+	//InsertNode(root, pnode, v2);
+	//PrintTree( root );
 
 	//cout<<"After remove"<< v1<<"\n";
 	//RemoveNode(root, v1);
@@ -131,13 +149,26 @@ int main(int argc, char* argv[])
 	//PrintTree(root_clone);
 
 	//select token
-	ConditionTokenizer con("FirstName='Michael' AND PATIENT.FirstName=DOCTOR.FirstName");
+	//ConditionTokenizer con("FirstName='Michael' AND PATIENT.FirstName=DOCTOR.FirstName");
 
 	//get tree node path
-	IntLst lvl;
-	GetNodePath(root, root, lvl);
+	//IntLst lvl;
+	//GetNodePath(root, root, lvl);
 
-	GetNodesByType(root, SCAN);
+	//Test get nodes by type
+	//GetNodesByType(root, SCAN);
+
+	NodePairs pairs;
+	NodeCallBack cb = boost::BOOST_BIND(GetMergeNodes, _1, _2, _3, boost::ref(pairs));
+	ForEachNode(root, cb);
+
+	BOOST_FOREACH(NodePairs::value_type val , pairs)
+	{
+		val.first->setType(JOIN);
+		val.first->children = val.second->children;
+	}
+
+	PrintTree(root);
 
 	return 0;
 }

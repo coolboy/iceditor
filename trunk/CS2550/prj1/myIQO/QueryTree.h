@@ -45,7 +45,7 @@ public:
 	typedef boost::shared_ptr<QueryTreeNode> QueryTreeNodePtr;
 	typedef std::map<int, QueryTreeNodePtr > Children;
 	typedef std::map<std::string, boost::any > ExInfo;
-	typedef boost::function<bool (int id, const QueryTreeNodePtr)> NodeCallBack;
+	typedef boost::function<bool (int id, const QueryTreeNodePtr, const QueryTreeNodePtr)> NodeCallBack;
 
 public:
 	QueryTreeNode();
@@ -71,8 +71,10 @@ public:
 
 	QueryTreeNodePtr clone();
 
+private:
+	friend void ForEachNode_i(int id, const QueryTreeNodePtr parent, const QueryTreeNodePtr node, const NodeCallBack& cb);
+
 public:
-	friend void ForEachNode_i(int id, const QueryTreeNodePtr node, const NodeCallBack& cb);
 	friend bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2);
 	friend void PrintTree(const QueryTreeNodePtr root, int depth);
 	friend bool AppendNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
@@ -81,10 +83,12 @@ public:
 
 	friend QueryTreeNodePtr CloneHelper(QueryTreeNodePtr node);
 
+public:
+	Children children;//map (id,ptr)
+
 private:
 	NodeType ty;//UNDEF for error
 	Attribute attr;
-	Children children;//map (id,ptr)
 	ExInfo exInfo;
 };
 //
@@ -94,7 +98,6 @@ typedef std::vector<QueryTreeNodePtr> QueryTreeNodePtrs;
 typedef QueryTreeNode::NodeCallBack NodeCallBack;
 
 void ForEachNode (const QueryTreeNodePtr root, const NodeCallBack& cb);
-//void ForEachNode_i(int id, const QueryTreeNodePtr node, const NodeCallBack& cb);
 
 QueryTreeNodePtrs ParseQueryTree(const std::string& text);
 
