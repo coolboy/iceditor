@@ -2,7 +2,7 @@
 #include "QueryTree.h"
 #include "Opt24.h"
 #include "dbCatalog.h"
-#include <math.h>
+//#include <math.h>
 
 using namespace client;
 
@@ -110,7 +110,7 @@ int CostCalcTree(QueryTreeNodePtr SubTreeRoot,  DbCatalog* dbCatalog)  //should 
 						if(dbCatalog->GetSel(TableName,AttrInCond)>0 && dbCatalog->GetCardi(TableName)>0 && CondType)
 						{
 						   blocks = (dbCatalog->GetSel(TableName,AttrInCond)*dbCatalog->GetCardi(TableName))/
-							   dbCatalog->GetBfr(TableName));
+							   dbCatalog->GetBfr(TableName);
 						}
 						else
 						   blocks = (int) costs/2;
@@ -150,8 +150,8 @@ int CostCalcTree(QueryTreeNodePtr SubTreeRoot,  DbCatalog* dbCatalog)  //should 
 				case BTREE_T:
 					{
 					int btreeBft = dbCatalog->GetIdxBfr(TableName,AttrInCond);
-					int level = (int) log(dbCatalog->GetCardi(TableName)/dbCatalog->GetBfr(TableName));
-
+					int level = (int) log((float) dbCatalog->GetCardi(TableName)/dbCatalog->GetBfr(TableName));
+					
 					if(dbCatalog->IsPk(TableName, AttrInCond) && CondType)
 					{
 					    costs =  level+1;
@@ -272,7 +272,7 @@ int CostCalcTree(QueryTreeNodePtr SubTreeRoot,  DbCatalog* dbCatalog)  //should 
 			{
 			case BTREE_T:
 				{
-				  IdxLev = log(dbCatalog->GetCardi(TableInCondL)/dbCatalog->GetBfr(TableInCondL));
+				  IdxLev = log((float) dbCatalog->GetCardi(TableInCondL)/dbCatalog->GetBfr(TableInCondL));
 				  CostsSingle = BlocksRight + BlocksRight*dbCatalog->GetBfr(TableInCondR)*(IdxLev-1);
 				break;
 				}
