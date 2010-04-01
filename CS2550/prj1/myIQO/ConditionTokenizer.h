@@ -33,24 +33,25 @@ public:
 	~ConditionTokenizer();
 
 	Type getType(){return ty;}
+	Conds getCons(){return conds;}
 
 	//! Retrieve a split token at the specified index
 	//!
 	//! \param[in] i The index to search for a token
 	//! \return The token at the specified index
 	//! \throw std::out_of_range If the index is invalid
-	Condition& operator[] ( int i )
-	{
-		return conds.at ( i );
-	}
+	//Condition& operator[] ( int i )
+	//{
+		//return conds.at ( i );
+	//}
 
 	//! Retrieve the number of split tokens
 	//!
 	//! \return The number of split tokens
-	int size() const
-	{
-		return conds.size();
-	}
+	//int size() const
+	//{
+		//return conds.size();
+	//}
 
 private:
 	Type ty;

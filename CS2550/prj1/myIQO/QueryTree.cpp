@@ -513,25 +513,25 @@ QueryTreeNodePtr GetNearestAncestor(
 		return ni.node;
 }
 
-void ForEachNode_i(int id, const QueryTreeNodePtr node, const NodeCallBack& cb)
+void ForEachNode_i(int id, const QueryTreeNodePtr parent, const QueryTreeNodePtr node, const NodeCallBack& cb)
 {
-	bool ret = cb(id, node);
+	bool ret = cb(id, parent, node);
 	if (ret == false)
 		return;
 
 	BOOST_FOREACH (QueryTreeNode::Children::value_type val,
 		node->children){
-			ForEachNode_i(val.first, val.second, cb);
+			ForEachNode_i(val.first, node, val.second, cb);
 	}
 }
 
 void ForEachNode( const QueryTreeNodePtr root, const NodeCallBack& cb )
 {
-	ForEachNode_i(0, root, cb);
+	ForEachNode_i(0, QueryTreeNodePtr(), root, cb);
 }
 
 //////////////////////////////////////////////////////////////////////////
-bool NodeByType(int /*id*/, const QueryTreeNodePtr node, QueryTreeNodePtrs& outVec, NodeType type)
+bool NodeByType(int /*id*/, const QueryTreeNodePtr parent, const QueryTreeNodePtr node, QueryTreeNodePtrs& outVec, NodeType type)
 {
 	if (node->getType() == type)
 		outVec.push_back(node);
@@ -543,7 +543,7 @@ QueryTreeNodePtrs GetNodesByType( const QueryTreeNodePtr root, NodeType type )
 {
 	QueryTreeNodePtrs ret;
 
-	NodeCallBack cb = boost::BOOST_BIND(NodeByType, _1, _2, boost::ref(ret), type);
+	NodeCallBack cb = boost::BOOST_BIND(NodeByType, _1, _2, _3, boost::ref(ret), type);
 	ForEachNode(root, cb);
 
 	return ret;
