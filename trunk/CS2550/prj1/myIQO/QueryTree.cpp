@@ -469,4 +469,84 @@ bool GetNodePath( const QueryTreeNodePtr root, QueryTreeNodePtr node, IntLst& lv
 	return false;
 }
 
+//////////////////////////////////////////////////////////////////////////
+
+QueryTreeNodePtr GetNearestAncestor( 
+	const QueryTreeNodePtr root, 
+	QueryTreeNodePtr node1, 
+	QueryTreeNodePtr node2 )
+{
+	QueryTreeNodePtr ret;
+
+	IntLst lv1, lv2;
+
+	bool ret1 = GetNodePath(root, node1, lv1);
+	bool ret2 = GetNodePath(root, node2, lv2);
+
+	if (ret1 == false || ret2 == false)
+		return ret;
+
+	IntVec lvl;
+
+	BOOST_AUTO (i1, lv1.begin());
+	BOOST_AUTO (i2, lv2.begin());
+
+	for (;;)
+	{
+		if (i1 == lv1.end() || i2 == lv2.end())
+			break;
+
+		if (*i1 == *i2)
+			lvl.push_back(*i1);
+		else
+			break;
+
+		++i1;
+		++i2;
+	}
+
+	NodeInfo ni = getNode(root, lvl);
+
+	if (ni.isEmpty())
+		return ret;
+	else
+		return ni.node;
+}
+
+void ForEachNode_i(int id, const QueryTreeNodePtr node, const NodeCallBack& cb)
+{
+	bool ret = cb(id, node);
+	if (ret == false)
+		return;
+
+	BOOST_FOREACH (QueryTreeNode::Children::value_type val,
+		node->children){
+			ForEachNode_i(val.first, val.second, cb);
+	}
+}
+
+void ForEachNode( const QueryTreeNodePtr root, const NodeCallBack& cb )
+{
+	ForEachNode_i(0, root, cb);
+}
+
+//////////////////////////////////////////////////////////////////////////
+bool NodeByType(int /*id*/, const QueryTreeNodePtr node, QueryTreeNodePtrs& outVec, NodeType type)
+{
+	if (node->getType() == type)
+		outVec.push_back(node);
+
+	return true;
+}
+
+QueryTreeNodePtrs GetNodesByType( const QueryTreeNodePtr root, NodeType type )
+{
+	QueryTreeNodePtrs ret;
+
+	NodeCallBack cb = boost::BOOST_BIND(NodeByType, _1, _2, boost::ref(ret), type);
+	ForEachNode(root, cb);
+
+	return ret;
+}
+
 };
