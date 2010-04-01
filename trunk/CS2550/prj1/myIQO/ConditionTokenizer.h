@@ -17,6 +17,8 @@ public:
 	bool is_equ;
 };
 
+typedef std::vector<Condition> Conds;
+
 class ConditionTokenizer
 {
 public:
@@ -25,8 +27,6 @@ public:
 		OR,
 		NOT
 	};
-
-	typedef std::vector<Condition> Conds;
 
 public:
 	ConditionTokenizer(const std::string& text);

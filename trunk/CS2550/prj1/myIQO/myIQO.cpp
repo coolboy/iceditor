@@ -7,9 +7,8 @@
 
 #include "QueryTree.h"
 
-#include "ConditionTokenizer.h"
+#include "TreeOptimizer.h"
 
-#include <boost/assign/std/vector.hpp>
 #include <boost/foreach.hpp>
 
 using namespace std;
@@ -38,35 +37,17 @@ string ReadAll(const char* fileName){
 	return inFileBuf;
 }
 
-template<typename T>
-std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
-{
-	out<<'[';
-	for (std::vector<T>::size_type i = 0; i < vec.size() - 1; ++i)
-		out << vec[i] << ", ";
-
-	out<< vec[vec.size() - 1]<<']';
-
-	return out;
-}
-
-#include <boost/bind.hpp>
-typedef std::vector<std::pair<QueryTreeNodePtr, QueryTreeNodePtr>> NodePairs;
-bool GetMergeNodes(int /*id*/,
-									 const QueryTreeNodePtr parent, 
-									 const QueryTreeNodePtr node,
-									 NodePairs& np)
-{
-	if (!parent || !node)
-		return true;
-
-	if (parent->getType() != SELECT || node->getType() != PRODUCT)
-		return true;
-
-	np.push_back(std::make_pair(parent, node));
-
-	return true;
-}
+//template<typename T>
+//std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
+//{
+//	out<<'[';
+//	for (std::vector<T>::size_type i = 0; i < vec.size() - 1; ++i)
+//		out << vec[i] << ", ";
+//
+//	out<< vec[vec.size() - 1]<<']';
+//
+//	return out;
+//}
 
 int main(int argc, char* argv[])
 {
@@ -106,9 +87,7 @@ int main(int argc, char* argv[])
 	QueryTreeNodePtrs trees = ParseQueryTree(queryTreesStr);
 
 	BOOST_FOREACH(QueryTreeNodePtr pnode, trees)
-	{
 		PrintTree(pnode);
-	}
 
 	QueryTreeNodePtr root = trees[0];
 
@@ -158,17 +137,9 @@ int main(int argc, char* argv[])
 	//Test get nodes by type
 	//GetNodesByType(root, SCAN);
 
-	NodePairs pairs;
-	NodeCallBack cb = boost::BOOST_BIND(GetMergeNodes, _1, _2, _3, boost::ref(pairs));
-	ForEachNode(root, cb);
+	TreeOptimizer to;
 
-	BOOST_FOREACH(NodePairs::value_type val , pairs)
-	{
-		val.first->setType(JOIN);
-		val.first->children = val.second->children;
-	}
-
-	PrintTree(root);
+	PrintTree(to.optimize(root));
 
 	return 0;
 }
