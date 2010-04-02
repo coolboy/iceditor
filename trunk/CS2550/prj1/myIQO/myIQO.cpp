@@ -9,6 +9,7 @@
 
 #include "TreeOptimizer.h"
 
+#include <boost/assign.hpp>
 #include <boost/foreach.hpp>
 
 using namespace std;
@@ -37,17 +38,17 @@ string ReadAll(const char* fileName){
 	return inFileBuf;
 }
 
-//template<typename T>
-//std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
-//{
-//	out<<'[';
-//	for (std::vector<T>::size_type i = 0; i < vec.size() - 1; ++i)
-//		out << vec[i] << ", ";
-//
-//	out<< vec[vec.size() - 1]<<']';
-//
-//	return out;
-//}
+template<typename T>
+std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
+{
+	out<<'[';
+	for (std::vector<T>::size_type i = 0; i < vec.size() - 1; ++i)
+		out << vec[i] << ", ";
+
+	out<< vec[vec.size() - 1]<<']';
+
+	return out;
+}
 
 int main(int argc, char* argv[])
 {
@@ -100,11 +101,15 @@ int main(int argc, char* argv[])
 
 	//using namespace boost::assign;
 	//IntVec v1, v2;
-	//v1 += 1,1;
-	//v2 += 1,2;
+	//v1 += 1;
+	//v2 += 2;
 
 	//cout<<"After swap"<< v1 <<" "<< v2 << "\n";
 	//SwapNode(root, v1, v2);
+	//PrintTree( root );
+
+	//cout<<"After swap all"<< v1 <<" "<< v2 << "\n";
+	//SwapNodeAll(root, v1, v2);
 	//PrintTree( root );
 
 	//QueryTreeNode node;

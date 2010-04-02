@@ -103,6 +103,8 @@ QueryTreeNodePtrs ParseQueryTree(const std::string& text);
 
 bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2);
 
+bool SwapNodeAll(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2);
+
 bool RemoveNode(const QueryTreeNodePtr root, const IntVec& lv1);
 
 bool InsertNode(const QueryTreeNodePtr root, QueryTreeNodePtr node, const IntVec& lv1);
