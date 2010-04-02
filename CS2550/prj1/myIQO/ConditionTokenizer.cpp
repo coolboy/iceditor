@@ -150,23 +150,6 @@ void ConditionTokenizer::AppendCon( Condition con )
 	conds.push_back(con);
 }
 //////////////////////////////////////////////////////////////////////////
-
-bool GetAssocTableName(int /*id*/, const QueryTreeNodePtr parent, const QueryTreeNodePtr node, std::string& out_tname, const StringLst& tnames)
-{
-	if (node->getType() == SCAN)
-	{
-		std::string table_name = boost::get<std::string>(node->getAttr());
-		BOOST_FOREACH (std::string table_name_, tnames){
-			if (table_name == table_name_){
-				out_tname = table_name;
-				return false;
-			}
-		}
-	}
-
-	return true;
-}
-
 void ConditionHelper(const std::string src, std::string& table_name, std::string& field_name, std::string& text_val){
 	if (src.find_first_of('\'') != std::string::npos)//like 'Mike'
 	{
@@ -183,17 +166,17 @@ void ConditionHelper(const std::string src, std::string& table_name, std::string
 		table_name = names[0];
 		field_name = names[1];
 	}
-	else //like B //missing table name
+	else //like B //missing table name //now move to after finishing building the tree
 	{
 		field_name = src;
-		StringLst tableHasAttr = g_dbCata->GetTables(field_name);
-		if (tableHasAttr.size() == 1)
-			table_name = *tableHasAttr.begin();
-		else
-		{
-			NodeCallBack cb = boost::BOOST_BIND(GetAssocTableName, _1, _2, _3, boost::ref(table_name), boost::ref(tableHasAttr));
-			ForEachNode(g_currRoot, cb);
-		}
+	//	StringLst tableHasAttr = g_dbCata->GetTables(field_name);
+	//	if (tableHasAttr.size() == 1)
+	//		table_name = *tableHasAttr.begin();
+	//	else
+	//	{
+	//		NodeCallBack cb = boost::BOOST_BIND(GetAssocTableName, _1, _2, _3, boost::ref(table_name), boost::ref(tableHasAttr));
+	//		ForEachNode(g_currRoot, cb);
+	//	}
 	}
 }
 //////////////////////////////////////////////////////////////////////////
@@ -212,7 +195,7 @@ Condition::Condition( const std::string& text ) :is_equ(false)
 	//dbg_str = text;
 }
 
-bool Condition::isSameTable( const Condition& other )
+bool Condition::isSameTable( const Condition& other ) const
 {
 	return ltable_name == other.ltable_name &&
 		rtable_name == other.rtable_name;
@@ -230,4 +213,15 @@ bool Condition::operator==( const Condition& other )
 std::string Condition::toString() const
 {
 	return ltable_name + ' ' + lfield_name + " with " + rtable_name + ' ' + rfield_name + ' ' + rtext;
+}
+
+bool Condition::isNeedFixed() const
+{
+	if (ltable_name.empty())
+		return true;
+
+	if (rtable_name.empty() && rtext.empty())
+		return true;
+
+	return false;
 }

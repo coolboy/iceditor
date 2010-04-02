@@ -7,7 +7,9 @@ class Condition{
 public:
 	Condition(const std::string& text);
 
-	bool isSameTable(const Condition& other);
+	bool isSameTable(const Condition& other) const;
+
+	bool isNeedFixed () const;
 
 	bool operator==(const Condition& other);
 

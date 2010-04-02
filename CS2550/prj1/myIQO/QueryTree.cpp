@@ -1,8 +1,6 @@
 #include "StdAfx.h"
 #include "QueryTree.h"
 
-#include "ConditionTokenizer.h"
-
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -10,10 +8,14 @@
 #include <boost/algorithm/string/join.hpp>
 #include <boost/foreach.hpp>
 
+#include "DbCatalog.h"
+#include "ConditionTokenizer.h"
+
 //////////////////////////////////////////////////////////////////////////
 //Global Variables
 //////////////////////////////////////////////////////////////////////////
 client::QueryTreeNodePtr g_currRoot;
+extern DbCatalog *g_dbCata;
 
 namespace client{
 namespace qi = boost::spirit::qi;
@@ -54,7 +56,7 @@ public:
 		qtn.setType (fu::at_c<0>(node));
 		qtn.setAttr (fu::at_c<1>(node));
 
-		if (qtn.getType() == SELECT)
+		if (qtn.getType() == SELECT /*|| qtn.getType() == PROJECT*/)
 		{
 			std::string text = boost::get<std::string>(fu::at_c<1>(node));
 			ConditionTokenizer to(text);
@@ -75,12 +77,98 @@ public:
 //////////////////////////////////////////////////////////////////////////
 //Tree build helper
 //////////////////////////////////////////////////////////////////////////
+bool FixAssocTableName(int /*id*/, const QueryTreeNodePtr parent, const QueryTreeNodePtr node, const StringVec& table_can)
+{
+	if (node->getType() == SELECT /*|| node->getType() == PROJECT*/)
+	{
+		ConditionTokenizer ct = boost::any_cast<ConditionTokenizer>(node->getExInfo("EXPLST"));
+
+		Conds conds = ct.getCons();
+
+		BOOST_FOREACH (Condition& con, conds)
+		{
+			if(!con.isNeedFixed())
+				continue;
+
+			if (con.ltable_name.empty())//left
+			{
+				StringLst tableHasAttr = g_dbCata->GetTables(con.lfield_name);
+
+				std::string table_name;
+
+				BOOST_FOREACH (const std::string& val1, tableHasAttr)
+					BOOST_FOREACH(const std::string& val2, table_can)
+				{
+					if ( val1 == val2)
+					{
+						table_name = val1;
+						break;
+					}
+				}
+
+				assert(!table_name.empty());
+
+				ct.RemoveCon(con);
+
+				con.ltable_name = table_name;
+
+				ct.AppendCon(con);
+
+				node->setExInfo("EXPLST", ct);
+			}
+
+			if (con.rtable_name.empty() && con.rtext.empty())
+			{
+				StringLst tableHasAttr = g_dbCata->GetTables(con.rfield_name);
+
+				std::string table_name;
+
+				BOOST_FOREACH (const std::string& val1, tableHasAttr)
+					BOOST_FOREACH(const std::string& val2, table_can)
+				{
+					if ( val1 == val2)
+					{
+						table_name = val1;
+						break;
+					}
+				}
+
+				assert(!table_name.empty());
+
+				ct.RemoveCon(con);
+
+				con.rtable_name = table_name;
+
+				ct.AppendCon(con);
+
+				node->setExInfo("EXPLST", ct);
+			}
+		}
+	}
+
+	return true;
+}
+//////////////////////////////////////////////////////////////////////////
 
 class TreeBuilder{
 public:
 
 	QueryTreeNodePtrs getTrees()
 	{
+		//fill in missing table names
+		BOOST_FOREACH (QueryTreeNodePtr curRoot, rlz)
+		{
+			StringVec table_can;
+			QueryTreeNodePtrs qps = GetNodesByType(curRoot, SCAN);
+			BOOST_FOREACH (QueryTreeNodePtr node, qps){
+				table_can.push_back(boost::get<std::string>(node->getAttr()));
+			}
+
+			NodeCallBack cb = boost::BOOST_BIND(FixAssocTableName, _1, _2, _3, boost::ref(table_can));
+			ForEachNode(curRoot, cb);
+		}
+
+		//return fixed trees
 		return rlz;
 	}
 
