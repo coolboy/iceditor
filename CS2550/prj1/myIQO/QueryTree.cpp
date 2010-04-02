@@ -437,10 +437,27 @@ std::string QueryTreeNode::getAttrStr()
 	return std::string();
 }
 
-void PrintTree( const QueryTreeNodePtr root , int depth)
-{//mid left->right
-	using namespace std;
-	cout<< ' '<< NodeType2Str(root->getType())<< ' '<< root->getAttrStr()<< endl;
+void PrintTree( const QueryTreeNodePtr root , int depth){//mid left->right
+	using namespace std;//Cost int Algorithm std::string
+
+	int* cost;
+	std::string* algo;
+
+	boost::any costAny = root->getExInfo("Cost");
+	boost::any algoAny = root->getExInfo("Algorithm");
+
+	cost = boost::any_cast<int>(&costAny);
+	algo = boost::any_cast<std::string>(&algoAny);
+
+	cout<< ' '<< NodeType2Str(root->getType())<< ' '<< root->getAttrStr();
+
+	if (cost)
+		cout<<" Cost: "<<*cost;
+
+	if (algo)
+		cout<<" Algo: "<<*algo;
+
+	cout<<endl;
 
 	if (!root->hasChild())
 		return;
