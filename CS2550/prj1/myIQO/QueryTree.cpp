@@ -161,10 +161,10 @@ QueryTreeNodePtrs ParseQueryTree(const std::string& text){
 	BOOST_AUTO(levelsRule, int_ % ',' );
 
 	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
-		stringRule = *(qi::alnum | '_' | '.');
+		stringRule = +(qi::alnum | '_' | '.');
 
-	qi::rule<std::string::const_iterator, std::string(), ascii::space_type>
-		conExpRule = *(qi::alnum | '_' | '.' | '\'' | '>' | '=' | '<');
+	qi::rule<std::string::const_iterator, std::string()>
+		conExpRule = +(qi::alnum | '_' | '.' | '\'' | '>' | '=' | '<' | ' ');
 
 	BOOST_AUTO(attrLstRule, lit("([") >> stringRule % ',' >> lit("])") );
 	BOOST_AUTO(relationRule, lit("(") >> stringRule >> lit(")"));
