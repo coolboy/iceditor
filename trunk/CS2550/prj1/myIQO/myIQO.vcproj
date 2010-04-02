@@ -189,6 +189,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Opt24.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\QueryTree.cpp"
 				>
 			</File>
@@ -240,6 +244,10 @@
 			</File>
 			<File
 				RelativePath=".\mytype.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Opt24.h"
 				>
 			</File>
 			<File

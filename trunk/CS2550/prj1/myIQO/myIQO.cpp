@@ -144,7 +144,9 @@ int main(int argc, char* argv[])
 
 	PrintTree(rootOptimized);
 
-	//CostCalcTree(rootOptimized,  g_dbCata);
+	CostCalcTree(rootOptimized,  g_dbCata);
+
+	PrintTree(rootOptimized);
 
 	return 0;
 }
