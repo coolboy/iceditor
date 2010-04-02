@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "QueryTree.h"
 
+#include "ConditionTokenizer.h"
+
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -41,8 +43,17 @@ public:
 	QueryTreeNode operator()( const NodeType2& node ) const
 	{
 		QueryTreeNode qtn;
+
 		qtn.setType (fu::at_c<0>(node));
 		qtn.setAttr (fu::at_c<1>(node));
+
+		if (qtn.getType() == SELECT)
+		{
+			std::string text = boost::get<std::string>(fu::at_c<1>(node));
+			ConditionTokenizer to(text);
+			qtn.setExInfo("EXPLST", to);
+		}
+
 		return qtn;
 	}
 
