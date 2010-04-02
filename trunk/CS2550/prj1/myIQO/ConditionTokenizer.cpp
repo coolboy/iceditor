@@ -163,9 +163,13 @@ Condition::Condition( const std::string& text ) :is_equ(false)
 	}
 
 	
-	if (fields[1].find_first_of('\'') != std::string::npos)
+	if (fields[1].find_first_of('\'') != std::string::npos)//like 'Mike'
 	{
 		rtext.assign(fields[1].begin() + 1, fields[1].begin() + fields[1].size() - 1);
+	}
+	else if (isdigit(fields[1][0]) && atoi (fields[1].c_str()) != 0)
+	{
+		rtext = fields[1];
 	}
 	else if (fields[1].find_first_of('.') != std::string::npos)
 	{
