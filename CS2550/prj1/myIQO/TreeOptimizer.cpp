@@ -32,8 +32,8 @@ QueryTreeNodePtr TreeOptimizer::optimize( QueryTreeNodePtr node )
 
 //////////////////////////////////////////////////////////////////////////
 bool FillInSelect(int /*id*/,
-									 const QueryTreeNodePtr /*parent*/, 
-									 const QueryTreeNodePtr node)
+				 const QueryTreeNodePtr /*parent*/, 
+				 const QueryTreeNodePtr node)
 {
 	if (!node)
 		return true;
@@ -58,9 +58,9 @@ void TreeOptimizer::step1()
 
 //////////////////////////////////////////////////////////////////////////
 bool GetMergeNodes(int /*id*/,
-									 const QueryTreeNodePtr parent, 
-									 const QueryTreeNodePtr node,
-									 NodePairs& np)
+				 const QueryTreeNodePtr parent, 
+				 const QueryTreeNodePtr node,
+				 NodePairs& np)
 {
 	if (!parent || !node)
 		return true;

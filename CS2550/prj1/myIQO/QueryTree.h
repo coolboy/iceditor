@@ -16,6 +16,7 @@ namespace client{
 //////////////////////////////////////////////////////////////////////////
 //data
 typedef std::vector<std::string> StringVec;
+typedef std::list<std::string> StringLst;
 typedef std::list<int> IntLst;
 typedef std::vector<int> IntVec;
 //type

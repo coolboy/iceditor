@@ -1,5 +1,10 @@
-UNION
-	1 PROJECT([FirstName, MiddleName, LastName])
-		1,1 SCAN(DOCTOR)
-        2 PROJECT([FirstName, MiddleName, LastName])
-		2,1 SCAN(PATIENT)
+
+PROJECT([DRUG.Name])
+	1 SELECT(SELL.Store='Oakland pharmacy' AND PHARMACEUTICAL_CO.Name='JohnsonJohnson')
+		1,1 SELECT (PCM_Registration=Manufacturer_Registration)
+			1,1,1 PRODUCT
+				1,1,1,1 SCAN(PHARMACEUTICAL_CO)
+				1,1,1,2 SELECT(SELL.Drug=DRUG.Name)
+					1,1,1,2,1 PRODUCT
+						1,1,1,2,1,1 SCAN(SELL)
+						1,1,1,2,1,2 SCAN(DRUG)

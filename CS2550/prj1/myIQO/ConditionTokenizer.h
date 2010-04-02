@@ -6,17 +6,13 @@
 class Condition{
 public:
 	Condition(const std::string& text);
-	bool isSameTable(const Condition& other){
-		return ltable_name == other.ltable_name &&
-			rtable_name == other.rtable_name;
-	}
-	bool operator==(const Condition& other){
-		return ltable_name == other.ltable_name &&
-			rtable_name == other.rtable_name && 
-			lfield_name == other.lfield_name &&
-			rfield_name == other.rfield_name &&
-			rtext == other.rtext;
-	}
+
+	bool isSameTable(const Condition& other);
+
+	bool operator==(const Condition& other);
+
+	//for dbg out
+	std::string	toString() const;
 
 	std::string ltable_name;
 	std::string lfield_name;
@@ -24,8 +20,7 @@ public:
 	std::string rtable_name;
 	std::string rfield_name;
 	std::string rtext;
-	//for dbg out
-	std::string dbg_str;
+	//std::string dbg_str;
 	
 	bool is_equ;
 };
@@ -58,24 +53,6 @@ public:
 	//void setCons(const Conds& val);
 
 	std::string getStr();
-
-	//! Retrieve a split token at the specified index
-	//!
-	//! \param[in] i The index to search for a token
-	//! \return The token at the specified index
-	//! \throw std::out_of_range If the index is invalid
-	//Condition& operator[] ( int i )
-	//{
-		//return conds.at ( i );
-	//}
-
-	//! Retrieve the number of split tokens
-	//!
-	//! \return The number of split tokens
-	//int size() const
-	//{
-		//return conds.size();
-	//}
 
 private:
 	Type ty;

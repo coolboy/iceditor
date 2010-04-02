@@ -16,12 +16,8 @@ using namespace std;
 using namespace client;
 
 //////////////////////////////////////////////////////////////////////////
-DbCatalog *	dbCata = 0;
+DbCatalog *	g_dbCata = 0;
 //////////////////////////////////////////////////////////////////////////
-
-void FileOpenError(const char* fileName){
-	cerr<<"Can't open : "<<fileName<<endl;
-}
 
 string ReadAll(const char* fileName){
 	string inFileBuf;
@@ -74,7 +70,7 @@ int main(int argc, char* argv[])
 	queryTreesStr = ReadAll(queryTreesPath);
 
 	//create catalog module for the database
-	dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
+	g_dbCata = new DbCatalog(dbSchemaStr, dbIndexingStr, dbConfigStr);
 
 	//deal with db schema
 
@@ -99,10 +95,10 @@ int main(int argc, char* argv[])
 	//QueryTreeNodePtr root_clone = root->clone();
 	//PrintTree(root_clone);
 
-	using namespace boost::assign;
-	IntVec v1, v2;
-	v1 += 1;
-	v2 += 2;
+	//using namespace boost::assign;
+	//IntVec v1, v2;
+	//v1 += 1;
+	//v2 += 2;
 
 	//cout<<"After swap"<< v1 <<" "<< v2 << "\n";
 	//SwapNode(root, v1, v2);
