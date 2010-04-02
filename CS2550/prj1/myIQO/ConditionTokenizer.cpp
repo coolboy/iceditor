@@ -1,5 +1,8 @@
 #include "StdAfx.h"
 
+#include <boost/algorithm/string.hpp> 
+#include <boost/foreach.hpp>
+
 #include "DbCatalog.h"
 #include "ConditionTokenizer.h"
 
@@ -110,15 +113,18 @@ ConditionTokenizer::ConditionTokenizer( const std::string& text )
 
 }
 
-ConditionTokenizer::~ConditionTokenizer()
-{
+ConditionTokenizer::~ConditionTokenizer(){ }
 
+std::string ConditionTokenizer::getStr()
+{
+	std::string ret;
+	BOOST_FOREACH (const Condition& val, conds){
+		ret += val.dbg_str + " ";
+	}
+	return ret;
 }
 
 //////////////////////////////////////////////////////////////////////////
-
-#include <boost/algorithm/string.hpp> 
-
 Condition::Condition( const std::string& text ) :is_equ(false)
 {
 	std::vector<std::string> fields; 
@@ -156,4 +162,6 @@ Condition::Condition( const std::string& text ) :is_equ(false)
 		rfield_name = fields[1];
 		rtable_name = *dbCata->GetTables(rfield_name).begin();
 	}
+
+	dbg_str = text;
 }

@@ -13,6 +13,8 @@ public:
 	std::string rtable_name;
 	std::string rfield_name;
 	std::string rtext;
+	//for dbg out
+	std::string dbg_str;
 	
 	bool is_equ;
 };
@@ -35,6 +37,7 @@ public:
 
 	Type getType(){return ty;}
 	Conds getCons(){return conds;}
+	std::string getStr();
 
 	//! Retrieve a split token at the specified index
 	//!
