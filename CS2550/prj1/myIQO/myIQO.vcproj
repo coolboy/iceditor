@@ -7,7 +7,7 @@
 	RootNamespace="myIQO"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
-	>
+	> 
 	<Platforms>
 		<Platform
 			Name="Win32"
