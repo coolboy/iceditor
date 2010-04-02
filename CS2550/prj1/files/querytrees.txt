@@ -1,9 +1,5 @@
-PROJECT([PRESCRIPTION.Drug])
-	1 SELECT(PATIENT.FirstName='Michael' AND PATIENT.FirstName=DOCTOR.FirstName)
-	  	1,1 SELECT(PATIENT.PCP_Lic_No=DOCTOR.Doctor_Lic_No)
-			1,1,1 PRODUCT
-				1,1,1,1 SELECT(PRESCRIPTION.Patient=PATIENT.SSN)
-					1,1,1,1,1 PRODUCT
-						1,1,1,1,1,1 SCAN(PRESCRIPTION)
-						1,1,1,1,1,2 SCAN(PATIENT)
-				1,1,1,2 SCAN(DOCTOR)
+UNION
+	1 PROJECT([FirstName, MiddleName, LastName])
+		1,1 SCAN(DOCTOR)
+        2 PROJECT([FirstName, MiddleName, LastName])
+		2,1 SCAN(PATIENT)
