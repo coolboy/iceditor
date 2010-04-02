@@ -4,7 +4,7 @@
 #include "stdafx.h"
 
 #include "DbCatalog.h"
-
+#include "Opt24.h"
 #include "QueryTree.h"
 
 #include "TreeOptimizer.h"
@@ -144,7 +144,11 @@ int main(int argc, char* argv[])
 
 	TreeOptimizer to;
 
-	PrintTree(to.optimize(root));
+	QueryTreeNodePtr rootOptimized = to.optimize(root);
+
+	PrintTree(rootOptimized);
+
+	CostCalcTree(rootOptimized,  dbCata);
 
 	return 0;
 }
