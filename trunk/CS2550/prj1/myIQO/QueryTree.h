@@ -69,6 +69,8 @@ public:
 	//example: setExInfo("Number", 102);
 	void setExInfo(const std::string& name, const boost::any& val);
 
+	std::string getAttrStr();
+
 	QueryTreeNodePtr clone();
 
 private:

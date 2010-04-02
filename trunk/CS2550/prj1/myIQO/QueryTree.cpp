@@ -7,6 +7,8 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/bind.hpp>
+#include <boost/algorithm/string/join.hpp>
+#include <boost/foreach.hpp>
 
 namespace client{
 namespace qi = boost::spirit::qi;
@@ -278,6 +280,8 @@ bool SwapNodeAll( const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& 
 
 	node1.parent->setChild(node1.id, node2.node);
 	node2.parent->setChild(node2.id, node1.node);
+
+	return true;
 }
 //////////////////////////////////////////////////////////////////////////
 // Print Tree Helper
@@ -318,17 +322,28 @@ const char* NodeType2Str(NodeType ty)
 	}
 }
 
-#include <iostream>
+std::string QueryTreeNode::getAttrStr()
+{
+	std::string* str = boost::get<std::string>( &attr );
+	if (str)
+		return *str;
+
+	StringVec* strV = boost::get<StringVec>( &attr );
+	if (strV)
+	{
+		return boost::algorithm::join(*strV, ",");
+	}
+
+	return std::string();
+}
 
 void PrintTree( const QueryTreeNodePtr root , int depth)
 {//mid left->right
 	using namespace std;
-	cout<< ' '<< NodeType2Str(root->getType())<< endl;
+	cout<< ' '<< NodeType2Str(root->getType())<< ' '<< root->getAttrStr()<< endl;
 
 	if (!root->hasChild())
 		return;
-
-	//////////////////////////////////////////////////////////////////////////
 
 	BOOST_FOREACH (QueryTreeNode::Children::value_type val,
 		root->children){

@@ -125,9 +125,9 @@ int main(int argc, char* argv[])
 	//InsertNode(root, pnode, v2);
 	//PrintTree( root );
 
-	cout<<"After remove"<< v1<<"\n";
-	RemoveNode(root, v1);
-	PrintTree( root );
+	//cout<<"After remove"<< v1<<"\n";
+	//RemoveNode(root, v1);
+	//PrintTree( root );
 
 	//verify the clone tree is ok
 	//PrintTree(root_clone);
