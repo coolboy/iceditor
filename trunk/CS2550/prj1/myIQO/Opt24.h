@@ -14,8 +14,8 @@ Need the following Macros
 #define LINEAR_SEARCH 0
 #define BINARY_SEARCH 1
 #define BTREE_SEARCH 2
-#define EHASH 3
-#define LHASH 4
+#define EXTENSIBLE_HASH 3
+#define LINEAR_HASH 4
 #define NESTED_LOOP_JOIN 5
 #define SINGLE_LOOP_JOIN 6
 #define PARTITION_HASH_JOIN 7
