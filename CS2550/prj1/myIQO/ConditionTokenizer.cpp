@@ -113,6 +113,10 @@ ConditionTokenizer::ConditionTokenizer( const std::string& text )
 
 }
 
+ConditionTokenizer::ConditionTokenizer()
+{
+
+}
 ConditionTokenizer::~ConditionTokenizer(){ }
 
 std::string ConditionTokenizer::getStr()

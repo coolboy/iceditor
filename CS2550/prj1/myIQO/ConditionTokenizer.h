@@ -43,10 +43,13 @@ public:
 	};
 
 public:
+	ConditionTokenizer();
 	ConditionTokenizer(const std::string& text);
 	~ConditionTokenizer();
 
 	Type getType(){return ty;}
+	void setType(Type val){ty = val;}
+
 	Conds getCons(){return conds;}
 
 	void RemoveCon(Condition con);

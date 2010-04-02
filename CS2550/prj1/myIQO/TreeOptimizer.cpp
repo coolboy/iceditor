@@ -118,7 +118,61 @@ void TreeOptimizer::step2()
 
 void TreeOptimizer::step3()
 {//push select down (A.B='C')
+	QueryTreeNodePtrs sels = GetNodesByType(root, SELECT);
+	QueryTreeNodePtrs scs = GetNodesByType(root, SCAN);
 
+	BOOST_FOREACH (QueryTreeNodePtr senode, sels)
+		BOOST_FOREACH (QueryTreeNodePtr scnode, scs)
+	{
+		ConditionTokenizer sect = boost::any_cast<ConditionTokenizer>(senode->getExInfo("EXPLST"));
+		std::string scct = boost::get<std::string>(scnode->getAttr());
+
+		Conds secons = sect.getCons();
+		BOOST_FOREACH (const Condition& con, secons)
+		{
+			if (con.rtext.empty())
+				continue;
+
+			if (con.ltable_name != scct)
+				continue;
+
+			sect.RemoveCon(con);
+			senode->setExInfo("EXPLST", sect);
+
+			QueryTreeNode node;
+			node.setType(SELECT);
+
+			ConditionTokenizer new_ct;
+			new_ct.setType(ConditionTokenizer::ALONE);
+			new_ct.AppendCon(con);
+
+			node.setExInfo("EXPLST", new_ct);
+			QueryTreeNodePtr new_sel = QueryTreeNodePtr(new QueryTreeNode(node));
+
+			IntLst lvl;
+			GetNodePath(root, scnode, lvl);
+
+			IntVec lvls;
+			std::copy (lvl.begin (), lvl.end (), std::back_inserter (lvls));
+			InsertNode(root, new_sel, lvls);
+		}
+	}
+
+	//remove empty select
+	sels = GetNodesByType(root, SELECT);
+	BOOST_FOREACH (QueryTreeNodePtr senode, sels)
+	{
+		ConditionTokenizer sect = boost::any_cast<ConditionTokenizer>(senode->getExInfo("EXPLST"));
+		if (sect.getCons().size() == 0)
+		{
+			IntLst lvl;
+			GetNodePath(root, senode, lvl);
+
+			IntVec lvls;
+			std::copy (lvl.begin (), lvl.end (), std::back_inserter (lvls));
+			RemoveNode(root, lvls);
+		}
+	}
 }
 
 void TreeOptimizer::step4()
