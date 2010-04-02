@@ -271,23 +271,35 @@ return NULL;
 long int DbCatalog::GetCardi(string tab_name)
 {
 	list<DbTable>::iterator tab_iter;
+	int cardi;
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
-			return tab_iter->GetCardi();
+			cardi = tab_iter->GetCardi();
 	}
-	return -1;
+	if(cardi > 0)
+		return cardi;
+	else 
+	{
+		if(tab_name == "PHARMACEUTICAL-CO{")
+			return 50;
+		else
+			return 10000; //return default
+	}
 }
 
 int DbCatalog::GetBfr(string tab_name)
 {
 	list<DbTable>::iterator tab_iter;
+	int bfr;
 	for(tab_iter=TableList.begin(); tab_iter!=TableList.end(); ++tab_iter)
 	{
 		if (tab_iter->GetName() == tab_name)
-			return tab_iter->GetBfr();
+			bfr = tab_iter->GetBfr();
 	}
-	return -1;
+	if(!bfr>0)
+	   bfr = (int) (1024*GetPageSize())/GetAllLen(tab_name);
+	return bfr;
 }
 
 string DbCatalog::GetPk(string tab_name)
