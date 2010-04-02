@@ -75,7 +75,7 @@ bool GetMergeNodes(int /*id*/,
 //////////////////////////////////////////////////////////////////////////
 
 void TreeOptimizer::step2()
-{//join product with select
+{//make select and product into a join
 	NodePairs pairs;
 	NodeCallBack cb = boost::BOOST_BIND(GetMergeNodes, _1, _2, _3, boost::ref(pairs));
 	ForEachNode(root, cb);
@@ -85,10 +85,39 @@ void TreeOptimizer::step2()
 		val.first->setType(JOIN);
 		val.first->children = val.second->children;
 	}
+
+	//join the rest select (A.B=C.D)
+	QueryTreeNodePtrs sels = GetNodesByType(root, SELECT);
+	QueryTreeNodePtrs jos = GetNodesByType(root, JOIN);
+
+	BOOST_FOREACH (QueryTreeNodePtr snode, sels)
+		BOOST_FOREACH (QueryTreeNodePtr jnode, jos)
+	{
+		ConditionTokenizer sct = boost::any_cast<ConditionTokenizer>(snode->getExInfo("EXPLST"));
+		ConditionTokenizer jct = boost::any_cast<ConditionTokenizer>(jnode->getExInfo("EXPLST"));
+
+		if (jct.getCons().size()>=2)
+			continue;
+
+		Conds scons = sct.getCons();
+		Condition jcon = jct.getCons()[0];
+		BOOST_FOREACH (const Condition& con, scons)
+		{
+			if (jcon.isSameTable(con))
+			{
+				sct.RemoveCon(con);
+				jct.AppendCon(con);
+
+				snode->setExInfo ("EXPLST", sct);
+				jnode->setExInfo ("EXPLST", jct);
+			}
+		}
+	}
+
 }
 
 void TreeOptimizer::step3()
-{//push select down
+{//push select down (A.B='C')
 
 }
 

@@ -324,7 +324,7 @@ const char* NodeType2Str(NodeType ty)
 
 std::string QueryTreeNode::getAttrStr()
 {
-	if (getType() == SELECT)
+	if (getType() == SELECT || getType() == JOIN)
 	{
 		std::string ret;
 		ConditionTokenizer ct = boost::any_cast<ConditionTokenizer>(getExInfo("EXPLST"));

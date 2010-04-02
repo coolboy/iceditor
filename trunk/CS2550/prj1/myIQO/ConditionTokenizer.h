@@ -6,6 +6,17 @@
 class Condition{
 public:
 	Condition(const std::string& text);
+	bool isSameTable(const Condition& other){
+		return ltable_name == other.ltable_name &&
+			rtable_name == other.rtable_name;
+	}
+	bool operator==(const Condition& other){
+		return ltable_name == other.ltable_name &&
+			rtable_name == other.rtable_name && 
+			lfield_name == other.lfield_name &&
+			rfield_name == other.rfield_name &&
+			rtext == other.rtext;
+	}
 
 	std::string ltable_name;
 	std::string lfield_name;
@@ -37,6 +48,12 @@ public:
 
 	Type getType(){return ty;}
 	Conds getCons(){return conds;}
+
+	void RemoveCon(Condition con);
+	void AppendCon(Condition con);
+
+	//void setCons(const Conds& val);
+
 	std::string getStr();
 
 	//! Retrieve a split token at the specified index

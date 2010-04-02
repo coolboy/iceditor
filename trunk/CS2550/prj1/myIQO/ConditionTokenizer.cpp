@@ -124,6 +124,19 @@ std::string ConditionTokenizer::getStr()
 	return ret;
 }
 
+void ConditionTokenizer::RemoveCon( Condition con )
+{
+	Conds::iterator iter = std::find(conds.begin(), conds.end(), con);
+	if (iter == conds.end())
+		return;
+
+	conds.erase(iter);
+}
+
+void ConditionTokenizer::AppendCon( Condition con )
+{
+	conds.push_back(con);
+}
 //////////////////////////////////////////////////////////////////////////
 Condition::Condition( const std::string& text ) :is_equ(false)
 {
