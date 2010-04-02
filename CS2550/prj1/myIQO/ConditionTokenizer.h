@@ -25,7 +25,8 @@ public:
 	enum Type{
 		AND,
 		OR,
-		NOT
+		NOT,
+		ALONE
 	};
 
 public:

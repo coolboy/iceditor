@@ -104,6 +104,10 @@ ConditionTokenizer::ConditionTokenizer( const std::string& text )
 		ty = NOT;
 		return;
 	}
+
+	ty = ALONE;
+	conds.push_back (Condition(text) );
+
 }
 
 ConditionTokenizer::~ConditionTokenizer()
