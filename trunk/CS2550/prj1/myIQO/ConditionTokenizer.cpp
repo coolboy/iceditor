@@ -2,11 +2,19 @@
 
 #include <boost/algorithm/string.hpp> 
 #include <boost/foreach.hpp>
+#include <boost/bind.hpp>
 
 #include "DbCatalog.h"
+#include "QueryTree.h"
 #include "ConditionTokenizer.h"
 
-extern DbCatalog *dbCata;
+using namespace client;
+
+//////////////////////////////////////////////////////////////////////////
+//Global Variables
+//////////////////////////////////////////////////////////////////////////
+extern DbCatalog *g_dbCata;
+extern QueryTreeNodePtr g_currRoot;
 
 //! Maintains a collection of substrings that are
 //! delimited by a string of one or more characters
@@ -123,7 +131,7 @@ std::string ConditionTokenizer::getStr()
 {
 	std::string ret;
 	BOOST_FOREACH (const Condition& val, conds){
-		ret += val.dbg_str + " ";
+		ret += val.toString() + " ";
 	}
 	return ret;
 }
@@ -142,6 +150,53 @@ void ConditionTokenizer::AppendCon( Condition con )
 	conds.push_back(con);
 }
 //////////////////////////////////////////////////////////////////////////
+
+bool GetAssocTableName(int /*id*/, const QueryTreeNodePtr parent, const QueryTreeNodePtr node, std::string& out_tname, const StringLst& tnames)
+{
+	if (node->getType() == SCAN)
+	{
+		std::string table_name = boost::get<std::string>(node->getAttr());
+		BOOST_FOREACH (std::string table_name_, tnames){
+			if (table_name == table_name_){
+				out_tname = table_name;
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+void ConditionHelper(const std::string src, std::string& table_name, std::string& field_name, std::string& text_val){
+	if (src.find_first_of('\'') != std::string::npos)//like 'Mike'
+	{
+		text_val.assign(src.begin() + 1, src.begin() + src.size() - 1);
+	}
+	else if (isdigit(src[0]) && atoi (src.c_str()) != 0)//like 10
+	{
+		text_val = src;
+	}
+	else if (src.find_first_of('.') != std::string::npos)//like A.B
+	{
+		StringVec names; 
+		boost::split(names, src, boost::is_any_of(".")); 
+		table_name = names[0];
+		field_name = names[1];
+	}
+	else //like B //missing table name
+	{
+		field_name = src;
+		StringLst tableHasAttr = g_dbCata->GetTables(field_name);
+		if (tableHasAttr.size() == 1)
+			table_name = *tableHasAttr.begin();
+		else
+		{
+			NodeCallBack cb = boost::BOOST_BIND(GetAssocTableName, _1, _2, _3, boost::ref(table_name), boost::ref(tableHasAttr));
+			ForEachNode(g_currRoot, cb);
+		}
+	}
+}
+//////////////////////////////////////////////////////////////////////////
 Condition::Condition( const std::string& text ) :is_equ(false)
 {
 	std::vector<std::string> fields; 
@@ -149,40 +204,30 @@ Condition::Condition( const std::string& text ) :is_equ(false)
 
 	is_equ = (text.find ( "=", 0 ) != std::string::npos);
 
-	if (fields[0].find_first_of('.') != std::string::npos)
-	{
-		std::vector<std::string> names; 
-		boost::split(names, fields[0], boost::is_any_of("."));
-		ltable_name = names[0];
-		lfield_name = names[1];
-	}
-	else
-	{
-		lfield_name = fields[0];
-		ltable_name = *dbCata->GetTables(lfield_name).begin();
-	}
+	//
+	ConditionHelper(fields[0], ltable_name, lfield_name, std::string());
 
-	
-	if (fields[1].find_first_of('\'') != std::string::npos)//like 'Mike'
-	{
-		rtext.assign(fields[1].begin() + 1, fields[1].begin() + fields[1].size() - 1);
-	}
-	else if (isdigit(fields[1][0]) && atoi (fields[1].c_str()) != 0)
-	{
-		rtext = fields[1];
-	}
-	else if (fields[1].find_first_of('.') != std::string::npos)
-	{
-		std::vector<std::string> names; 
-		boost::split(names, fields[1], boost::is_any_of(".")); 
-		rtable_name = names[0];
-		rfield_name = names[1];
-	}
-	else
-	{
-		rfield_name = fields[1];
-		rtable_name = *dbCata->GetTables(rfield_name).begin();
-	}
+	ConditionHelper(fields[1], rtable_name, rfield_name, rtext);
 
-	dbg_str = text;
+	//dbg_str = text;
+}
+
+bool Condition::isSameTable( const Condition& other )
+{
+	return ltable_name == other.ltable_name &&
+		rtable_name == other.rtable_name;
+}
+
+bool Condition::operator==( const Condition& other )
+{
+	return ltable_name == other.ltable_name &&
+		rtable_name == other.rtable_name && 
+		lfield_name == other.lfield_name &&
+		rfield_name == other.rfield_name &&
+		rtext == other.rtext;
+}
+
+std::string Condition::toString() const
+{
+	return ltable_name + ' ' + lfield_name + " with " + rtable_name + ' ' + rfield_name + ' ' + rtext;
 }

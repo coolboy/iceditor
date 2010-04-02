@@ -10,6 +10,11 @@
 #include <boost/algorithm/string/join.hpp>
 #include <boost/foreach.hpp>
 
+//////////////////////////////////////////////////////////////////////////
+//Global Variables
+//////////////////////////////////////////////////////////////////////////
+client::QueryTreeNodePtr g_currRoot;
+
 namespace client{
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
@@ -83,6 +88,7 @@ public:
 	{
 		currentRoot = QueryTreeNodePtr (
 			new QueryTreeNode(boost::apply_visitor( node_visitor(), val ) ));
+		g_currRoot = currentRoot;
 
 		rlz.push_back(currentRoot);
 	}
