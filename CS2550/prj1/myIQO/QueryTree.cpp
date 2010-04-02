@@ -460,11 +460,14 @@ bool RemoveNode( const QueryTreeNodePtr root, const IntVec& lv1 )
 {
 	//temp disabled because the index of other node may changed
 	//may change map to vector?
-	//NodeInfo curNode = getNode(root, lv1);
-	//if (curNode.isEmpty())
-		//return false;
+	NodeInfo curNode = getNode(root, lv1);
+	if (curNode.isEmpty())
+		return false;
 
-	//curNode.parent -> children.erase(curNode.id);
+	assert (curNode.node -> children.size() <= 1);
+
+	if (curNode.node -> children.size() == 1)
+		curNode.parent -> children[curNode.id] = curNode.node -> children[1];
 
 	return true;
 }
