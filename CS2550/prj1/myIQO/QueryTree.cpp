@@ -268,6 +268,17 @@ bool SwapNode(const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2)
 	return true;
 }
 
+bool SwapNodeAll( const QueryTreeNodePtr root, const IntVec& lv1, const IntVec& lv2 )
+{
+	NodeInfo node1 = getNode(root, lv1);
+	NodeInfo node2 = getNode(root, lv2);
+
+	if (node1.id == -1 || node2.id == -1)
+		return false;
+
+	node1.parent->setChild(node1.id, node2.node);
+	node2.parent->setChild(node2.id, node1.node);
+}
 //////////////////////////////////////////////////////////////////////////
 // Print Tree Helper
 //////////////////////////////////////////////////////////////////////////
@@ -559,5 +570,4 @@ QueryTreeNodePtrs GetNodesByType( const QueryTreeNodePtr root, NodeType type )
 
 	return ret;
 }
-
 };
