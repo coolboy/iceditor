@@ -324,15 +324,21 @@ const char* NodeType2Str(NodeType ty)
 
 std::string QueryTreeNode::getAttrStr()
 {
+	if (getType() == SELECT)
+	{
+		std::string ret;
+		ConditionTokenizer ct = boost::any_cast<ConditionTokenizer>(getExInfo("EXPLST"));
+		ret = ct.getStr();
+		return ret;
+	}
+
 	std::string* str = boost::get<std::string>( &attr );
 	if (str)
 		return *str;
 
 	StringVec* strV = boost::get<StringVec>( &attr );
 	if (strV)
-	{
-		return boost::algorithm::join(*strV, ",");
-	}
+			return boost::algorithm::join(*strV, ",");
 
 	return std::string();
 }
