@@ -99,10 +99,10 @@ int main(int argc, char* argv[])
 	//QueryTreeNodePtr root_clone = root->clone();
 	//PrintTree(root_clone);
 
-	//using namespace boost::assign;
-	//IntVec v1, v2;
-	//v1 += 1;
-	//v2 += 2;
+	using namespace boost::assign;
+	IntVec v1, v2;
+	v1 += 1;
+	v2 += 2;
 
 	//cout<<"After swap"<< v1 <<" "<< v2 << "\n";
 	//SwapNode(root, v1, v2);
@@ -125,9 +125,9 @@ int main(int argc, char* argv[])
 	//InsertNode(root, pnode, v2);
 	//PrintTree( root );
 
-	//cout<<"After remove"<< v1<<"\n";
-	//RemoveNode(root, v1);
-	//PrintTree( root );
+	cout<<"After remove"<< v1<<"\n";
+	RemoveNode(root, v1);
+	PrintTree( root );
 
 	//verify the clone tree is ok
 	//PrintTree(root_clone);
