@@ -11,6 +11,7 @@
 
 #include <boost/assign.hpp>
 #include <boost/foreach.hpp>
+#include <boost/bind.hpp>
 
 using namespace std;
 using namespace client;
@@ -44,6 +45,21 @@ std::ostream& operator << (std::ostream& out, const std::vector<T>& vec)
 	out<< vec[vec.size() - 1]<<']';
 
 	return out;
+}
+
+//////////////////////////////////////////////////////////////////////////
+bool SumCost(int id, const QueryTreeNodePtr parent, const QueryTreeNodePtr node, int& sum)
+{
+	int* cost = 0;
+
+	boost::any costAny = node->getExInfo("Cost");
+
+	cost = boost::any_cast<int>(&costAny);
+
+	if (cost)
+		sum += *cost;
+
+	return true;
 }
 
 int main(int argc, char* argv[])
@@ -84,12 +100,29 @@ int main(int argc, char* argv[])
 	QueryTreeNodePtrs trees = ParseQueryTree(queryTreesStr);
 
 	BOOST_FOREACH(QueryTreeNodePtr pnode, trees)
+	{
+		cout<<"Original tree: \n";
 		PrintTree(pnode);
+		cout<<"-----------------------"<<endl;
 
-	QueryTreeNodePtr root = trees[0];
+		TreeOptimizer to;
 
-	cout<<"Original tree: \n";
-	PrintTree(root);
+		QueryTreeNodePtr rootOptimized = to.optimize(pnode);
+
+		//PrintTree(rootOptimized);
+
+		CostCalcTree(rootOptimized,  g_dbCata);
+
+		//get total sum
+		int cost = 0;
+		NodeCallBack cb = boost::BOOST_BIND(SumCost, _1, _2, _3, boost::ref(cost));
+		ForEachNode(rootOptimized, cb);
+		rootOptimized->setExInfo("Cost", cost);
+
+		//print out final
+		PrintTree(rootOptimized);
+		cout<<"-----------------------"<<endl;
+	}
 
 	//cout<<"Clone tree: \n";
 	//QueryTreeNodePtr root_clone = root->clone();
@@ -137,16 +170,6 @@ int main(int argc, char* argv[])
 
 	//Test get nodes by type
 	//GetNodesByType(root, SCAN);
-
-	TreeOptimizer to;
-
-	QueryTreeNodePtr rootOptimized = to.optimize(root);
-
-	PrintTree(rootOptimized);
-
-	CostCalcTree(rootOptimized,  g_dbCata);
-
-	PrintTree(rootOptimized);
 
 	return 0;
 }

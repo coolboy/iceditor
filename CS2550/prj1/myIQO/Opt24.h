@@ -1,3 +1,5 @@
+#pragma once
+
 #include "QueryTree.h"
 #include "dbCatalog.h"
 #include <boost/variant.hpp>
