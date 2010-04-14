@@ -16,6 +16,9 @@ MainWin::MainWin(void):memAdjustWig(0)
 {
 	setupUI();
 	setConnections();
+
+	MemStat *memStat = new MemStat(this);
+	plot->setDataSrc(memStat);
 }
 
 MainWin::~MainWin(void)
@@ -159,21 +162,4 @@ void MainWin::slotOnMemAdjustBut()
 
 void MainWin::slotOnConnect()
 {
-	bool ok = false;
-	QString srvAddr = QInputDialog::getText(this, tr("Input server address:"),
-		tr("ip:port"), QLineEdit::Normal,	defHost + ':' + QString::number(defPort), &ok);
-	if (ok && !srvAddr.isEmpty()){
-		QStringList lst = srvAddr.split(":", QString::SkipEmptyParts);
-		if (lst.size() != 2)
-			return;
-
-		QString host = lst[0];
-		quint16 port = lst[1].toUInt();
-
-		MemStat *memStat = new MemStat(this, host, port);
-		memStat->setDebugOutput(statusBar());
-		memStat->grapMsg();
-
-		plot->setDataSrc(memStat);
-	}
 }

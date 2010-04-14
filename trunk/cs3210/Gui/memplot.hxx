@@ -27,21 +27,21 @@ class MemPlot : public QwtPlot
 {
     Q_OBJECT
 public:
-    enum CpuData
+    enum DimmData
     {
-        User,
-        System,
-        Total,
-        Idle,
+        Dimm0,
+        Dimm1,
+        Dimm2,
+        Dimm3,
 
-        NCpuData
+        NDimm
     };
 
     MemPlot(QWidget * = 0);
 
 		void setDataSrc(MemStat* src);
 
-    const QwtPlotCurve *cpuCurve(int id) const
+    const QwtPlotCurve *memCurve(int id) const
         { return data[id].curve; }
 
 protected:
@@ -55,7 +55,7 @@ private:
     {
         QwtPlotCurve *curve;
         double data[HISTORY];
-    } data[NCpuData];
+    } data[NDimm];
     double timeData[HISTORY];
 
     int dataCount;
