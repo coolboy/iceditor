@@ -118,33 +118,33 @@ dataCount(0)
 	MemPieMarker *pie = new MemPieMarker();
 	pie->attach(this);
 
-	CpuCurve *curve = new CpuCurve("Test");
+	CpuCurve *curve = new CpuCurve("Dimm0");
 	curve->setColor(Qt::red);
 	curve->attach(this);
-	data[System].curve = curve;
+	data[Dimm0].curve = curve;
 
-	curve = new CpuCurve("Sys.PF");
+	curve = new CpuCurve("Dimm1");
 	curve->setColor(Qt::blue);
 	curve->setZ(curve->z() - 1);
 	curve->attach(this);
-	data[User].curve = curve;
+	data[Dimm1].curve = curve;
 
-	curve = new CpuCurve("App.PF");
+	curve = new CpuCurve("Dimm2");
 	curve->setColor(Qt::black);
 	curve->setZ(curve->z() - 2);
 	curve->attach(this);
-	data[Total].curve = curve;
+	data[Dimm2].curve = curve;
 
-	curve = new CpuCurve("Idle");
+	curve = new CpuCurve("Dimm3");
 	curve->setColor(Qt::darkCyan);
 	curve->setZ(curve->z() - 3);
 	curve->attach(this);
-	data[Idle].curve = curve;
+	data[Dimm3].curve = curve;
 
-	showCurve(data[System].curve, true);
-	showCurve(data[User].curve, true);
-	showCurve(data[Total].curve, false);
-	showCurve(data[Idle].curve, false);
+	showCurve(data[Dimm0].curve, true);
+	showCurve(data[Dimm1].curve, true);
+	showCurve(data[Dimm2].curve, true);
+	showCurve(data[Dimm3].curve, true);
 
 	for ( int i = 0; i < HISTORY; i++ )
 		timeData[HISTORY - 1 - i] = i;
@@ -159,19 +159,20 @@ void MemPlot::timerEvent(QTimerEvent *)
 {
 	for ( int i = dataCount; i > 0; i-- )
 	{
-		for ( int c = 0; c < NCpuData; c++ )
+		for ( int c = 0; c < NDimm; c++ )
 		{
 			if ( i < HISTORY )
 				data[c].data[i] = data[c].data[i-1];
 		}
 	}
 
-	data[User].data[0] = memStat->getData("User").toDouble();
-	data[System].data[0] = memStat->getData("System").toDouble();
+	double total = memStat->getData("Dimm0").toUInt() + memStat->getData("Dimm1").toUInt()
+		+ memStat->getData("Dimm2").toUInt() + memStat->getData("Dimm3").toUInt();
 
-	data[Total].data[0] = data[User].data[0] + 
-		data[System].data[0];
-	data[Idle].data[0] = 100.0 - data[Total].data[0];
+	data[Dimm0].data[0] = memStat->getData("Dimm0").toDouble() * 100/total;
+	data[Dimm1].data[0] = memStat->getData("Dimm1").toDouble() * 100/total;
+	data[Dimm2].data[0] = memStat->getData("Dimm2").toDouble() * 100/total;
+	data[Dimm3].data[0] = memStat->getData("Dimm3").toDouble() * 100/total;
 
 	if ( dataCount < HISTORY )
 		dataCount++;
@@ -182,7 +183,7 @@ void MemPlot::timerEvent(QTimerEvent *)
 	setAxisScale(QwtPlot::xBottom, 
 		timeData[HISTORY - 1], timeData[0]);
 
-	for ( int c = 0; c < NCpuData; c++ )
+	for ( int c = 0; c < NDimm; c++ )
 	{
 		data[c].curve->setRawSamples(
 			timeData, data[c].data, dataCount);
@@ -205,6 +206,7 @@ void MemPlot::setDataSrc( MemStat* src )
 {
 	delete memStat;
 	memStat = src;
+	memStat->setParent(this);
 
 	startTimer(1000); // 1 second
 }

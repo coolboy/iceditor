@@ -32,6 +32,9 @@ TestConf::TestConf(void):
 	test_in.setValue("sim_druation", 12);
 	test_in.setValue("temperature", 78.6);
 	test_in.setValue("guass_poisson", 1);
+
+	test_in.sync();
+	test_out.sync();
 }
 
 

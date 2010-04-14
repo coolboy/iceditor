@@ -33,13 +33,13 @@ void MemPieMarker::draw(QPainter *p,
     pieRect.setHeight(yMap.transform(80.0));
     pieRect.setWidth(pieRect.height());
     
-    const int dataType[] = { MemPlot::User, MemPlot::System, MemPlot::Idle };
+    const int dataType[] = { MemPlot::Dimm0, MemPlot::Dimm1, MemPlot::Dimm3 };
 
     int angle = (int)(5760 * 0.75);
     for ( unsigned int i = 0; 
         i < sizeof(dataType) / sizeof(dataType[0]); i++ )
     {
-        const QwtPlotCurve *curve = cpuPlot->cpuCurve(dataType[i]);
+        const QwtPlotCurve *curve = cpuPlot->memCurve(dataType[i]);
         if ( curve->dataSize() > 0 )
         {
             const int value = (int)(5760 * curve->sample(0).y() / 100.0);
