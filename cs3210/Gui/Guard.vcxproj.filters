@@ -35,9 +35,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestConf.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <MOC Include="MainWin.hxx">
@@ -50,9 +47,6 @@
       <Filter>Header Files</Filter>
     </MOC>
     <MOC Include="memstat.hxx">
-      <Filter>Header Files</Filter>
-    </MOC>
-    <MOC Include="TestConf.hxx">
       <Filter>Header Files</Filter>
     </MOC>
   </ItemGroup>
