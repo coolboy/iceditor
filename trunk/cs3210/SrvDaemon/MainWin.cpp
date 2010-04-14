@@ -47,11 +47,11 @@ void MainWin::timerEvent( QTimerEvent * )
 	out.setVersion(QDataStream::Qt_4_0);
 
 	out << (quint16)0;
-	out << m_ui->spinBox->text();
+	out << m_ui->spinBox->value();
 	out.device()->seek(0);
 	out << (quint16)(block.size() - sizeof(quint16));
 
-	qDebug() << m_ui->spinBox->text();
+	qDebug() << m_ui->spinBox->value();
 
 	foreach (QTcpSocket* clientConnection, conns)
 	{
