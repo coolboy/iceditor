@@ -166,13 +166,16 @@ void MemPlot::timerEvent(QTimerEvent *)
 		}
 	}
 
-	double total = memStat->getData("Dimm0").toUInt() + memStat->getData("Dimm1").toUInt()
-		+ memStat->getData("Dimm2").toUInt() + memStat->getData("Dimm3").toUInt();
+	double d0 = memStat->getData("Dimm0").toDouble();
+	double d1 = memStat->getData("Dimm1").toDouble();
+	double d2 = memStat->getData("Dimm2").toDouble();
+	double d3 = memStat->getData("Dimm3").toDouble();
+	double total = d0 + d1 + d2 + d3;
 
-	data[Dimm0].data[0] = memStat->getData("Dimm0").toDouble() * 100/total;
-	data[Dimm1].data[0] = memStat->getData("Dimm1").toDouble() * 100/total;
-	data[Dimm2].data[0] = memStat->getData("Dimm2").toDouble() * 100/total;
-	data[Dimm3].data[0] = memStat->getData("Dimm3").toDouble() * 100/total;
+	data[Dimm0].data[0] = d0 * 100/total;
+	data[Dimm1].data[0] = d1 * 100/total;
+	data[Dimm2].data[0] = d2 * 100/total;
+	data[Dimm3].data[0] = d3 * 100/total;
 
 	if ( dataCount < HISTORY )
 		dataCount++;

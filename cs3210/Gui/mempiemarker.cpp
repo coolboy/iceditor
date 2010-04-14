@@ -33,7 +33,7 @@ void MemPieMarker::draw(QPainter *p,
     pieRect.setHeight(yMap.transform(80.0));
     pieRect.setWidth(pieRect.height());
     
-    const int dataType[] = { MemPlot::Dimm0, MemPlot::Dimm1, MemPlot::Dimm3 };
+    const int dataType[] = { MemPlot::Dimm0, MemPlot::Dimm1, MemPlot::Dimm2, MemPlot::Dimm3 };
 
     int angle = (int)(5760 * 0.75);
     for ( unsigned int i = 0; 
