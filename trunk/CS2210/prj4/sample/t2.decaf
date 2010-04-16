@@ -1,0 +1,16 @@
+class Person {
+	int intVal;
+	void Person()
+	{
+		intVal = 1;
+	}
+}
+
+void main() {
+  int intVal;
+  intVal = 4;
+  if (intVal>=0)
+	Print (intVal);
+	
+  Print("hello world");
+}

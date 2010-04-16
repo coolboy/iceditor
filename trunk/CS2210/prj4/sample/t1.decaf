@@ -1,0 +1,11 @@
+void main() {
+  int intVal;
+  intVal = 4;
+  if (intVal>=0)
+  {
+	Print (intVal);
+  };
+	
+  Print("hello world");
+}
+
