@@ -7,6 +7,7 @@ using namespace std;
 class TabAtr
 {
 
+
 private:
 	string name;
 	double selectivity; //0 means selectivity not specified
