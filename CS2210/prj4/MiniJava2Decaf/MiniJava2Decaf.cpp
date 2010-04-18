@@ -40,6 +40,25 @@ void MiniJava2Decaf::transform()
 
 	decaf_ = regex_replace( miniJava_, comment, std::string() );
 
+	/* 
+	* Change multi declaration to multi line //only int and int[]
+	* int a,b = 5,...;
+	* ->
+	* int a;
+	* int b = 5;
+	* int ...
+	* 
+	* move declarations to the beginning of the function
+	* method void main()
+	* int x=4; -> delete
+	* {
+	* int x=4; <- add
+	*/
+
+	/*
+	* Move main function out and append to the file end.
+	*/
+
 	/*
 	 * strip program keyword
 	 * 1. program t1; //like this
@@ -59,36 +78,20 @@ void MiniJava2Decaf::transform()
 
 	decaf_ = regex_replace( decaf_, decl, std::string() );
 
-	/* 
-	* Change multi declaration to multi line
-	* int a,b,...;
-	* float c,d,...;
-	* {
-	* ->
-	* {
-	* int a;
-	* int b;
-	* int ...
-	* float c;
-	* float d;
-	* float ..
-	* 
-	* move declarations to the beginning of the function
-	* method void main()
-	* int x=4; -> delete
-	* {
-	* int x=4; <- add
+	/*
+	* strip method keyword
 	*/
 
-	/*
-	* Move main function out and append to the file end.
-	*/
+	sregex method = sregex::compile("method");
+
+	decaf_ = regex_replace( decaf_, method, std::string() );
 
 	/*
-	* Delete method keyword
+	* Change System.println(val) to Print(val) + Print("\n")
 	*/
 
-	/*
-	* Change System.println to Print(val) + Print("\n")
-	*/
+	sregex print = sregex::compile("System\\.println\\(([^)]*)\\)\\s*;"); // System\.println\(([^)]*)\)\s*;
+
+	decaf_ = regex_replace( decaf_, print, std::string("Print($1);\nPrint('\\n\');\n") );
+	//decaf_ = regex_replace( decaf_, print, std::string("[R]") );
 }
