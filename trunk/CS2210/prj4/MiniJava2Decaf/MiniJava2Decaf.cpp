@@ -1,6 +1,5 @@
 #include "StdAfx.h"
 
-#include <iostream>
 #include <boost/xpressive/xpressive.hpp>
 
 #include "minijava2decaf.h"
@@ -50,17 +49,35 @@ void MiniJava2Decaf::transform()
 	decaf_ = regex_replace( decaf_, program, std::string() );
 
 	/*
-	* strip declarations/enddeclarations keyword in class
-	* declarations
-	* int x=-1;
-	* enddeclarations
+	* strip declarations/enddeclarations keyword
+	* declarations <- delete
+	* int x=-1; //how to deal with the = -1? ///TODO!
+	* enddeclarations <- delete
 	*/
 
-	/*
-	* strip declarations/enddeclarations keyword in method
-	* declarations
-	* int x=-1;
-	* enddeclarations
+	sregex decl = sregex::compile("(declarations|enddeclarations)");
+
+	decaf_ = regex_replace( decaf_, decl, std::string() );
+
+	/* 
+	* Change multi declaration to multi line
+	* int a,b,...;
+	* float c,d,...;
+	* {
+	* ->
+	* {
+	* int a;
+	* int b;
+	* int ...
+	* float c;
+	* float d;
+	* float ..
+	* 
+	* move declarations to the beginning of the function
+	* method void main()
+	* int x=4; -> delete
+	* {
+	* int x=4; <- add
 	*/
 
 	/*
@@ -68,6 +85,10 @@ void MiniJava2Decaf::transform()
 	*/
 
 	/*
-	* Change System.println to Print + Print("\n")
+	* Delete method keyword
+	*/
+
+	/*
+	* Change System.println to Print(val) + Print("\n")
 	*/
 }
