@@ -4,10 +4,8 @@ void main() {
   if (intVal>=0)
   {
 	Print (intVal);
-	Print ("\n");
   };
 	
   Print("hello world");
-  Print("\n");
 }
 
