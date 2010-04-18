@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -44,5 +41,25 @@
     <ClCompile Include="AsmRefiner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\sample\t1.dcc.s">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\sample\t1.dcc.syscall.s">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\sample\t1.decaf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\sample\t1.mini.java">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\sample\t1.mini.s">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\sample\t2.decaf">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
