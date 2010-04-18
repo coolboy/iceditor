@@ -5,7 +5,7 @@ program   t1;/*Test program*/
 class c1
 {
 	declarations
-		int x=-1;
+		int x=-1, abc = 2;
 	enddeclarations
 	method void main()
 	declarations

@@ -1,20 +1,17 @@
 #include "StdAfx.h"
 
 #include <boost/xpressive/xpressive.hpp>
+#include <boost/algorithm/string/replace.hpp>
 
 #include "minijava2decaf.h"
 
 using namespace boost::xpressive;
 using namespace std;
 
-MiniJava2Decaf::MiniJava2Decaf(void)
-{
-}
+MiniJava2Decaf::MiniJava2Decaf(void){}
 
 
-MiniJava2Decaf::~MiniJava2Decaf(void)
-{
-}
+MiniJava2Decaf::~MiniJava2Decaf(void){}
 
 void MiniJava2Decaf::setMiniJava( const std::string& miniJava )
 {
@@ -41,23 +38,83 @@ void MiniJava2Decaf::transform()
 	decaf_ = regex_replace( miniJava_, comment, std::string() );
 
 	/* 
-	* Change multi declaration to multi line //only int and int[]
+	* Change multi declaration to multi line // int/int[]
 	* int a,b = 5,...;
 	* ->
 	* int a;
 	* int b = 5;
 	* int ...
-	* 
-	* move declarations to the beginning of the function
+	*/
+
+	sregex valSep = sregex::compile("(\\s*int)\\s+[^;,]*(,\\s+([^;,])*)*;"); // (\s*int)\s+[^;,]*(,\s+([^;,])*)*;
+
+	smatch what;
+
+	std::string::const_iterator beg = decaf_.begin();
+
+	while( regex_search( beg, decaf_.end(), what, valSep ) )
+	{
+		std::string	obj = ";\n" + what[1];
+
+		std::string target = what[0];
+
+		std::string replaced = boost::algorithm::replace_all_copy(target, ",", obj);
+
+		boost::algorithm::replace_all(decaf_, target, replaced);
+
+		beg = what[0].second;
+	}
+
+	/* move declarations to the beginning of the function
 	* method void main()
 	* int x=4; -> delete
 	* {
 	* int x=4; <- add
 	*/
+	sregex bracketBelow = sregex::compile( "(method[^{]*)\\{");// (method[^{]*)\{
+
+	decaf_ = regex_replace( decaf_, bracketBelow, std::string("$1") );//delete bracket below
+
+	sregex bracketNear = sregex::compile( "method[^)]*\\)");// method[^)]*\)
+
+	decaf_ = regex_replace( decaf_, bracketNear, std::string("$& {") );//add bracket near
 
 	/*
-	* Move main function out and append to the file end.
+	* Separate declaration and initiation
+	* int a=1;
+	* int b=3;
+	* ->
+	* int a;
+	* int b;
+	* a=1;
+	* b=1;
 	*/
+
+	/*
+	* Append a new main function to the file end.
+	* like
+	* void main() {
+	* CLASSNAME main_entry;
+	* main_entry.main();
+	* }
+	*/
+
+	std::string mainFuncStr = "void main() {\n"
+		"\tCLASSNAME main_entry;\n"
+		"\tmain_entry.main();\n"
+	 "}";
+
+	sregex classWithMain = sregex::compile( "class\\s+(\\w+)(.)*main" );// class\s+(\w+)(.|\n|\r)*main
+
+	if( regex_search( decaf_.begin(), decaf_.end(), what, classWithMain ) )
+	{
+		std::string	obj = what[1];
+		boost::algorithm::replace_first(mainFuncStr, "CLASSNAME", obj);
+	}
+
+	 decaf_+= mainFuncStr;
+
+	////////////////////////////////////Erase keywords/////////////////////////////
 
 	/*
 	 * strip program keyword
@@ -90,8 +147,7 @@ void MiniJava2Decaf::transform()
 	* Change System.println(val) to Print(val) + Print("\n")
 	*/
 
-	sregex print = sregex::compile("System\\.println\\(([^)]*)\\)\\s*;"); // System\.println\(([^)]*)\)\s*;
+	sregex print = sregex::compile("(\\s*)System\\.println\\(([^)]*)\\)\\s*;"); // System\.println\(([^)]*)\)\s*;
 
-	decaf_ = regex_replace( decaf_, print, std::string("Print($1);\nPrint('\\n\');\n") );
-	//decaf_ = regex_replace( decaf_, print, std::string("[R]") );
+	decaf_ = regex_replace( decaf_, print, std::string("$1Print($2);\n$1Print('\\n\');\n") );
 }
