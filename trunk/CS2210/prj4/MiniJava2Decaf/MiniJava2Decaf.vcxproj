@@ -73,9 +73,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="AsmRefiner.h" />
     <ClInclude Include="MiniJava2Decaf.h" />
     <ClInclude Include="stdafx.h" />
@@ -89,6 +86,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\sample\t1.dcc.s" />
+    <None Include="..\sample\t1.dcc.syscall.s" />
+    <None Include="..\sample\t1.decaf" />
+    <None Include="..\sample\t1.mini.java" />
+    <None Include="..\sample\t1.mini.s" />
+    <None Include="..\sample\t2.decaf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
