@@ -1,10 +1,12 @@
 #include "StdAfx.h"
 
+#include <iostream>
 #include <boost/xpressive/xpressive.hpp>
 
 #include "minijava2decaf.h"
 
 using namespace boost::xpressive;
+using namespace std;
 
 MiniJava2Decaf::MiniJava2Decaf(void)
 {
@@ -35,27 +37,27 @@ void MiniJava2Decaf::transform()
 	 * 2. //... <- Don't need this kind of comment now.
 	*/
 	// essentially the same regex as in the previous example, but using a dynamic regex
-	sregex date = sregex::compile( "\\/\\*(\\s|.)*?\\*\\/" );// (\/\*(\s|.)*?\*\/) without escape
+	sregex comment = sregex::compile( "\\/\\*(\\s|.)*?\\*\\/");// \/\*(\s|.)*?\*\/ without escape
 
-	// As in Perl, $& is a reference to the sub-string that matched the regex
-	std::string format( "" );
-
-	decaf_ = regex_replace( miniJava_, date, format );
+	decaf_ = regex_replace( miniJava_, comment, std::string() );
 
 	/*
 	 * strip program keyword
-	 * 
+	 * 1. program t1; //like this
 	*/
+	sregex program = sregex::compile( "program\\s+\\w(\\w|\\d)*;");// program\s+\w(\w|\d)*;
+
+	decaf_ = regex_replace( decaf_, program, std::string() );
 
 	/*
-	* strip declarations/enddeclarations keyword
+	* strip declarations/enddeclarations keyword in class
 	* declarations
 	* int x=-1;
 	* enddeclarations
 	*/
 
 	/*
-	* strip declarations/enddeclarations keyword
+	* strip declarations/enddeclarations keyword in method
 	* declarations
 	* int x=-1;
 	* enddeclarations
@@ -66,6 +68,6 @@ void MiniJava2Decaf::transform()
 	*/
 
 	/*
-	* Change Print to System.println
+	* Change System.println to Print + Print("\n")
 	*/
 }

@@ -1,5 +1,5 @@
 /* T1: t1.decaf in mini-java */
-program t1;
+program   t1;/*Test program*/
 /* comment in multi-line
 */
 class c1
