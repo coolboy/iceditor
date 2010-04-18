@@ -90,6 +90,54 @@ void MiniJava2Decaf::transform()
 	* b=1;
 	*/
 
+	sregex decl_init = sregex::compile( "\\s*declarations.*?enddeclarations"); // \s*declarations.*?enddeclarations //? for non-greedy
+
+	std::string pattern = 
+		"\n_beg_no_init_"
+		"$&\n"
+		"_end_no_init_\n"
+		"_beg_no_type_"
+		"$&\n"
+		"_end_no_type_\n";
+
+	decaf_ = regex_replace( decaf_, decl_init, pattern );
+
+	sregex no_init = sregex::compile("_beg_no_init_(.*?)_end_no_init_"); // _beg_no_init_.*?_end_no_init_
+	sregex init = sregex::compile("=.*?(;)"); // =.*?(;)
+
+	beg = decaf_.begin();
+
+	while( regex_search( beg, decaf_.end(), what, no_init ) )
+	{
+		std::string	org = what[0];
+
+		std::string target = regex_replace (org, init, std::string	("$1"));
+
+		boost::algorithm::replace_all(decaf_, org, target);
+
+		beg = what[0].second;
+	}
+
+	sregex no_type = sregex::compile("_beg_no_type_(.*?)_end_no_type_");
+	sregex type = sregex::compile("(\\s*)(\\w|\\d)+\\s+((\\w|\\d)+\\s*=)"); // (\s*)(\w|\d)+\s+((\w|\d)+\s*=)
+
+	beg = decaf_.begin();
+
+	while( regex_search( beg, decaf_.end(), what, no_type ) )
+	{
+		std::string	org = what[0];
+
+		std::string target = regex_replace (org, type, std::string	("$1$3"));
+
+		boost::algorithm::replace_all(decaf_, org, target);
+
+		beg = what[0].second;
+	}
+
+	//rip tags
+	sregex tags = sregex::compile("(_beg_no_init_|_end_no_init_|_beg_no_type_|_end_no_type_)");
+	decaf_ = regex_replace (decaf_, tags, std::string());
+
 	/*
 	* Append a new main function to the file end.
 	* like
@@ -150,4 +198,12 @@ void MiniJava2Decaf::transform()
 	sregex print = sregex::compile("(\\s*)System\\.println\\(([^)]*)\\)\\s*;"); // System\.println\(([^)]*)\)\s*;
 
 	decaf_ = regex_replace( decaf_, print, std::string("$1Print($2);\n$1Print('\\n\');\n") );
+
+	/*
+	* Delete useless blank line
+	*/
+
+	sregex blankLine = sregex::compile("[\\n|\\r]\\s*[\\n|\\r]"); // [\n|\r]\s*[\n|\r]
+
+	decaf_ = regex_replace( decaf_, blankLine, std::string("\n") );
 }
