@@ -42,8 +42,8 @@ void MiniJava2Decaf::transform()
 {
 	decaf_ = miniJava_;
 	/*strip the comment
-	 * 1. / *...* /
-	 * 2. //... <- Don't need this kind of comment now.
+	* 1. / *...* /
+	* 2. //... <- Don't need this kind of comment now.
 	*/
 	// essentially the same regex as in the previous example, but using a dynamic regex
 	sregex comment = sregex::compile( "\\/\\*(\\s|.)*?\\*\\/");// \/\*(\s|.)*?\*\/ without escape
@@ -51,7 +51,7 @@ void MiniJava2Decaf::transform()
 	decaf_ = regex_replace( miniJava_, comment, std::string() );
 
 	/* 
-	* Change multi declaration to multi line // int/int[]
+	* Change multi declaration to multi line
 	* int a,b = 5,...;
 	* ->
 	* int a;
@@ -142,10 +142,6 @@ void MiniJava2Decaf::transform()
 		pw();
 	pws.clear();
 
-	/* Init class append to the end of the no-init
-	 * main_entry=New(Person);
-	 */
-
 	//delete type
 	sregex no_type = sregex::compile("_beg_no_type_(.*?)_end_no_type_");
 	sregex type = sregex::compile("(\\s*)(\\w|\\d)+\\s+((\\w|\\d)+\\s*=)"); // (\s*)(\w|\d)+\s+((\w|\d)+\s*=)
@@ -157,6 +153,9 @@ void MiniJava2Decaf::transform()
 	{
 		std::string	org = what[0];
 
+		/* Init class append to the end of the no-init
+		* main_entry=New(Person);
+		*/
 		//org = regex_replace (org, new_class, std::string	("$1$4=New($2);"));
 		std::string target = regex_replace (regex_replace (org, new_class, std::string	("$1$4=New($2);")),
 			type, std::string	("$1$3"));
@@ -170,7 +169,7 @@ void MiniJava2Decaf::transform()
 	BOOST_FOREACH (PendingWork pw, pws)
 		pw();
 	pws.clear();
-		
+
 	//rip tags
 	sregex tags = sregex::compile("(_beg_no_init_|_end_no_init_|_beg_no_type_|_end_no_type_)");
 	decaf_ = regex_replace (decaf_, tags, std::string());
@@ -186,28 +185,29 @@ void MiniJava2Decaf::transform()
 
 	std::string mainFuncStr = "void main() {\n"
 		"\tCLASSNAME main_entry;\n"
+		"\tmain_entry=New(CLASSNAME);\n"
 		"\tmain_entry.main();\n"
-	 "}";
+		"}";
 
 	sregex classWithMain = sregex::compile( "class\\s+(\\w+)(.)*main" );// class\s+(\w+)(.|\n|\r)*main
 
 	if( regex_search( decaf_.begin(), decaf_.end(), what, classWithMain ) )
 	{
 		std::string	obj = what[1];
-		boost::algorithm::replace_first(mainFuncStr, "CLASSNAME", obj);
+		boost::algorithm::replace_all(mainFuncStr, "CLASSNAME", obj);
 	}
 
-	 decaf_+= mainFuncStr;
+	decaf_+= mainFuncStr;
 
-	 /*Init class scope val
-	 *  
-	 */
+	/*Init class scope val
+	*  
+	*/
 
 	////////////////////////////////////Erase keywords/////////////////////////////
 
 	/*
-	 * strip program keyword
-	 * 1. program t1; //like this
+	* strip program keyword
+	* 1. program t1; //like this
 	*/
 	sregex program = sregex::compile( "program\\s+\\w(\\w|\\d)*;");// program\s+\w(\w|\d)*;
 
