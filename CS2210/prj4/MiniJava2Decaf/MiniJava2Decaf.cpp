@@ -170,7 +170,14 @@ void MiniJava2Decaf::transform()
 		pw();
 	pws.clear();
 
-	//rip tags
+	/*
+	* Add Init method for class init
+	*/
+	sregex classInit = sregex::compile( "(class[^}]+?)_beg_no_type_([^}]+?)_end_no_type_"); // (class[^}]+?)_beg_no_type_([^}]+?)_end_no_type_
+
+	decaf_ = regex_replace( decaf_, classInit, std::string("$1void Init()\n{$2}") );//add init method to the class
+
+	//rip init and type tags
 	sregex tags = sregex::compile("(_beg_no_init_|_end_no_init_|_beg_no_type_|_end_no_type_)");
 	decaf_ = regex_replace (decaf_, tags, std::string());
 
@@ -187,7 +194,7 @@ void MiniJava2Decaf::transform()
 		"\tCLASSNAME main_entry;\n"
 		"\tmain_entry=New(CLASSNAME);\n"
 		"\tmain_entry.main();\n"
-		"}";
+		"}\n";
 
 	sregex classWithMain = sregex::compile( "class\\s+(\\w+)(.)*main" );// class\s+(\w+)(.|\n|\r)*main
 
@@ -199,9 +206,12 @@ void MiniJava2Decaf::transform()
 
 	decaf_+= mainFuncStr;
 
-	/*Init class scope val
-	*  
+	/*
+	* Call Init member function 
 	*/
+	sregex classNew = sregex::compile( "(\\s*?)((\\w|\\d)+)\\s*?=\\s*?New\\((\\w|\\d)+\\)\\s*?;"); // (\s*?)((\w|\d)+)\s*?=\s*?New\((\w|\d)+\)\s*?;
+	
+	decaf_ = regex_replace( decaf_, classNew, std::string("$&$1$2.Init();") );//call init method after val=New(CLASSNAME)
 
 	////////////////////////////////////Erase keywords/////////////////////////////
 
@@ -238,7 +248,7 @@ void MiniJava2Decaf::transform()
 
 	sregex print = sregex::compile("(\\s*)System\\.println\\(([^)]*)\\)\\s*;"); // System\.println\(([^)]*)\)\s*;
 
-	decaf_ = regex_replace( decaf_, print, std::string("$1Print($2);\n$1Print('\\n\');\n") );
+	decaf_ = regex_replace( decaf_, print, std::string("$1Print($2);\n$1Print('\\n');\n") );
 
 	/*
 	* Delete useless blank line
@@ -247,4 +257,16 @@ void MiniJava2Decaf::transform()
 	sregex blankLine = sregex::compile("[\\n|\\r]\\s*[\\n|\\r]"); // [\n|\r]\s*[\n|\r]
 
 	decaf_ = regex_replace( decaf_, blankLine, std::string("\n") );
+
+	/*
+	* Change ' in Print to "
+	*/
+	sregex singleQuote = sregex::compile("'");
+
+	decaf_ = regex_replace( decaf_, singleQuote, std::string("\"") );
+
+	/*
+	* Change EOL to Unix style //don't need it under unix
+	*/
+
 }

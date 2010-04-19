@@ -27,6 +27,18 @@ string ReadAll(const char* fileName){
 	return inFileBuf;
 }
 
+bool WriteAll(const char* fileName, const std::string& outFilebuf){
+	ofstream ofs(fileName);
+
+	if (!ofs){
+		return false;
+	}
+
+	ofs << outFilebuf;
+
+	return  true;
+}
+
 // MiniJava src.java out.s
 int main(int argc, char* argv[])
 {
@@ -50,6 +62,8 @@ int main(int argc, char* argv[])
 	mjd.setMiniJava(fileBuf);
 
 	cout<<mjd.getDecaf();
+
+	WriteAll("out.decaf", mjd.getDecaf());
 
 	return EXIT_SUCCESS;
 }
