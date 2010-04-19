@@ -1,15 +1,14 @@
 #include "StdAfx.h"
 #include "asmrefiner.h"
 
+//#include <boost/xpressive/xpressive.hpp>
+#include <boost/algorithm/string/replace.hpp>
 
-AsmRefiner::AsmRefiner(void)
-{
-}
+using namespace boost::algorithm;
 
+AsmRefiner::AsmRefiner(void){}
 
-AsmRefiner::~AsmRefiner(void)
-{
-}
+AsmRefiner::~AsmRefiner(void){}
 
 void AsmRefiner::setDecafAsm( const std::string& dasm )
 {
@@ -24,38 +23,45 @@ std::string AsmRefiner::getMiniJavaAsm()
 
 void AsmRefiner::transform()
 {
-	/* headr refine
-	* - # standard Decaf preamble //maybe delete this line in dcc source?
-	* + .data #pre df str for "\n" //this for the predefined "\n"
-	* + Enter:	.asciiz "
-	* + "
+	/* header refine
 	*/
+
+	miniJavaAsm_ = decafAsm_;
 
 	/* Replace PrintInt
 	* -  jal _PrintInt      	# jump to function
 	* + li	$v0	1			#choice print_int syscall
 	* + lw	$a0	4($sp)		#integer to print
 	* + syscall				#print the arg
-	* + li	$v0	4		#print_str
-	* + la	$a0	Enter		#address of "\n" to print
-	* + syscall				#print the arg
 	*/
 
+	replace_all(miniJavaAsm_, "jal _PrintInt      	# jump to function", 
+		"li	$v0	1			#choice print_int syscall\n"
+		"\tlw	$a0	4($sp)		#integer to print\n"
+		"\tsyscall				#print the arg");
+
 	/* Replace PrintString
-	* -  jal _PrintString      	# jump to function
+	* -  jal _PrintString   	# jump to function
 	* + li	$v0	4			#print_str
 	* + la	$a0	($t0)		#address of entering to print
 	* + syscall				#print the arg
-	* + li	$v0	4		#print_str
-	* + la	$a0	Enter		#address of "\n" to print
-	* + syscall				#print the arg
 	*/
+
+	replace_all(miniJavaAsm_, "jal _PrintString   	# jump to function", 
+		"li	$v0	4			#print_str\n"
+		"\tla	$a0	($t0)		#address of entering to print\n"
+		"\tsyscall				#print the arg");
 
 	/* Replace _Alloc
 	*  jal _Alloc         	# jump to function
 	* ->
 	* li	$v0	9			#choice new syscall
 	* move	$a0	$t0		#size to alloc
-	* syscall				#print the arg
+	* syscall				#alloc memory
 	*/
+
+	replace_all(miniJavaAsm_, "jal _Alloc         	# jump to function", 
+		"li	$v0	9			#choice new syscall\n"
+		"\tmove	$a0	$t0		#size to alloc\n"
+		"\tsyscall				#alloc memory");
 }
