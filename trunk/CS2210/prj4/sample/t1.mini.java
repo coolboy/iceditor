@@ -6,6 +6,7 @@ class c1
 {
 	declarations
 		int x=-1, abc = 2;
+		c1 c11;
 	enddeclarations
 	method void main()
 	declarations

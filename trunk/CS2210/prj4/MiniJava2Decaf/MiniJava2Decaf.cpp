@@ -1,5 +1,10 @@
 #include "StdAfx.h"
 
+#include <vector>
+
+#include <boost/bind.hpp>
+#include <boost/foreach.hpp>
+#include <boost/function.hpp>
 #include <boost/xpressive/xpressive.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
@@ -7,6 +12,9 @@
 
 using namespace boost::xpressive;
 using namespace std;
+
+typedef boost::function<void()> PendingWork;
+typedef std::vector<PendingWork> PendingWorks;
 
 MiniJava2Decaf::MiniJava2Decaf(void){}
 
@@ -23,6 +31,11 @@ std::string MiniJava2Decaf::getDecaf()
 	transform ();
 
 	return decaf_;
+}
+
+void peningWork(std::string& decaf_, std::string target, std::string replaced)
+{
+	boost::algorithm::replace_all(decaf_, target, replaced);
 }
 
 void MiniJava2Decaf::transform()
@@ -46,9 +59,11 @@ void MiniJava2Decaf::transform()
 	* int ...
 	*/
 
-	sregex valSep = sregex::compile("(\\s*int)\\s+[^;,]*(,\\s+([^;,])*)*;"); // (\s*int)\s+[^;,]*(,\s+([^;,])*)*;
+	sregex valSep = sregex::compile("(\\s*(\\d|\\w)+?)\\s((\\d|\\w|=|-)+?),(.+?);"); // (\s*(\d|\w)+?)\s((\d|\w|=|-)+?),(.+?);
 
 	smatch what;
+
+	PendingWorks pws;
 
 	std::string::const_iterator beg = decaf_.begin();
 
@@ -60,10 +75,14 @@ void MiniJava2Decaf::transform()
 
 		std::string replaced = boost::algorithm::replace_all_copy(target, ",", obj);
 
-		boost::algorithm::replace_all(decaf_, target, replaced);
+		pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), target, replaced));
 
 		beg = what[0].second;
 	}
+
+	BOOST_FOREACH (PendingWork pw, pws)
+		pw();
+	pws.clear();
 
 	/* move declarations to the beginning of the function
 	* method void main()
@@ -102,6 +121,7 @@ void MiniJava2Decaf::transform()
 
 	decaf_ = regex_replace( decaf_, decl_init, pattern );
 
+	//delete init
 	sregex no_init = sregex::compile("_beg_no_init_(.*?)_end_no_init_"); // _beg_no_init_.*?_end_no_init_
 	sregex init = sregex::compile("=.*?(;)"); // =.*?(;)
 
@@ -113,13 +133,23 @@ void MiniJava2Decaf::transform()
 
 		std::string target = regex_replace (org, init, std::string	("$1"));
 
-		boost::algorithm::replace_all(decaf_, org, target);
+		pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, target));
 
 		beg = what[0].second;
 	}
 
+	BOOST_FOREACH (PendingWork pw, pws)
+		pw();
+	pws.clear();
+
+	/* Init class append to the end of the no-init
+	 * main_entry=New(Person);
+	 */
+
+	//delete type
 	sregex no_type = sregex::compile("_beg_no_type_(.*?)_end_no_type_");
 	sregex type = sregex::compile("(\\s*)(\\w|\\d)+\\s+((\\w|\\d)+\\s*=)"); // (\s*)(\w|\d)+\s+((\w|\d)+\s*=)
+	sregex new_class = sregex::compile("(\\s*)\\b(?!int)((\\w|\\d)+)\\s+((\\w|\\d)+);"); //(\s*)\b(?!int)((\w|\d)+)\s+((\w|\d)+);
 
 	beg = decaf_.begin();
 
@@ -127,13 +157,20 @@ void MiniJava2Decaf::transform()
 	{
 		std::string	org = what[0];
 
-		std::string target = regex_replace (org, type, std::string	("$1$3"));
+		//org = regex_replace (org, new_class, std::string	("$1$4=New($2);"));
+		std::string target = regex_replace (regex_replace (org, new_class, std::string	("$1$4=New($2);")),
+			type, std::string	("$1$3"));
 
-		boost::algorithm::replace_all(decaf_, org, target);
+		//boost::algorithm::replace_all(decaf_, org, target);
+		pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, target));
 
 		beg = what[0].second;
 	}
 
+	BOOST_FOREACH (PendingWork pw, pws)
+		pw();
+	pws.clear();
+		
 	//rip tags
 	sregex tags = sregex::compile("(_beg_no_init_|_end_no_init_|_beg_no_type_|_end_no_type_)");
 	decaf_ = regex_replace (decaf_, tags, std::string());
@@ -162,8 +199,8 @@ void MiniJava2Decaf::transform()
 
 	 decaf_+= mainFuncStr;
 
-	 /* Init class
-	 * main_entry=New(Person);
+	 /*Init class scope val
+	 *  
 	 */
 
 	////////////////////////////////////Erase keywords/////////////////////////////
