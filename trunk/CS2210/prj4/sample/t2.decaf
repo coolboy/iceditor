@@ -1,17 +1,30 @@
 class Person {
 	int intVal;
 
-	void main() {
+	void Test() {
 	  int intVal;
 	  intVal = 4;
-	  if (intVal>=0)
+	  Print (intVal);
+	}
+
+	void Test2() {
+	  if (intVal == 4)
+	  {
+		Print ("is 4 and make 3\n");
+		intVal = 3;
+	   }
+	  else
+	    Print ("Not 4\n");
+	}
+
+	void Test3() {
 		Print (intVal);
-	
-	  Print("hello world");
 	}
 }
 
 void main() {
 	Person main_entry;
-	main_entry.main();
+	main_entry.Test();
+	main_entry.Test2();
+	main_entry.Test3();
 }

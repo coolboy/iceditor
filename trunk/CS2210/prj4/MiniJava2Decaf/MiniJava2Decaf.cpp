@@ -162,6 +162,10 @@ void MiniJava2Decaf::transform()
 
 	 decaf_+= mainFuncStr;
 
+	 /* Init class
+	 * main_entry=New(Person);
+	 */
+
 	////////////////////////////////////Erase keywords/////////////////////////////
 
 	/*

@@ -50,4 +50,12 @@ void AsmRefiner::transform()
 	* + la	$a0	Enter		#address of "\n" to print
 	* + syscall				#print the arg
 	*/
+
+	/* Replace _Alloc
+	*  jal _Alloc         	# jump to function
+	* ->
+	* li	$v0	9			#choice new syscall
+	* move	$a0	$t0		#size to alloc
+	* syscall				#print the arg
+	*/
 }
