@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include <assert.h>
+
 #include <boost/bind.hpp>
 #include <boost/foreach.hpp>
 #include <boost/function.hpp>
@@ -10,8 +12,8 @@
 
 #include "minijava2decaf.h"
 
-using namespace boost::xpressive;
 using namespace std;
+using namespace boost::xpressive;
 
 typedef boost::function<void()> PendingWork;
 typedef std::vector<PendingWork> PendingWorks;
@@ -196,15 +198,32 @@ void MiniJava2Decaf::transform()
 		"\tmain_entry.main();\n"
 		"}\n";
 
-	sregex classWithMain = sregex::compile( "class\\s+(\\w+)(.)*main" );// class\s+(\w+)(.|\n|\r)*main
+	sregex classWithMain = sregex::compile( "method\\s+void\\s+main" );// method\s+void\s+main //get main pos
 
 	if( regex_search( decaf_.begin(), decaf_.end(), what, classWithMain ) )
 	{
-		std::string	obj = what[1];
-		boost::algorithm::replace_all(mainFuncStr, "CLASSNAME", obj);
-	}
+		std::string::const_iterator mainIter = what[0].second;
+		auto mainPos = mainIter - decaf_.begin();
+		//auto mainPos = decaf_.end() - mainIter;
+		auto classPos = decaf_.rfind("class", mainPos);
 
-	decaf_+= mainFuncStr;
+		sregex classNameRxp = sregex::compile("class\\s+((\\w|\\d)+)"); //class\s+((\w|\d)+)
+
+		std::string	mainClassName;
+
+		if( regex_search( decaf_.begin() + classPos, decaf_.end(), what, classNameRxp ) )
+		{
+			mainClassName = what[1];
+		}
+		else
+			assert(0);
+
+		boost::algorithm::replace_all(mainFuncStr, "CLASSNAME", mainClassName);
+
+		decaf_+= mainFuncStr;
+	}
+	else
+		assert(0);
 
 	/*
 	* Call Init member function 
@@ -246,9 +265,9 @@ void MiniJava2Decaf::transform()
 	* Change System.println(val) to Print(val) + Print("\n")
 	*/
 
-	sregex print = sregex::compile("(\\s*)System\\.println\\(([^)]*)\\)\\s*;"); // System\.println\(([^)]*)\)\s*;
+	sregex print = sregex::compile("(\\s*)System\\.println(\\(.*?);"); // (\s*)System\.println(\(.*?);
 
-	decaf_ = regex_replace( decaf_, print, std::string("$1Print($2);\n$1Print('\\n');\n") );
+	decaf_ = regex_replace( decaf_, print, std::string("$1Print$2;\n$1Print('\\n');\n") );
 
 	/*
 	* Delete useless blank line
@@ -264,6 +283,12 @@ void MiniJava2Decaf::transform()
 	sregex singleQuote = sregex::compile("'");
 
 	decaf_ = regex_replace( decaf_, singleQuote, std::string("\"") );
+
+	/*
+	* Change := -> =
+	*/
+
+	boost::algorithm::replace_all(decaf_, ":=", "=");
 
 	/*
 	* Change EOL to Unix style //don't need it under unix
