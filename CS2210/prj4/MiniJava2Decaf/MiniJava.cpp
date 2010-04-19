@@ -8,6 +8,7 @@
 #include <fstream>
 #include <iterator>
 
+#include "AsmRefiner.h"
 #include "MiniJava2Decaf.h"
 
 using namespace std;
@@ -42,7 +43,7 @@ bool WriteAll(const char* fileName, const std::string& outFilebuf){
 // MiniJava src.java out.s
 int main(int argc, char* argv[])
 {
-	if (argc !=2 )
+	if (argc !=3 )
 	{
 		cerr<<"Wrong arguments!\n";
 		return EXIT_FAILURE;
@@ -61,9 +62,19 @@ int main(int argc, char* argv[])
 	MiniJava2Decaf mjd;
 	mjd.setMiniJava(fileBuf);
 
-	cout<<mjd.getDecaf();
+	//cout<<mjd.getDecaf();
 
+	cout<<"Writing out.decaf...\n\n";
 	WriteAll("out.decaf", mjd.getDecaf());
+
+	fileBuf = ReadAll(argv[2]);
+
+	AsmRefiner ar;
+	ar.setDecafAsm(fileBuf);
+
+	cout<<"Writing out.s...\n\n";
+	cout<<ar.getMiniJavaAsm()<<endl;
+	WriteAll("out.s", ar.getMiniJavaAsm());
 
 	return EXIT_SUCCESS;
 }

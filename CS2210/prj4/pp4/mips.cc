@@ -513,7 +513,7 @@ void Mips::EmitVTable(const char *label, List<const char*> *methodLabels)
  */
 void Mips::EmitPreamble()
 {
-  Emit("# standard Decaf preamble ");
+  //Emit("# standard Decaf preamble ");
   Emit(".text");
   Emit(".align 2");
   Emit(".globl main");
