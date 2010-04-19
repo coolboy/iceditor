@@ -9,12 +9,11 @@ class Person {
 
 	void Test2() {
 	  if (intVal == 4)
-	  {
 		Print ("is 4 and make 3\n");
-		intVal = 3;
-	   }
 	  else
 	    Print ("Not 4\n");
+
+	  intVal = 3;
 	}
 
 	void Test3() {
@@ -24,6 +23,7 @@ class Person {
 
 void main() {
 	Person main_entry;
+	main_entry=New(Person);
 	main_entry.Test();
 	main_entry.Test2();
 	main_entry.Test3();
