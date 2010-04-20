@@ -62,10 +62,12 @@ int main(int argc, char* argv[])
 	MiniJava2Decaf mjd;
 	mjd.setMiniJava(fileBuf);
 
-	cout<<mjd.getDecaf();
+	std::string	decaf = mjd.getDecaf();
+
+	cout<<decaf;
 
 	cout<<"Writing out.decaf...\n\n";
-	WriteAll("out.decaf", mjd.getDecaf());
+	WriteAll("out.decaf", decaf);
 
 	fileBuf = ReadAll(argv[2]);
 
