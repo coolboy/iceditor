@@ -61,5 +61,8 @@
     <None Include="..\sample\t2.decaf">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\sample\t2.mini.java">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

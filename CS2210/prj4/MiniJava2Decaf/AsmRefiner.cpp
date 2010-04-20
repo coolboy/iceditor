@@ -40,6 +40,17 @@ void AsmRefiner::transform()
 		"\tlw	$a0	4($sp)		#integer to print\n"
 		"\tsyscall				#print the arg");
 
+	/* Replace ReadInteger
+	* jal _ReadInteger   	# jump to function
+	* ->
+	* li	$v0	5		#system call code for read_int
+	* syscall
+	*/
+
+	replace_all(miniJavaAsm_, "jal _ReadInteger   	# jump to function", 
+		"li	$v0	5		#system call code for read_int\n"
+		"\tsyscall");
+
 	/* Replace PrintString
 	* -  jal _PrintString   	# jump to function
 	* + li	$v0	4			#print_str
