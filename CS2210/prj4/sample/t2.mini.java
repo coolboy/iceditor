@@ -1,43 +1,75 @@
-/* ex4: Arrays */
-program ex4;
-class c4
-{
-	declarations
-		int[] x=int[10];
-		int[] ia[]={3, 5, 7};
-	enddeclarations
-	method void main()
-	declarations
-		int[] y=int [25];
-		int z ;
-	enddeclarations
-	{
-	y[3] := 17; 
-	system.println('x.length='); 
-	system.println(x.length); 
-	z := y[3] + 3;
-	ia[2] := 27 ; 
-	system.println('z=');
-	system.println(z); 
-	system.println('ia[0]=');
-	system.println(ia[0]);
-	system.println('z=');
-	system.println(z); 
-	system.println('ia[1]=');
-	system.println(ia[1]); 
-	system.println('ia[2]=');
-	system.println(ia[2]);
-        z := -1;
-	while (z<2)
-	{
-	  ia[z+1] := 1 + z*2 + z*z;
-	  z:=z+1;
-	};
-        z := 0;
-	while (z<=2)
-	{
-	  system.println(ia[z]);
-	  z:=z+1;
-	};
-	}
+/* EXAMPLE 4: Two classes this time */
+program x4;
+class Point0 {
+	 declarations
+		int[] parr0 = int [12];
+        int x , y = 5;
+	 enddeclarations
+	 method void f0()
+	 {
+		system.println('Before x=');
+		system.println(x); 
+	        x := x*x;   
+		y := 1;
+		while (y<12)
+		{
+			parr0[y] := parr0[y-1]+1;
+			y := y+1;
+		};
+		system.println('After x=');
+		system.println(x); 
+	 }
 }
+
+class Point1 {
+	declarations
+	        int t1 = 12;
+            Point0 p1;
+	enddeclarations
+	 method void f1()
+	 {
+		system.println('Before t1=');	
+		system.println(t1);
+	        t1   := 1024; 
+		p1.f0(); 
+		system.println('After t1=');
+		system.println(t1);
+	 }
+}
+
+class Point2 {
+	declarations
+            	Point1 p21;
+		Point0 p20;
+		int xy;
+	enddeclarations		
+        method void main()	
+	     declarations	
+		        int xx = 22;	
+			Point1 px;
+	     enddeclarations
+	{
+	   Point0.f0();
+           p21.f1(); 
+	   px.p1.x := xx;
+	   px.p1.f0(); 
+	   p21.t1 := 133;
+	   p21.f1();
+	   system.println('p21.p1.x=');
+	   system.println(p21.p1.x);
+	   p20.f0();
+	   xy := 0;
+	   while (xy <12)
+	   {
+		system.println('p20.parr0:');
+		system.println(p20.parr0[xy]);
+		xy := xy+1;
+	   };
+	   Point1.f1();
+	   system.println('p20.x=');
+	   system.println(p20.x); 
+        }
+}
+
+
+

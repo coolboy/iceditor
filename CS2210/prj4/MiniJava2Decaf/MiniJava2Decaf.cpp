@@ -23,22 +23,31 @@ MiniJava2Decaf::MiniJava2Decaf(void){}
 
 MiniJava2Decaf::~MiniJava2Decaf(void){}
 
-void MiniJava2Decaf::setMiniJava( const std::string& miniJava )
-{
+void MiniJava2Decaf::setMiniJava( const std::string& miniJava ){
 	miniJava_ = miniJava;
 }
 
-std::string MiniJava2Decaf::getDecaf()
-{
+std::string MiniJava2Decaf::getDecaf(){
 	transform ();
-
 	return decaf_;
 }
 
+//////////////////////////////////////////////////////////////////////////
 void peningWork(std::string& decaf_, std::string target, std::string replaced)
 {
 	boost::algorithm::replace_all(decaf_, target, replaced);
 }
+
+std::string eraseLineWithoutEQ(const std::string& input)
+{
+	smatch what; //matching results
+
+	sregex lineWithoutEQ = sregex::compile("^[^=]*$");
+
+	return regex_replace(input, lineWithoutEQ, std::string());
+}
+
+//////////////////////////////////////////////////////////////////////////
 
 void MiniJava2Decaf::transform()
 {
@@ -57,15 +66,15 @@ void MiniJava2Decaf::transform()
 	decaf_ = regex_replace( miniJava_, comment, std::string() );
 
 	//cheater for array
-	std::string textCaseName;
-	if (textCaseName == "ex4")
-	{
-		return;
-	}
-	else if (textCaseName == "x4")
-	{
-		return;
-	}
+	//std::string textCaseName;
+	//if (textCaseName == "ex4")
+	//{
+	//	return;
+	//}
+	//else if (textCaseName == "x4")
+	//{
+	//	return;
+	//}
 
 	/* 
 	* Change multi declaration to multi line
@@ -76,7 +85,7 @@ void MiniJava2Decaf::transform()
 	* int ...
 	*/
 
-	sregex valSep = sregex::compile("(\\s*(\\d|\\w)+?)\\s((\\d|\\w|=|-)+?),(.+?);"); // (\s*(\d|\w)+?)\s((\d|\w|=|-)+?),(.+?);
+	sregex valSep = sregex::compile("(\\s*(\\d|\\w)+?)\\s((\\d|\\w|=|-| )+?),(.+?);"); // (\s*(\d|\w)+?)\s((\d|\w|=|-| )+?),(.+?);
 
 	std::string::const_iterator beg = decaf_.begin();
 
@@ -185,32 +194,65 @@ void MiniJava2Decaf::transform()
 	pws.clear();
 
 	//delete type
-	sregex no_type = sregex::compile("_beg_no_type_(.*?)_end_no_type_");
-	sregex type = sregex::compile("(\\s*)(\\w|\\d)+\\s+((\\w|\\d)+\\s*=)"); // (\s*)(\w|\d)+\s+((\w|\d)+\s*=)
-	sregex new_class = sregex::compile("(\\s*)\\b(?!int)((\\w|\\d)+)\\s+((\\w|\\d)+);"); //(\s*)\b(?!int)((\w|\d)+)\s+((\w|\d)+);
+	sregex no_type = sregex::compile("_beg_no_type_.*?declarations(.*?)enddeclarations._end_no_type_*?");
+	sregex type = sregex::compile("^(\\s*)(\\w|\\d)+\\s+((\\w|\\d)+\\s*=)"); // \n(\s*)(\w|\d)+\s+((\w|\d)+\s*=)
+	sregex new_class = sregex::compile("^(\\s*)\\b(?!int)((\\w|\\d)+)\\s+((\\w|\\d)+);"); //\n(\s*)\b(?!int)((\w|\d)+)\s+((\w|\d)+);
 
 	beg = decaf_.begin();
 
 	while( regex_search( beg, decaf_.end(), what, no_type ) )
 	{
-		std::string	org = what[0];
+		std::string	org = what[1];
 
 		/*
-		* delete int line in _no_type_ without a '='
+		* delete line in _no_type_ without a '='
 		*/
-		sregex intWithoutInit = sregex::compile("\\s*?int\\s+(\\w|\\d)+?;"); //\s*?int\s+(\w|\d)+?;
-		std::string dupDeleted = regex_replace(org, intWithoutInit, std::string());
+		std::string needDelType = eraseLineWithoutEQ(org);
+
+		/*
+		* delete type in _no_type_
+		*/
+		sregex delType = sregex::compile("(.*?)((\\w|\\d)+\\s*?=.*?$)"); //(.*?)((\w|\d)+\s*?=.*?$)
+		std::string dupDeleted = regex_replace(needDelType,  delType, std::string("$2"));
 		if (dupDeleted != org)
 			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, dupDeleted));
 
-		/* Init class append to the end of the no-init
-		* main_entry=New(Person);
-		*/
-		//org = regex_replace (org, new_class, std::string	("$1$4=New($2);"));
-		std::string target = regex_replace (regex_replace (org, new_class, std::string	("$1$4=New($2);")),
-			type, std::string	("$1$3"));
+		beg = what[0].second;
+	}
 
-		pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, target));
+	BOOST_FOREACH (PendingWork pw, pws)
+		pw();
+	pws.clear();
+
+	//no_type = sregex::compile("_beg_no_type_.*?declarations(.*?)enddeclarations._end_no_type_*?");
+	//while( regex_search( beg, decaf_.end(), what, no_type ) )
+	//{
+	//	std::string	org = what[1];
+
+	//	sregex intWithoutInit = sregex::compile("^\\s*?(.*?)=.*?$"); //\s*?int\s+(\w|\d)+?\s*;
+	//	std::string dupDeleted = regex_replace(org, intWithoutInit, std::string());
+	//	if (dupDeleted != org)
+	//		pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, dupDeleted));
+
+	//	beg = what[0].second;
+	//}
+
+	//BOOST_FOREACH (PendingWork pw, pws)
+	//	pw();
+	//pws.clear();
+
+	/* Init class append to the end of the no-init
+	* main_entry=New(Person);
+	*/
+	while( regex_search( beg, decaf_.end(), what, no_type ) )
+	{
+		std::string	org = what[0];
+
+		std::string classWithNewString = regex_replace (org, new_class, std::string	("$1$4=New($2);"));
+		std::string target = regex_replace (classWithNewString, 	type, std::string	("$1$3"));
+
+		if (target != org)
+			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, target));
 
 		beg = what[0].second;
 	}
@@ -225,7 +267,7 @@ void MiniJava2Decaf::transform()
 	sregex classInit = sregex::compile( "(class[^}()]+?)(_beg_no_type_[^}]+?_end_no_type_.*?)?(method)"); // (class[^}()]+?)(_beg_no_type_[^}]+?_end_no_type_.*?)?(method)
 
 	decaf_ = regex_replace( decaf_, classInit, std::string("$1void Init()\n{\n$2}\n$3") );//add init method to the class
-	
+
 	//rip init and type tags
 	sregex tags = sregex::compile("(_beg_no_init_|_end_no_init_|_beg_no_type_|_end_no_type_)");
 	decaf_ = regex_replace (decaf_, tags, std::string());
