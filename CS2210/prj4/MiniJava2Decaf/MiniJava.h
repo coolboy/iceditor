@@ -2,6 +2,6 @@
 
 #include <string>
 
-void ConvertToDecaf(const std::string fileName);
+void ConvertToDecaf(const char* fileName);
 
-void ConvertToDecaf(const std::string fileName);
+void ConvertToMips(const char* fileName);

@@ -38,50 +38,33 @@ bool WriteAll(const char* fileName, const std::string& outFilebuf){
 	return  true;
 }
 
-// MiniJava src.java out.s
-//int main(int argc, char* argv[])
-//{
-//	if (argc !=3 )
-//	{
-//		cerr<<"Wrong arguments!\n";
-//		return EXIT_FAILURE;
-//	}
-//
-//	std::string fileBuf;
-//
-//	fileBuf = ReadAll(argv[1]);
-//
-//	if (fileBuf.empty())
-//	{
-//		cerr<<"Src file read error!\n";
-//		return EXIT_FAILURE;
-//	}
-//
-//	MiniJava2Decaf mjd;
-//	mjd.setMiniJava(fileBuf);
-//
-//	std::string	decaf = mjd.getDecaf();
-//
-//	cout<<decaf;
-//
-//	cout<<"Writing out.decaf...\n\n";
-//	WriteAll("out.decaf", decaf);
-//
-//	fileBuf = ReadAll(argv[2]);
-//
-//	AsmRefiner ar;
-//	ar.setDecafAsm(fileBuf);
-//
-//	cout<<"Writing out.s...\n\n";
-//	cout<<ar.getMiniJavaAsm()<<endl;
-//	WriteAll("out.s", ar.getMiniJavaAsm());
-//
-//	return EXIT_SUCCESS;
-//}
-
-void ConvertToDecaf( const std::string& fileName )
+// MiniJava -s src.java
+// MiniJava -a out.s
+int main(int argc, char* argv[])
 {
-	std::string fileBuf = ReadAll(fileName.c_str());
+	if (argc !=3 )
+	{
+		cerr<<"Wrong arguments!\n";
+		return EXIT_FAILURE;
+	}
+
+	std::string a1, a2;
+	a1 = argv[1];
+	a2 = argv[2];
+
+	if (a1 == "-s")
+		ConvertToDecaf(argv[2]);
+	else if (a2 == "-a")
+		ConvertToMips(argv[2]);
+	else
+		cerr<<"Wrong arguments!\n";
+
+	return EXIT_SUCCESS;
+}
+
+void ConvertToDecaf( const char* fileName )
+{
+	std::string fileBuf = ReadAll(fileName);
 
 	if (fileBuf.empty())
 		return;
@@ -91,12 +74,12 @@ void ConvertToDecaf( const std::string& fileName )
 
 	std::string	decaf = mjd.getDecaf();
 
-	WriteAll(fileName.c_str(), decaf);
+	WriteAll(fileName, decaf);
 }
 
-void ConvertToDecaf( const std::string& fileName )
+void ConvertToMips( const char* fileName )
 {
-	std::string fileBuf = ReadAll(fileName.c_str());
+	std::string fileBuf = ReadAll(fileName);
 
 	if (fileBuf.empty())
 		return;
@@ -104,5 +87,5 @@ void ConvertToDecaf( const std::string& fileName )
 	AsmRefiner ar;
 	ar.setDecafAsm(fileBuf);
 
-	WriteAll(fileName.c_str(), ar.getMiniJavaAsm());
+	WriteAll(fileName, ar.getMiniJavaAsm());
 }

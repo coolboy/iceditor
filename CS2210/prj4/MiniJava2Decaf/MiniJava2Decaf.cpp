@@ -64,17 +64,6 @@ void MiniJava2Decaf::transform()
 
 	decaf_ = regex_replace( miniJava_, comment, std::string() );
 
-	//cheater for array
-	//std::string textCaseName;
-	//if (textCaseName == "ex4")
-	//{
-	//	return;
-	//}
-	//else if (textCaseName == "x4")
-	//{
-	//	return;
-	//}
-
 	/* 
 	* Change multi declaration to multi line
 	* int a,b = 5,...;
@@ -197,6 +186,27 @@ void MiniJava2Decaf::transform()
 	sregex type = sregex::compile("^(\\s*)(\\w|\\d)+\\s+((\\w|\\d)+\\s*=)"); // \n(\s*)(\w|\d)+\s+((\w|\d)+\s*=)
 	sregex new_class = sregex::compile("^(\\s*)\\b(?!int)((\\w|\\d)+)\\s+((\\w|\\d)+);"); //\n(\s*)\b(?!int)((\w|\d)+)\s+((\w|\d)+);
 
+	/* Init class append to the end of the no-init
+	* main_entry=New(Person);
+	*/
+	beg = decaf_.begin();
+	while( regex_search( beg, decaf_.end(), what, no_type ) )
+	{
+		std::string	org = what[0];
+
+		std::string classWithNewString = regex_replace (org, new_class, std::string	("$1$4=New($2);"));
+		std::string target = regex_replace (classWithNewString, 	type, std::string	("$1$3"));
+
+		if (target != org)
+			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, target));
+
+		beg = what[0].second;
+	}
+
+	BOOST_FOREACH (PendingWork pw, pws)
+		pw();
+	pws.clear();
+
 	beg = decaf_.begin();
 
 	while( regex_search( beg, decaf_.end(), what, no_type ) )
@@ -204,7 +214,7 @@ void MiniJava2Decaf::transform()
 		std::string	org = what[2];
 
 		/*
-		* delete line in _no_type_ without a '='
+		* delete int line in _no_type_ without a '='
 		*/
 		std::string needDelType = eraseLineWithoutEQ(org);
 
@@ -212,7 +222,7 @@ void MiniJava2Decaf::transform()
 		* delete type in _no_type_
 		*/
 		sregex delType = sregex::compile("(.*?)((\\w|\\d)+\\s*?=.*?$)"); //(.*?)((\w|\d)+\s*?=.*?$)
-		std::string dupDeleted = regex_replace(needDelType,  delType, std::string("$2"));
+		std::string dupDeleted = regex_replace(needDelType,  delType, std::string("\n$2\n"));
 
 		/*
 		* Create Array
@@ -224,29 +234,10 @@ void MiniJava2Decaf::transform()
 		std::string arrayInitStr = regex_replace(dupDeleted,  arrayInit, std::string("NewArray($1, int)"));
 
 		org = what[1] + org + what[3];
+		arrayInitStr = what[1] + arrayInitStr + what[3];
 
 		if (arrayInitStr != org)
 			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, arrayInitStr));
-
-		beg = what[0].second;
-	}
-
-	BOOST_FOREACH (PendingWork pw, pws)
-		pw();
-	pws.clear();
-
-	/* Init class append to the end of the no-init
-	* main_entry=New(Person);
-	*/
-	while( regex_search( beg, decaf_.end(), what, no_type ) )
-	{
-		std::string	org = what[0];
-
-		std::string classWithNewString = regex_replace (org, new_class, std::string	("$1$4=New($2);"));
-		std::string target = regex_replace (classWithNewString, 	type, std::string	("$1$3"));
-
-		if (target != org)
-			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, target));
 
 		beg = what[0].second;
 	}
