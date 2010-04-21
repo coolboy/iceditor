@@ -1,6 +1,3 @@
-// MiniJava.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 
 #include <string>
@@ -9,6 +6,7 @@
 #include <iterator>
 
 #include "AsmRefiner.h"
+#include "MiniJava.h"
 #include "MiniJava2Decaf.h"
 
 using namespace std;
@@ -41,42 +39,70 @@ bool WriteAll(const char* fileName, const std::string& outFilebuf){
 }
 
 // MiniJava src.java out.s
-int main(int argc, char* argv[])
+//int main(int argc, char* argv[])
+//{
+//	if (argc !=3 )
+//	{
+//		cerr<<"Wrong arguments!\n";
+//		return EXIT_FAILURE;
+//	}
+//
+//	std::string fileBuf;
+//
+//	fileBuf = ReadAll(argv[1]);
+//
+//	if (fileBuf.empty())
+//	{
+//		cerr<<"Src file read error!\n";
+//		return EXIT_FAILURE;
+//	}
+//
+//	MiniJava2Decaf mjd;
+//	mjd.setMiniJava(fileBuf);
+//
+//	std::string	decaf = mjd.getDecaf();
+//
+//	cout<<decaf;
+//
+//	cout<<"Writing out.decaf...\n\n";
+//	WriteAll("out.decaf", decaf);
+//
+//	fileBuf = ReadAll(argv[2]);
+//
+//	AsmRefiner ar;
+//	ar.setDecafAsm(fileBuf);
+//
+//	cout<<"Writing out.s...\n\n";
+//	cout<<ar.getMiniJavaAsm()<<endl;
+//	WriteAll("out.s", ar.getMiniJavaAsm());
+//
+//	return EXIT_SUCCESS;
+//}
+
+void ConvertToDecaf( const std::string& fileName )
 {
-	if (argc !=3 )
-	{
-		cerr<<"Wrong arguments!\n";
-		return EXIT_FAILURE;
-	}
-
-	std::string fileBuf;
-
-	fileBuf = ReadAll(argv[1]);
+	std::string fileBuf = ReadAll(fileName.c_str());
 
 	if (fileBuf.empty())
-	{
-		cerr<<"Src file read error!\n";
-		return EXIT_FAILURE;
-	}
+		return;
 
 	MiniJava2Decaf mjd;
 	mjd.setMiniJava(fileBuf);
 
 	std::string	decaf = mjd.getDecaf();
 
-	cout<<decaf;
+	WriteAll(fileName.c_str(), decaf);
+}
 
-	cout<<"Writing out.decaf...\n\n";
-	WriteAll("out.decaf", decaf);
+void ConvertToDecaf( const std::string& fileName )
+{
+	std::string fileBuf = ReadAll(fileName.c_str());
 
-	fileBuf = ReadAll(argv[2]);
+	if (fileBuf.empty())
+		return;
 
 	AsmRefiner ar;
 	ar.setDecafAsm(fileBuf);
 
-	cout<<"Writing out.s...\n\n";
-	cout<<ar.getMiniJavaAsm()<<endl;
-	WriteAll("out.s", ar.getMiniJavaAsm());
-
-	return EXIT_SUCCESS;
+	WriteAll(fileName.c_str(), ar.getMiniJavaAsm());
 }
