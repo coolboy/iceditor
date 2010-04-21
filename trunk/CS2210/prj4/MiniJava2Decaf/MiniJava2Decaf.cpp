@@ -20,7 +20,6 @@ typedef std::vector<PendingWork> PendingWorks;
 
 MiniJava2Decaf::MiniJava2Decaf(void){}
 
-
 MiniJava2Decaf::~MiniJava2Decaf(void){}
 
 void MiniJava2Decaf::setMiniJava( const std::string& miniJava ){
@@ -194,7 +193,7 @@ void MiniJava2Decaf::transform()
 	pws.clear();
 
 	//delete type
-	sregex no_type = sregex::compile("_beg_no_type_.*?declarations(.*?)enddeclarations._end_no_type_*?");
+	sregex no_type = sregex::compile("(_beg_no_type_.*?declarations)(.*?)(enddeclarations.*?_end_no_type_)");
 	sregex type = sregex::compile("^(\\s*)(\\w|\\d)+\\s+((\\w|\\d)+\\s*=)"); // \n(\s*)(\w|\d)+\s+((\w|\d)+\s*=)
 	sregex new_class = sregex::compile("^(\\s*)\\b(?!int)((\\w|\\d)+)\\s+((\\w|\\d)+);"); //\n(\s*)\b(?!int)((\w|\d)+)\s+((\w|\d)+);
 
@@ -202,7 +201,7 @@ void MiniJava2Decaf::transform()
 
 	while( regex_search( beg, decaf_.end(), what, no_type ) )
 	{
-		std::string	org = what[1];
+		std::string	org = what[2];
 
 		/*
 		* delete line in _no_type_ without a '='
@@ -214,8 +213,20 @@ void MiniJava2Decaf::transform()
 		*/
 		sregex delType = sregex::compile("(.*?)((\\w|\\d)+\\s*?=.*?$)"); //(.*?)((\w|\d)+\s*?=.*?$)
 		std::string dupDeleted = regex_replace(needDelType,  delType, std::string("$2"));
-		if (dupDeleted != org)
-			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, dupDeleted));
+
+		/*
+		* Create Array
+		* arr = int [10]
+		* ->
+		* arr = NewArray (10, int)
+		*/
+		sregex arrayInit = sregex::compile("int\\s+\\[(\\d+)\\]"); // int\s+\[(\d+)\]
+		std::string arrayInitStr = regex_replace(dupDeleted,  arrayInit, std::string("NewArray($1, int)"));
+
+		org = what[1] + org + what[3];
+
+		if (arrayInitStr != org)
+			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, arrayInitStr));
 
 		beg = what[0].second;
 	}
@@ -223,23 +234,6 @@ void MiniJava2Decaf::transform()
 	BOOST_FOREACH (PendingWork pw, pws)
 		pw();
 	pws.clear();
-
-	//no_type = sregex::compile("_beg_no_type_.*?declarations(.*?)enddeclarations._end_no_type_*?");
-	//while( regex_search( beg, decaf_.end(), what, no_type ) )
-	//{
-	//	std::string	org = what[1];
-
-	//	sregex intWithoutInit = sregex::compile("^\\s*?(.*?)=.*?$"); //\s*?int\s+(\w|\d)+?\s*;
-	//	std::string dupDeleted = regex_replace(org, intWithoutInit, std::string());
-	//	if (dupDeleted != org)
-	//		pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, dupDeleted));
-
-	//	beg = what[0].second;
-	//}
-
-	//BOOST_FOREACH (PendingWork pw, pws)
-	//	pw();
-	//pws.clear();
 
 	/* Init class append to the end of the no-init
 	* main_entry=New(Person);
