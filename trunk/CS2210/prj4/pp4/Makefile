@@ -1,5 +1,5 @@
 ## 
-## Simple makefile for CS143 programming projects
+## Makefile for codegen
 ##
 
 
