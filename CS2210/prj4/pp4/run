@@ -1,16 +1,15 @@
 #!/bin/sh -f
 #
 # run
-# Usage:  run decaf-file
-#
-# Compiles decaf-file and executes (spim).
+# Usage:  run minijava-file
+# ./dcc <out.minijava> tmp.asm
+# Compiles minijava-file.
 #
 
-SPIM=/usr/class/cs143/bin/spim
 COMPILER=dcc
 
 if [ $# -lt 1 ]; then
-  echo "Run script error: The run script takes one argument, the path to a Decaf file."
+  echo "Run script error: The run script takes one argument, the path to a minijava file."
   exit 1;
 fi
 if [ ! -x $COMPILER ]; then
@@ -19,7 +18,7 @@ if [ ! -x $COMPILER ]; then
   exit 1;
 fi
 if [ ! -r $1 ]; then
-  echo "Run script error: Cannot find Decaf input file named '$1'."
+  echo "Run script error: Cannot find minijava input file named '$1'."
   exit 1;
 fi
 
@@ -31,10 +30,6 @@ if [ $? -ne 0 -o -s tmp.errors ]; then
   cat tmp.errors
   exit 1;
 fi
-
-echo "-- spim -file tmp.asm"
-echo " "
-$SPIM -file tmp.asm
 
 echo " "
 echo " "

@@ -75,4 +75,15 @@ void AsmRefiner::transform()
 		"li	$v0	9			#choice new syscall\n"
 		"\tmove	$a0	$t0		#size to alloc\n"
 		"\tsyscall				#alloc memory");
+
+	/*Replace _Halt
+	* jal _Halt          	# jump to function
+	* ->
+	* li	$v0	10			#choice new syscall
+	* syscall				#exit
+	*/
+
+	replace_all(miniJavaAsm_, "jal _Halt          	# jump to function", 
+		"li	$v0	10 		#choice new syscall\n"
+		"\tsyscall				#exit");
 }
