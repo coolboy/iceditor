@@ -74,6 +74,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AsmRefiner.h" />
+    <ClInclude Include="MiniJava.h" />
     <ClInclude Include="MiniJava2Decaf.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

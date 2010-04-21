@@ -27,6 +27,9 @@
     <ClInclude Include="AsmRefiner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MiniJava.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
