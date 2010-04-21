@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 
 	if (a1 == "-s")
 		ConvertToDecaf(argv[2]);
-	else if (a2 == "-a")
+	else if (a1 == "-a")
 		ConvertToMips(argv[2]);
 	else
 		cerr<<"Wrong arguments!\n";
@@ -74,7 +74,7 @@ void ConvertToDecaf( const char* fileName )
 
 	std::string	decaf = mjd.getDecaf();
 
-	WriteAll(fileName, decaf);
+	WriteAll("out.decaf", decaf);
 }
 
 void ConvertToMips( const char* fileName )
@@ -87,5 +87,5 @@ void ConvertToMips( const char* fileName )
 	AsmRefiner ar;
 	ar.setDecafAsm(fileBuf);
 
-	WriteAll(fileName, ar.getMiniJavaAsm());
+	WriteAll("out.s", ar.getMiniJavaAsm());
 }
