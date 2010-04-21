@@ -10,7 +10,7 @@
 #include <boost/xpressive/xpressive.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
-#include "minijava2decaf.h"
+#include "MiniJava2Decaf.h"
 
 using namespace std;
 using namespace boost::xpressive;
@@ -277,8 +277,8 @@ void MiniJava2Decaf::transform()
 	if( regex_search( decaf_.begin(), decaf_.end(), what, classWithMain ) )
 	{
 		std::string::const_iterator mainIter = what[0].second;
-		auto mainPos = mainIter - decaf_.begin();
-		auto classPos = decaf_.rfind("class", mainPos);
+		int mainPos = mainIter - decaf_.begin();
+		int classPos = decaf_.rfind("class", mainPos);
 
 		sregex classNameRxp = sregex::compile("class\\s+((\\w|\\d)+)"); //class\s+((\w|\d)+)
 
