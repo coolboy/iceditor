@@ -141,10 +141,24 @@ dataCount(0)
 	curve->attach(this);
 	data[Dimm3].curve = curve;
 
+	curve = new CpuCurve("SysAllocRate");
+	curve->setColor(Qt::green);
+	curve->setZ(curve->z() - 4);
+	curve->attach(this);
+	data[SysAllocRate].curve = curve;
+
+	curve = new CpuCurve("TestRate");
+	curve->setColor(Qt::yellow);
+	curve->setZ(curve->z() - 5);
+	curve->attach(this);
+	data[TestRate].curve = curve;
+
 	showCurve(data[Dimm0].curve, true);
 	showCurve(data[Dimm1].curve, true);
 	showCurve(data[Dimm2].curve, true);
 	showCurve(data[Dimm3].curve, true);
+	showCurve(data[SysAllocRate].curve, true);
+	showCurve(data[TestRate].curve, true);
 
 	for ( int i = 0; i < HISTORY; i++ )
 		timeData[HISTORY - 1 - i] = i;
@@ -176,6 +190,12 @@ void MemPlot::timerEvent(QTimerEvent *)
 	data[Dimm1].data[0] = d1 * 100/total;
 	data[Dimm2].data[0] = d2 * 100/total;
 	data[Dimm3].data[0] = d3 * 100/total;
+
+	double MaxSysAllocRate = 1000;
+	double MaxTestRate = 800;
+
+	data[SysAllocRate].data[0] = memStat->getData("SysAllocRate").toDouble() * 100/MaxSysAllocRate;
+	data[TestRate].data[0] = memStat->getData("TestRate").toDouble() * 100/MaxTestRate;
 
 	if ( dataCount < HISTORY )
 		dataCount++;
