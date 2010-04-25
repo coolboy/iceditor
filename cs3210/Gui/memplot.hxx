@@ -33,6 +33,8 @@ public:
         Dimm1,
         Dimm2,
         Dimm3,
+				SysAllocRate,
+				TestRate,
 
         NDimm
     };
