@@ -191,8 +191,8 @@ void MemPlot::timerEvent(QTimerEvent *)
 	data[Dimm2].data[0] = d2 * 100/total;
 	data[Dimm3].data[0] = d3 * 100/total;
 
-	double MaxSysAllocRate = 1000;
-	double MaxTestRate = 800;
+	double MaxSysAllocRate = 1000;//??
+	double MaxTestRate = 800;//??
 
 	data[SysAllocRate].data[0] = memStat->getData("SysAllocRate").toDouble() * 100/MaxSysAllocRate;
 	data[TestRate].data[0] = memStat->getData("TestRate").toDouble() * 100/MaxTestRate;
