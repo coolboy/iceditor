@@ -64,10 +64,16 @@
     </UIC>
   </ItemGroup>
   <ItemGroup>
-    <None Include="proc\test_input">
+    <None Include="proc\vmguard\system_alloc_rate">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="proc\test_output">
+    <None Include="proc\vmguard\test_input">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="proc\vmguard\test_output">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="proc\vmguard\test_rate">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

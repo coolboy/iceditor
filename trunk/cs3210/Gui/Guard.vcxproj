@@ -174,8 +174,10 @@
     <UIC Include="MemAdjustWig.ui" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="proc\test_input" />
-    <None Include="proc\test_output" />
+    <None Include="proc\vmguard\system_alloc_rate" />
+    <None Include="proc\vmguard\test_input" />
+    <None Include="proc\vmguard\test_output" />
+    <None Include="proc\vmguard\test_rate" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

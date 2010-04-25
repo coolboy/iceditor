@@ -6,7 +6,7 @@
 #include "moc/moc_memstat.cpp"
 
 MemStat::MemStat( QObject* parent ) 
-	:QObject(parent), test_out("test_output", QSettings::IniFormat)
+	:QObject(parent), test_out("proc/vmguard/test_output", QSettings::IniFormat)
 {
 
 }
