@@ -10,8 +10,6 @@
 MemStat::MemStat( QObject* parent ) 
 	:QObject(parent), 
 	test_out("proc/vmguard/test_output", QSettings::IniFormat)
-	//system_alloc_rate("proc/vmguard/system_alloc_rate", QSettings::IniFormat),
-	//test_rate("proc/vmguard/test_rate", QSettings::IniFormat)
 {
 
 }
