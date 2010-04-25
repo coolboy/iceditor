@@ -7,7 +7,7 @@
 MemAdjustWig::MemAdjustWig(QWidget* parent):
 	QWidget(parent), 
 	run_id(0),
-	test_in("test_input", QSettings::IniFormat)
+	test_in("proc/vmguard/test_input", QSettings::IniFormat)
 {
 	setUI();
 	setConnections();
