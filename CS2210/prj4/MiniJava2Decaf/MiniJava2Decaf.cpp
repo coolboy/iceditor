@@ -8,15 +8,17 @@
 #include <boost/foreach.hpp>
 #include <boost/function.hpp>
 #include <boost/xpressive/xpressive.hpp>
-#include <boost/algorithm/string/replace.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "MiniJava2Decaf.h"
 
 using namespace std;
 using namespace boost::xpressive;
+using namespace boost::algorithm;
 
 typedef boost::function<void()> PendingWork;
 typedef std::vector<PendingWork> PendingWorks;
+typedef vector< string > StrVec;
 
 MiniJava2Decaf::MiniJava2Decaf(void){}
 
@@ -46,6 +48,63 @@ std::string eraseLineWithoutEQ(const std::string& input)
 	return regex_replace(input, lineWithoutEQ, std::string());
 }
 
+/*
+* Array Init list transform
+* ia = {3, 5, 7};
+* ->
+* ia = NewArray(3, int);
+* ia[0] = 3;
+* ia[1] = 5;
+* ia[2] = 7;
+*/
+std::string transformArrayInitListInternal(const std::string& src){
+	if (src.find('{') == std::string::npos)
+		return src;
+
+	sregex extractArray = sregex::compile( "\\s*((\\w|\\d)+).*?=\\s*?\\{(.+?)}");// \s*((\w|\d)+).*?=\s*?\{(.+?)}
+
+	string AryNameAndLst = regex_replace( src, extractArray, std::string("$1;$3") );//delete bracket below
+
+	StrVec srcLines;
+	boost::algorithm::split( srcLines, AryNameAndLst, is_any_of(";") );
+
+	std::string arrayName = srcLines[0];
+
+	StrVec argVec;
+	boost::algorithm::split( argVec, srcLines[1], is_any_of(",") );
+
+	assert (argVec.size() >= 1);
+
+	std::stringstream ss;
+
+	ss << arrayName <<" = NewArray("<< argVec.size() <<", int);\n";
+
+	for (int i = 0; i != argVec.size(); ++i){
+		ss << arrayName << '[' << i << "] = " << argVec[i] <<";\n";
+	}
+
+	return ss.str();
+}
+
+std::string transformArrayInitList(const std::string& src){
+	std::string ret;
+	smatch what; //matching results
+
+	StrVec srcLines;
+	boost::algorithm::split( srcLines, src, is_any_of(";") );//why will have empty elem?
+
+	for (int i = 0; i != srcLines.size(); ++i){
+		srcLines[i] = transformArrayInitListInternal(srcLines[i]);
+	}
+
+	ret.clear();
+	for (int i = 0; i != srcLines.size(); ++i){
+		if (srcLines[i].size() != 1)
+			ret += srcLines[i] + ";\n";
+	}
+
+	return ret;
+}
 //////////////////////////////////////////////////////////////////////////
 
 void MiniJava2Decaf::transform()
@@ -216,13 +275,13 @@ void MiniJava2Decaf::transform()
 		/*
 		* delete int line in _no_type_ without a '='
 		*/
-		std::string needDelType = eraseLineWithoutEQ(org);
+		std::string needDelTypeStr = eraseLineWithoutEQ(org);
 
 		/*
 		* delete type in _no_type_
 		*/
-		sregex delType = sregex::compile("(.*?)((\\w|\\d)+\\s*?=.*?$)"); //(.*?)((\w|\d)+\s*?=.*?$)
-		std::string dupDeleted = regex_replace(needDelType,  delType, std::string("\n$2\n"));
+		sregex delType = sregex::compile("^(\\s*?)(\\w|\\[|\\])+(.*?;)"); //^(\s*?)(\w|\[|\])+(.*?;)
+		std::string typeDeletedStr = regex_replace(needDelTypeStr,  delType, std::string("$1$3"));
 
 		/*
 		* Create Array
@@ -230,14 +289,25 @@ void MiniJava2Decaf::transform()
 		* ->
 		* arr = NewArray (10, int)
 		*/
-		sregex arrayInit = sregex::compile("int\\s+\\[(\\d+)\\]"); // int\s+\[(\d+)\]
-		std::string arrayInitStr = regex_replace(dupDeleted,  arrayInit, std::string("NewArray($1, int)"));
+		sregex arrayNew = sregex::compile("int\\s*\\[(\\d+)\\]"); // int\s*\[(\d+)\]
+		std::string arrayNewStr = regex_replace(typeDeletedStr,  arrayNew, std::string("NewArray($1, int)"));
+
+		/*
+		* Array Init list transform
+		* ia = {3, 5, 7};
+		* ->
+		* ia[0] = 3;
+		* ia[1] = 5;
+		* ia[2] = 7;
+		*/
+
+		std::string arrayInitListStr = transformArrayInitList(arrayNewStr);
 
 		org = what[1] + org + what[3];
-		arrayInitStr = what[1] + arrayInitStr + what[3];
+		arrayInitListStr = what[1] + arrayInitListStr + what[3];
 
-		if (arrayInitStr != org)
-			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, arrayInitStr));
+		if (arrayInitListStr != org)
+			pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, arrayInitListStr));
 
 		beg = what[0].second;
 	}
@@ -249,7 +319,7 @@ void MiniJava2Decaf::transform()
 	/*
 	* Add Init method for class init
 	*/
-	sregex classInit = sregex::compile( "(class[^}()]+?)(_beg_no_type_[^}]+?_end_no_type_.*?)?(method)"); // (class[^}()]+?)(_beg_no_type_[^}]+?_end_no_type_.*?)?(method)
+	sregex classInit = sregex::compile( "(class[^}()]+?)(_beg_no_type_.+?_end_no_type_.*?)?(\\s*?method)"); // (class[^}()]+?)(_beg_no_type_.+?_end_no_type_.*?)?(\s*?method)
 
 	decaf_ = regex_replace( decaf_, classInit, std::string("$1void Init()\n{\n$2}\n$3") );//add init method to the class
 
@@ -373,5 +443,6 @@ void MiniJava2Decaf::transform()
 
 	/*
 	* Change EOL to Unix style //don't need it under unix
+	* Tested //we dont need that
 	*/
 }
