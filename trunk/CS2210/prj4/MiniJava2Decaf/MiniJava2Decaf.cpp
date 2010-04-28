@@ -221,7 +221,7 @@ void MiniJava2Decaf::transform()
 
 	//delete init
 	sregex no_init = sregex::compile("_beg_no_init_(.*?)_end_no_init_"); // _beg_no_init_.*?_end_no_init_
-	sregex init = sregex::compile("=.*?(;)"); // =.*?(;)
+	sregex init = sregex::compile("((\\[|\\]){2})?=.*?(;)"); // ((\[|\]){2})?=.*?(;)
 
 	beg = decaf_.begin();
 
@@ -229,7 +229,7 @@ void MiniJava2Decaf::transform()
 	{
 		std::string	org = what[0];
 
-		std::string target = regex_replace (org, init, std::string	("$1"));
+		std::string target = regex_replace (org, init, std::string	("$3"));
 
 		pws.push_back(boost::bind(&peningWork, boost::ref(decaf_), org, target));
 
