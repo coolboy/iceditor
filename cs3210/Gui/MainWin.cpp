@@ -17,6 +17,7 @@ static const int memRange = 10e6/(16*16);
 MainWin::MainWin(void):memAdjustWig(0)
 {
 	beginAddress = 0;
+	lastItem = 0;
 
 	setupUI();
 	setConnections();
@@ -161,6 +162,9 @@ void MainWin::slotOnConnect()
 
 void MainWin::slotOnCellDoubleClicked( int row, int column )
 {
+	if (lastItem)
+		lastItem->setBackgroundColor(Qt::white);
+
 	beginAddress = (column + row * 16) * memRange;
 	int endAddress = beginAddress + memRange - 1;
 
@@ -168,6 +172,9 @@ void MainWin::slotOnCellDoubleClicked( int row, int column )
 		.arg(beginAddress).arg(endAddress);
 
 	AddressInfoLab->setText(addressInfo);
+
+	lastItem = phyMemWig->item(row, column);
+	lastItem->setBackgroundColor(Qt::blue);
 }
 
 void MainWin::slotOnAddressSpinEnter()

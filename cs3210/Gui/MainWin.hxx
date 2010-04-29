@@ -30,6 +30,7 @@ private:
 
 private:
 	int beginAddress;
+	QTableWidgetItem* lastItem;
 
 private:
 	QWidget *centralwidget;
