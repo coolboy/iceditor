@@ -25,11 +25,11 @@ void MemAdjustWig::setUI()
 	m_ui->setupUi(this);
 
 	test_in.sync ();
-	m_ui->numDimmSB->setValue(test_in.value("num_dimm", 0).toInt());
-	m_ui->capSB->setValue(test_in.value("capacity", 0).toInt());
-	m_ui->druationSB->setValue(test_in.value("sim_druation", 0).toInt());
-	m_ui->tempSB->setValue(test_in.value("temperature", 0).toInt());
-	m_ui->guassSB->setValue(test_in.value("guass_poisson", 0).toInt());
+	m_ui->numDimmSB->setValue(test_in.value("num_dimm", 1).toInt());
+	m_ui->capSB->setValue(test_in.value("capacity", 1).toInt());
+	m_ui->druationSB->setValue(test_in.value("sim_druation", 1).toInt());
+	m_ui->tempSB->setValue(test_in.value("temperature", 1).toInt());
+	m_ui->guassSB->setValue(test_in.value("guass_poisson", 1).toInt());
 }
 
 void MemAdjustWig::setConnections()
