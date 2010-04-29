@@ -12,13 +12,17 @@
 
 #include "moc/moc_MainWin.cpp"
 
+static const int memRange = 10e6/(16*16);
+
 MainWin::MainWin(void):memAdjustWig(0)
 {
+	beginAddress = 0;
+
 	setupUI();
 	setConnections();
 
 	MemStat *memStat = new MemStat(this);
-	plot->setDataSrc(memStat);
+	memPlot->setDataSrc(memStat);
 }
 
 MainWin::~MainWin(void)
@@ -30,12 +34,12 @@ void MainWin::setupUI()
 {
 	setWindowTitle("Guard Client");
 
-	plot = new MemPlot();
-	plot->setTitle("History");
-	plot->setMargin(5);
+	memPlot = new MemPlot();
+	memPlot->setTitle("History");
+	memPlot->setMargin(5);
 
 	plotLayout = new QVBoxLayout();
-	plotLayout->addWidget(plot);
+	plotLayout->addWidget(memPlot);
 
 	centralwidget = new QWidget(this);
 	gridLayout_2 = new QGridLayout(centralwidget);
@@ -55,53 +59,40 @@ void MainWin::setupUI()
 
 	verticalLayout_2->addWidget(label_4);
 
+	int endAddress = beginAddress + memRange - 1;
+
+	QString addressInfo = QString("Range: %1 - %2")
+		.arg(beginAddress).arg(endAddress);
+
+	AddressInfoLab = new QLabel(addressInfo, this);
+	verticalLayout_2->addWidget(AddressInfoLab);
+
+	addressSpin = new QSpinBox(this);
+	addressSpin->setMinimum(0);
+	addressSpin->setMaximum(memRange);
+	verticalLayout_2->addWidget(addressSpin);
+
 	phyMemWig = new QTableWidget(centralwidget);
-	phyMemWig->setRowCount(50);
-	phyMemWig->setColumnCount(8);
+	phyMemWig->setRowCount(16);
+	phyMemWig->setColumnCount(16);
 
-	QStringList vhLst;
 
-	for (int i = 0; i != 50; ++i)
-	{
-		vhLst<<QString::number(i * 8);
-		for (int j = 0; j != 8; ++j)
-		{
+	for (int i = 0; i != 16; ++i)	{
+		for (int j = 0; j != 16; ++j){
 			QTableWidgetItem* item = new QTableWidgetItem();
+			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-			switch (qrand() % 5)
-			{
-			case 0:
-				item->setBackground(QBrush(Qt::green));//free
-				break;
-
-			case 1:
-				item->setBackground(QBrush(Qt::yellow));//tested
-				break;
-
-			case 2:
-				item->setBackground(QBrush(Qt::red));//error
-				break;
-
-			case 3:
-				item->setBackground(QBrush(Qt::gray));//unknow
-				break;
-
-			case 4:
-				item->setBackground(QBrush(Qt::blue));//testing??
-				break;
-
-			default:
-				assert(0);
-				break;
-			}
 			phyMemWig->setItem(i, j, item);
 		}
 	}
 
-	phyMemWig->setHorizontalHeaderLabels(QStringList()
-		<<"0"<<"1"<<"2"<<"3"<<"4"<<"5"<<"6"<<"7");
+	QStringList hhLst;
+	for (int i = 0; i != 16; ++i)
+		hhLst<<QString::number(i);
 
-	phyMemWig->setVerticalHeaderLabels(vhLst);
+	phyMemWig->setHorizontalHeaderLabels(hhLst);
+
+	phyMemWig->setVerticalHeaderLabels(hhLst);
 
 	verticalLayout_2->addWidget(phyMemWig);
 
@@ -149,6 +140,10 @@ void MainWin::setConnections()
 {
 	QConnect (memAdjustBut, clicked(), this, slotOnMemAdjustBut());
 	QConnect (connectAct, triggered(), this, slotOnConnect());
+
+	QConnect (phyMemWig, cellDoubleClicked ( int, int), this, slotOnCellDoubleClicked(int, int));
+	QConnect (addressSpin, editingFinished(), this, slotOnAddressSpinEnter());
+
 	QConnect (exitAct, triggered(), qApp, quit());
 }
 
@@ -162,4 +157,22 @@ void MainWin::slotOnMemAdjustBut()
 
 void MainWin::slotOnConnect()
 {
+}
+
+void MainWin::slotOnCellDoubleClicked( int row, int column )
+{
+	beginAddress = (column + row * 16) * memRange;
+	int endAddress = beginAddress + memRange - 1;
+
+	QString addressInfo = QString("Range: %1 - %2")
+		.arg(beginAddress).arg(endAddress);
+
+	AddressInfoLab->setText(addressInfo);
+}
+
+void MainWin::slotOnAddressSpinEnter()
+{
+	//////////////////////////////////////////////////////////////////////////
+	//syscall
+	int address = beginAddress + addressSpin->value();
 }
