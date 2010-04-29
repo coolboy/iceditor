@@ -18,15 +18,24 @@ private Q_SLOTS:
 	//menu
 	void slotOnConnect();
 
+	//Physical Layout Double Clicked
+	void slotOnCellDoubleClicked( int row, int column );
+
+	//Physical User Enter
+	void slotOnAddressSpinEnter();
+
 private:
 	void setupUI();
 	void setConnections();
 
 private:
+	int beginAddress;
+
+private:
 	QWidget *centralwidget;
 
 	QVBoxLayout *plotLayout;
-	MemPlot *plot;
+	MemPlot *memPlot;
 
 	QGridLayout *gridLayout_2;
 	QVBoxLayout *verticalLayout;
@@ -34,7 +43,11 @@ private:
 	QLineEdit *pidLE;
 	QVBoxLayout *verticalLayout_2;
 	QLabel *label_4;
+
+	QLabel* AddressInfoLab;
+	QSpinBox* addressSpin;
 	QTableWidget *phyMemWig;
+
 	QGridLayout *gridLayout;
 	QwtSlider *testRateHS;
 	QLabel *label_2;
