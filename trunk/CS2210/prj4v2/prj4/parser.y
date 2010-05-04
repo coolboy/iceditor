@@ -108,7 +108,10 @@
 %start Program 
 %%
 Program :  PROGRAMnum 
-           { printf("******************semantic analysis results******************\n \n"); STInit(); }
+{ 
+	printf("******************semantic analysis results******************\n \n"); 
+	STInit(); 
+}
 
 IDnum SEMInum ClassDecl_m 
 { 
