@@ -36,8 +36,7 @@ tree NullExp()
 *	This function will create a leafnode with it	   *
 *	NodeKind and IntVal to be Kind and N, respectively *
 ***********************************************************/
-tree MakeLeaf(Kind, N)
-int Kind, N;
+tree MakeLeaf(int Kind, int N)
 {
 tree 	p;
 
@@ -51,9 +50,7 @@ tree 	p;
 * 	This function create a interior node of NodeOptype *
 *	with children to be Left and Right, respectively,  *
 ***********************************************************/
-tree MakeTree(NodeOp, Left, Right)
-int NodeOp;
-tree Left, Right;
+tree MakeTree(int NodeOp, tree Left, tree Right)
 {
 tree 	p;
 
@@ -68,8 +65,7 @@ tree 	p;
 /*********************************************************
 *	This function returns leftchild of the treenode  *
 *********************************************************/
-tree LeftChild(T)
-tree T;
+tree LeftChild(tree T)
 {
 	if (NodeKind(T) != EXPRNode)
 		return (NullExp());
@@ -91,8 +87,7 @@ tree T;
 *	This function makes subtree T1 to be the        *
 *	leftmost child of the tree T2, return T2	*
 ********************************************************/	
-tree MkLeftC(T1, T2)
-tree T1, T2;
+tree MkLeftC(tree T1, tree T2)
 {
 tree p,q;
 
@@ -113,8 +108,7 @@ tree p,q;
 *	This function makes subtree T1 to be the        *
 *	rightmost child of the tree T2, return T2	*
 ********************************************************/	
-tree MkRightC(T1, T2)
-tree T1, T2;
+tree MkRightC(tree T1, tree T2)
 {
 tree p,q;
 
@@ -346,9 +340,7 @@ char* getstring(int i)
 }
 
 
-void printtree (nd, depth)
-  tree nd;
-  int depth;
+void printtree (tree nd, int depth)
 {
   int id, indx;
 

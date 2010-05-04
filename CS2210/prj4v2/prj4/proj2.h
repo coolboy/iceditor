@@ -81,6 +81,7 @@ tree MakeTree(int, tree, tree);
 tree RightChild(tree); */
 tree MkLeftC(tree, tree);
 tree MkRightC(tree, tree);
+void printtree (tree nd, int depth);
 /*
 void SetNode(tree, tree);
 void SetNodeOp(tree, int);
