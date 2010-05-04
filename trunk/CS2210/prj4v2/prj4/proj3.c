@@ -127,8 +127,7 @@ STInit()
 }
 
 
-void error_msg(type, action, id, seq)
-int type, action, id, seq;
+void error_msg(int type, int action, int id, int seq)
 {
   printf("Semantic Error--line: %d, ", yyline);
   switch (type)
@@ -229,8 +228,7 @@ int type, action, id, seq;
  * work. 
  */
 int
-InsertEntry(id)
-  int id;
+InsertEntry(int id)
 {
   /* id is already declared in the current block */
   if (LookUpHere(id))
@@ -257,8 +255,7 @@ InsertEntry(id)
  * repeatedly 
  */
 int
-LookUp(id)
-  int id;
+LookUp(int id)
 {
   int i;
 
@@ -282,8 +279,7 @@ LookUp(id)
  * for a procedure/function
  */
 int
-LookUpHere(id)
-  int id;
+LookUpHere(int id)
 {
   int i;
 
@@ -337,9 +333,7 @@ CloseBlock()
  * in (nonzero).  otherwise, return false. 
  */
 int
-IsAttr(st_ptr, attr_num)
-  int st_ptr, attr_num;
-
+IsAttr(int st_ptr, int attr_num)
 {
   int i;
 
@@ -362,9 +356,7 @@ IsAttr(st_ptr, attr_num)
  * debugging. 
  */
 int
-GetAttr(st_ptr, attr_num)
-  int st_ptr, attr_num;
-
+GetAttr(int st_ptr, int attr_num)
 {
   int i;
 
@@ -387,9 +379,7 @@ GetAttr(st_ptr, attr_num)
  * attr_num.  
  */
 void
-SetAttr(st_ptr, attr_num, attr_val)
-  int st_ptr, attr_num, attr_val;
-
+SetAttr(int st_ptr, int attr_num, int attr_val)
 {
   int *p, next;
   int i;
@@ -440,8 +430,7 @@ char *kind_name[] =
  * STPrint():  print symbol table.  This routine is incomplete, please fill
  * in details. 
  */
-void
-STPrint()
+void STPrint()
 {
   FILE *table;
   int i, attr_num, attr_val, attr_ptr, type_attr;
@@ -524,9 +513,7 @@ STPrint()
 /*
  * Push():  push an element onto the stack.  
  */
-void
-Push(marker, name, st_ptr, dummy)
-     int marker,name,st_ptr,dummy;
+void Push(int marker, int name, int st_ptr, int dummy)
 {
 
   if (stack_top >= STACK_SIZE-1)
@@ -542,8 +529,7 @@ Push(marker, name, st_ptr, dummy)
 
 }
 
-char *seq_str(seq)
-int seq;
+char *seq_str(int seq)
 {
   static char s[10];
   switch (seq)

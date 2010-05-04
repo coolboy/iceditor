@@ -69,9 +69,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="parser_tab.c" />
-    <ClCompile Include="proj2.c" />
-    <ClCompile Include="proj3.c" />
-    <ClCompile Include="strtlb.c" />
+    <ClCompile Include="proj2.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="proj3.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="strtlb.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="proj2.h" />
