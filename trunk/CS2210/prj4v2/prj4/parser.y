@@ -14,6 +14,8 @@
  void yyerror(char *s);
  FILE *treelst;
  int is_val;
+ tree Root;
+
  
 /* global variables definition for semantic analyizer */ 
  int num_main = 0;
@@ -116,7 +118,9 @@ Program :  PROGRAMnum
 IDnum SEMInum ClassDecl_m 
 { 
     $$ = MakeTree(ProgramOp,$5,NullExp()) ; 
-             
+    
+	Root = $$;
+
     if (num_main > 1)
 		printf("Semantic error: there are %d main() functions \n", num_main);
     STPrint();
@@ -593,16 +597,11 @@ Variable:
         IDnum
             {
              varid_in_st = LookUp($1);
-             if(!varid_in_st)
-	            {
+             if(varid_in_st == -1) {
 	             error_msg(UNDECLARATION, CONTINUE, $1, 0);			
-	           //  st_id = InsertEntry($1);
-	           //  varid_in_st = st_id;
-		          }
-		          
-            	$$=MakeTree(VarOp, MakeLeaf(STNode, LookUp($1)),NullExp());
-               
-		          var_use_dim = 0;	
+		      }
+            $$=MakeTree(VarOp, MakeLeaf(STNode, varid_in_st),NullExp());
+		    var_use_dim = 0;	
             }
         |
         Variable LBRACnum Variable_a RBRACnum
@@ -618,7 +617,6 @@ Variable:
         |
         Variable
             {
-            	
                   if(GetAttr(varid_in_st, DIMEN_ATTR)!= var_use_dim)
 			         	error_msg(INDX_MIS, CONTINUE, GetAttr(varid_in_st, NAME_ATTR), 0);	
 			         var_use_dim = 0; 
@@ -630,9 +628,9 @@ Variable:
                 tem_ptr = $1;
                 while(!IsNull(RightChild(tem_ptr)))
                     tem_ptr = RightChild(tem_ptr);
+				varid_in_st = LookUp($4);
                 SetRightChild(tem_ptr, MakeTree(SelectOp, MakeTree(FieldOp, MakeLeaf(STNode, varid_in_st), NullExp()) ,NullExp()));
-                
-            }
+             }
         ;
 Variable_a:
         Expression
@@ -644,24 +642,9 @@ Variable_a:
                 
             
 %%
-int main()
-{
-  yyline = 1;  yycolumn = 0;
- 
-  treelst = stdout;
-  
-  yyparse();
- 
-  return(1);
-}
 
 #include "lex.yy.c"
 
-int yywrap(void)
-{
-    return 1;
-}
-    
 void yyerror(char *s) 
 {
     printf("yyerror: %s at line %d\n",s,yyline);

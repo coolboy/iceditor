@@ -27,6 +27,9 @@
     <ClCompile Include="parser_tab.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="proj2.h">
@@ -49,5 +52,10 @@
     <CustomBuild Include="parser.y">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lex.yy.c">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

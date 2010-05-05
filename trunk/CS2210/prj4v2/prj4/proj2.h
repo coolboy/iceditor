@@ -7,8 +7,6 @@ typedef struct treenode
                 struct treenode *LeftC, *RightC;
         } ILTree, *tree;
 
-tree Root;
-
 typedef union
 {
   int intg;
