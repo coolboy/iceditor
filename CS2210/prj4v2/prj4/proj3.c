@@ -103,7 +103,7 @@ STInit()
       SetAttr(nSymInd, KIND_ATTR, CLASS);
     }
 
-  nStrInd = put_in_table("readln",IDtype,6);
+  nStrInd = put_in_table("readln",IDtype, 6);
   if ( nStrInd != -1 )
     {
       nSymInd = InsertEntry(nStrInd);
@@ -111,6 +111,7 @@ STInit()
       /* SetAttr(nSymInd, TREE_ATTR, NULL); */
       SetAttr(nSymInd, PREDE_ATTR, true);
       SetAttr(nSymInd, KIND_ATTR, PROCE);
+	  SetAttr(nSymInd, ARGNUM_ATTR, 1);
     }
 
   nStrInd = put_in_table("println",IDtype,7);
@@ -263,13 +264,13 @@ LookUp(int id)
     if (!stack[i].marker && stack[i].name == id)
     {
       stack[i].used = true;
-      return (stack[i].st_ptr);
+      return (stack[i].st_ptr) - 1;
     }
 
   /* id is undefined, push a dummy element onto stack */
   error_msg(UNDECLARATION, CONTINUE, id, 0);
   Push(false, id, 0, true);
-  return 0;
+  return -1;
 }
 
 /*

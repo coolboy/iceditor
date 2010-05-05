@@ -1,3 +1,4 @@
+%option noyywrap
 %{  /* Lex Analyzer for MINI JAVA */
 
 #include "strtlb.h"

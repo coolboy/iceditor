@@ -13,8 +13,11 @@ Aggelos Varvitsiotis.
 */
 
 /*	define syntax tree node and pointer type	*/
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+
 #include "proj2.h"
 #include "strtlb.h"
 
@@ -360,7 +363,7 @@ void printtree (tree nd, int depth)
 
 	case STNode:
 		indx = IntVal(nd);
-		if (indx > 0)
+		if (indx >= 0)
 		{
 			id = indx; /* GetAttr(indx, NAME_ATTR); */
 			fprintf (treelst,"[STNode,%d,\"%s\"]\n", IntVal(nd),
