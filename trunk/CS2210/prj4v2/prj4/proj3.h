@@ -130,6 +130,7 @@ void STInit();
 void error_msg(int, int, int, int);
 int InsertEntry(int);
 int LookUp(int);
+int ReverseLookUp(int);
 int LookUpHere(int);
 void OpenBlock();
 void CloseBlock();

@@ -365,7 +365,7 @@ void printtree (tree nd, int depth)
 		indx = IntVal(nd);
 		if (indx >= 0)
 		{
-			id = indx; /* GetAttr(indx, NAME_ATTR); */
+			id = ReverseLookUp(indx); /* GetAttr(indx, NAME_ATTR); */
 			fprintf (treelst,"[STNode,%d,\"%s\"]\n", IntVal(nd),
 				getname(id));
 		}
