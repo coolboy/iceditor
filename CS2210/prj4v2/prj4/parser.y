@@ -136,7 +136,8 @@ ClassDecl_m :  ClassDecl
                
                
 ClassDecl :  CLASSnum IDnum
-               { 
+               {
+			   int tmp = 
                 st_id_classdecl = InsertEntry($2);
                 if(st_id_classdecl)
                 {
@@ -147,7 +148,7 @@ ClassDecl :  CLASSnum IDnum
                }
              ClassBody
              {
-              $$ = MakeTree(ClassDefOp,$4,MakeLeaf(STNode,st_id_classdecl));
+              $$ = MakeTree(ClassDefOp,$4, MakeLeaf(STNode,st_id_classdecl) );
               CloseBlock();  
              }    
           ;
