@@ -16,6 +16,7 @@ Aggelos Varvitsiotis.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory.h>
 #include <ctype.h>
 
 #include "proj2.h"
@@ -45,6 +46,9 @@ tree MakeLeaf(int Kind, int N)
 	tree 	p;
 
 	p = (tree)malloc(sizeof(ILTree));
+
+	memset (p, 0, sizeof(ILTree));
+
 	p->NodeKind = Kind;     
 	p->IntVal = N;
 	return (p);
@@ -59,6 +63,7 @@ tree MakeTree(int NodeOp, tree Left, tree Right)
 	tree 	p;
 
 	p = (tree)malloc(sizeof(ILTree));
+	memset (p, 0, sizeof(ILTree));
 	p->NodeKind = EXPRNode; 
 	p->NodeOpType = NodeOp;
 	p->LeftC = Left;
@@ -331,8 +336,6 @@ char* getstring(int i)
 
 void printtree (tree nd, int depth)
 {
-	int id, indx;
-
 	if (!depth)
 	{
 		zerocrosses ();
@@ -346,7 +349,20 @@ void printtree (tree nd, int depth)
 	}
 	if (NodeKind (nd) == EXPRNode)
 		printtree (RightChild (nd), depth + 1);
+
 	indent (depth); 
+
+	printnode(nd);
+
+	if (NodeKind (nd) == EXPRNode)
+		printtree (LeftChild (nd), depth + 1);
+}
+
+
+void printnode(tree nd)
+{
+	int id, indx;
+
 	switch (NodeKind (nd))
 	{
 	case IDNode:    
@@ -396,9 +412,10 @@ void printtree (tree nd, int depth)
 						opnodenames [NodeOp(nd) - ProgramOp]);
 		break;
 
+	case  DUMMYNode:
+		break;
+
 	default:	    fprintf (treelst,"INVALID!!!\n");
 		break;
 	}
-	if (NodeKind (nd) == EXPRNode)
-		printtree (LeftChild (nd), depth + 1);
 }

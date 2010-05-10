@@ -3,8 +3,8 @@
 
 typedef struct treenode
         {       /* syntax tree node struct */
-                int NodeKind, NodeOpType, IntVal;
-                struct treenode *LeftC, *RightC;
+            int NodeKind, NodeOpType, IntVal;
+            struct treenode *LeftC, *RightC;
         } ILTree, *tree;
 
 typedef union
@@ -80,6 +80,7 @@ tree RightChild(tree); */
 tree MkLeftC(tree, tree);
 tree MkRightC(tree, tree);
 void printtree (tree nd, int depth);
+void printnode(tree nd);
 /*
 void SetNode(tree, tree);
 void SetNodeOp(tree, int);

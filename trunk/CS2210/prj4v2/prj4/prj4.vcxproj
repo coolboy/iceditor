@@ -71,6 +71,7 @@
     <None Include="lex.yy.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
+    <ClCompile Include="CodeGen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parser_tab.c" />
     <ClCompile Include="proj2.c">
@@ -84,6 +85,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CodeGen.h" />
     <ClInclude Include="proj2.h" />
     <ClInclude Include="proj3.h" />
     <ClInclude Include="strtlb.h" />
