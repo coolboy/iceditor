@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "CodeGen.h"
+
 extern "C"{
 extern int yycolumn,yyline;
 extern FILE* treelst;
@@ -19,6 +21,11 @@ int main()
 	treelst = stdout;
 
 	yyparse();
+
+	CodeGen cg;
+	cg.setAST(Root);
+
+	std::string outAsm = cg.getMIPSCode();
 
 	return 1;
 }
