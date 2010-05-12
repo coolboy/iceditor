@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <stack>
+
+#include "StackObject.h"
 
 extern "C"{
 #include "proj2.h"
@@ -18,9 +21,11 @@ public:
 private:
 	std::string asmOut;
 	tree tgtAST;
-	//internal stack
-	//back order tree travel
+	//internal stack : post order tree travel
+	typedef std::stack<StackObject> PostStack;
+	PostStack postStack;
 
 private:
-	static void postOrderTravel(tree root);
+	void postOrderTravel(tree root);
+	int parseNode(tree node);
 };

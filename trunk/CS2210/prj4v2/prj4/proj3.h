@@ -103,17 +103,17 @@
 /*
  * struct of symbol table stack 
  */
-struct
+typedef struct
 {
   bool marker;		     /* mark the beginning of a block */
   int name;		     /* point to the lexeme of the id */
   int st_ptr;		     /* point to the id's symble table entry */
   bool dummy;		     /* dummy element to indicate a undeclared id */
   bool used;		     /* this id is used? */
-} stack[STACK_SIZE];	     /* stack array */
+} stack_elem;
 
 /*
- * struct of element of attribute list 
+ ; struct of element of attribute list 
  */
 typedef struct
 {
