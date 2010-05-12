@@ -64,6 +64,8 @@
 */
 int st[ST_SIZE];
 
+stack_elem stack[STACK_SIZE];	     /* stack array */
+
 /*
 * attribute array.  attributes are allocated from this array instead of from
 * dynamically allocated space.  It may easy testing and debugging. 
@@ -506,7 +508,7 @@ void STPrint()
 				fprintf(table, "%11s", " ");
 		fprintf(table, "\n");
 		/* if (treeval!=0)
-		printtree((tree)treeval, 0);*/
+		PrintTree((tree)treeval, 0);*/
 	}
 }
 

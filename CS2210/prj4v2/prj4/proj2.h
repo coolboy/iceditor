@@ -81,6 +81,16 @@ tree MkLeftC(tree, tree);
 tree MkRightC(tree, tree);
 void printtree (tree nd, int depth);
 void printnode(tree nd);
+
+char * GetNodeOpTypeStr(tree nd);
+
+int IsNull(tree T);
+int IntVal(tree T);
+int NodeKind(tree T);
+
+char* getname(int i)/*return ID name or String, i is the index of the string table, passed through yylval*/;
+char* getstring(int i);
+
 /*
 void SetNode(tree, tree);
 void SetNodeOp(tree, int);

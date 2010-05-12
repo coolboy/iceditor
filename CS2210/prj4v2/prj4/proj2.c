@@ -20,6 +20,7 @@ Aggelos Varvitsiotis.
 #include <ctype.h>
 
 #include "proj2.h"
+#include "proj3.h"
 #include "strtlb.h"
 
 ILTree dummy = { DUMMYNode, 0, 0, 0, 0 };
@@ -409,7 +410,7 @@ void printnode(tree nd)
 		break;
 
 	case EXPRNode:  fprintf (treelst,"[%s]\n", 
-						opnodenames [NodeOp(nd) - ProgramOp]);
+						GetNodeOpTypeStr(nd));
 		break;
 
 	case  DUMMYNode:
@@ -418,4 +419,9 @@ void printnode(tree nd)
 	default:	    fprintf (treelst,"INVALID!!!\n");
 		break;
 	}
+}
+
+char * GetNodeOpTypeStr(tree nd)
+{
+	return opnodenames [NodeOp(nd) - ProgramOp];
 }

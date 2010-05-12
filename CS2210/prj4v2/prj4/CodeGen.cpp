@@ -1,6 +1,5 @@
 #include "CodeGen.h"
 
-#include <stack>
 #include <iostream>
 
 using namespace std;
@@ -52,8 +51,7 @@ void CodeGen::postOrderTravel( tree root)
 		{
 			//visit this element and then pop it
 			//cout << "visit: " << cur->data << endl;
-			printnode(cur);
-			cout<<endl;
+			parseNode(cur);
 			st.pop();
 			pre = cur;
 			cur = NULL;    
@@ -63,4 +61,18 @@ void CodeGen::postOrderTravel( tree root)
 			cur = cur->RightC; 
 		}
 	}//end of while(p || st.size()!=0)
+
+}
+
+int CodeGen::parseNode( tree node )
+{
+	if (IsNull(node))
+		return -1;
+
+	StackObject so = StackObject::fromNode(node);
+	postStack.push(so);
+
+	printnode(node);
+	cout<<endl;
+	return 0;
 }
