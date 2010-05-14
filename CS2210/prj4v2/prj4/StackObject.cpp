@@ -8,7 +8,10 @@ StackObject StackObject::fromNode( tree nd )
 	int nodeKind = NodeKind(nd);
 	if (nodeKind == STNode){
 		ret.lexVal = getname(ReverseLookUp(IntVal(nd)));
-		ret.symbolTableId= IntVal(nd);
+		ret.argNum = GetArguNumAttr(IntVal(nd));
+		ret.symbolType = GetTypeAttr(IntVal(nd));
+		ret.preDefined = GetPredefAttr(IntVal(nd));
+		ret.nestedLevel = GetNestedLevelAttr(IntVal(nd));
 	}
 	else if (nodeKind == STRINGNode)
 		ret.lexVal = getstring(IntVal(nd));

@@ -65,9 +65,9 @@
 #define TREE_ATTR 3	     /* value: point back to the subtree */
 #define PREDE_ATTR 4	     /* value: is this id predefined? */
 #define TYPE_ATTR 6	     /* value: pointer to the type tree for a
-			      * varible, constant id or function */
+			      * variable, constant id or function */
 #define VALUE_ATTR 7	     /* value: the value of a constant id (integer,
-			      * charater or string pointer) */
+			      * character or string pointer) */
 #define OFFSET_ATTR 8
 	     
 #define KIND_ATTR 5	     /* value: see below */
@@ -130,7 +130,7 @@ void STInit();
 void error_msg(int, int, int, int);
 int InsertEntry(int);
 int LookUp(int);
-int ReverseLookUp(int);
+int ReverseLookUp(int);//symbol table id 2 string table id
 int LookUpHere(int);
 void OpenBlock();
 void CloseBlock();
@@ -140,3 +140,8 @@ void SetAttr(int, int, int);
 void STPrint();
 void Push(int, int, int, int);
 char *seq_str(int);
+
+bool GetPredefAttr(int st_id);
+char* GetTypeAttr(int st_id);
+int GetArguNumAttr(int st_id);
+int GetNestedLevelAttr(int st_id);

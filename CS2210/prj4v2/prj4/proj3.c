@@ -555,3 +555,40 @@ int ReverseLookUp( int st_index)
 	int attr_ptr = IsAttr(st_index, NAME_ATTR);
 	return attrarray[attr_ptr].attr_val;
 }
+
+bool GetPredefAttr(int st_id){
+	int attr_ptr = 0;
+	if ((attr_ptr = IsAttr(st_id, PREDE_ATTR)) != 0){
+		int attr_val = attrarray[attr_ptr].attr_val;
+		return attr_val;
+	}
+	return false;
+}
+
+char* GetTypeAttr(int st_id){
+	int attr_ptr = 0;
+	if ((attr_ptr = IsAttr(st_id, KIND_ATTR)) != 0){
+		int attr_val = attrarray[attr_ptr].attr_val;
+		return kind_name[attr_val - 1];
+	}
+
+	return 0;
+}
+
+int GetArguNumAttr(int st_id){
+	int attr_ptr = 0;
+	if ((attr_ptr = IsAttr(st_id, ARGNUM_ATTR)) != 0){
+		int attr_val = attrarray[attr_ptr].attr_val;
+		return attr_val;
+	}
+	return 0;
+}
+
+int GetNestedLevelAttr(int st_id){
+	int attr_ptr = 0;
+	if ((attr_ptr = IsAttr(st_id, NEST_ATTR)) != 0){
+		int attr_val = attrarray[attr_ptr].attr_val;
+		return attr_val;
+	}
+	return 0;
+}

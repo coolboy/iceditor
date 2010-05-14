@@ -7,13 +7,13 @@ extern "C"{
 #include "proj3.h"
 };
 
-
 class StackObject
 {
 public:
 	StackObject(void){
-		symbolTableId = -1;
-		//stringTableId = -1;
+		preDefined = false;
+		argNum = -1;
+		nestedLevel = -1;
 	}
 	~StackObject(void){}
 
@@ -23,8 +23,12 @@ public:
 	std::string nodeType;
 	std::string lexVal;
 
-	int symbolTableId;
-	//int stringTableId;//
+	//symbol attr
+	std::string symbolType;
+	std::string varType;
+	bool preDefined;
+	int argNum;
+	int nestedLevel;
 
 };
 
