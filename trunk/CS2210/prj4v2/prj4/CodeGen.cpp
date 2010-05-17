@@ -50,7 +50,6 @@ void CodeGen::postOrderTravel( tree root)
 		if(cur->RightC == NULL || cur->RightC == pre)
 		{
 			//visit this element and then pop it
-			//cout << "visit: " << cur->data << endl;
 			parseNode(cur);
 			st.pop();
 			pre = cur;
@@ -62,6 +61,8 @@ void CodeGen::postOrderTravel( tree root)
 		}
 	}//end of while(p || st.size()!=0)
 
+	//generate code from the stack
+	generateCode();
 }
 
 int CodeGen::parseNode( tree node )
@@ -70,9 +71,35 @@ int CodeGen::parseNode( tree node )
 		return -1;
 
 	StackObject so = StackObject::fromNode(node);
-	postStack.push(so);
+	postStack.push_back(so);
 
+	//debug
 	printnode(node);
 	cout<<endl;
+	//
+
 	return 0;
+}
+
+void CodeGen::generateMethodCode()
+{
+	//main...
+	auto& so = postStack.front();
+	if (so.lexVal == "main"){
+
+	}else{//normal...
+
+	}
+}
+
+void CodeGen::generateCode()
+{
+	//while (postStack.empty() == false){
+		auto& so = postStack.front();
+		if (so.symbolType == "procedure")
+			generateMethodCode();
+		//else if (so.symbolType == "")
+			//;
+	//}
+
 }
