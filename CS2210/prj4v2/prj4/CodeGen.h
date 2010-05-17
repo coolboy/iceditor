@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <deque>
 #include <stack>
 
 #include "StackObject.h"
@@ -22,10 +23,13 @@ private:
 	std::string asmOut;
 	tree tgtAST;
 	//internal stack : post order tree travel
-	typedef std::stack<StackObject> PostStack;
+	typedef std::deque<StackObject> PostStack;
 	PostStack postStack;
 
 private:
 	void postOrderTravel(tree root);
 	int parseNode(tree node);
+
+	void generateCode();
+	void generateMethodCode();
 };
