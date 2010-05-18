@@ -31,5 +31,5 @@ private:
 	int parseNode(tree node);
 
 	void generateCode();
-	void generateMethodCode();
+	std::string generateMethodCode();
 };

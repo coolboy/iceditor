@@ -80,6 +80,7 @@
     <ClCompile Include="proj3.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
     </ClCompile>
+    <ClCompile Include="RegisterAllocator.cpp" />
     <ClCompile Include="StackObject.cpp" />
     <ClCompile Include="strtlb.c">
       <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
@@ -89,6 +90,7 @@
     <ClInclude Include="CodeGen.h" />
     <ClInclude Include="proj2.h" />
     <ClInclude Include="proj3.h" />
+    <ClInclude Include="RegisterAllocator.h" />
     <ClInclude Include="StackObject.h" />
     <ClInclude Include="strtlb.h" />
     <ClInclude Include="token.h" />
