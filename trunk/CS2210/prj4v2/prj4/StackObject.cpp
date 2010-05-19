@@ -32,6 +32,7 @@ StackObject StackObject::fromNode( tree nd )
 
 	case NUMNode:   
 		ret.nodeType = "NUMNode";
+		ret.intVal = IntVal(nd);
 		break;
 
 	case CHARNode: 

@@ -14,6 +14,7 @@ public:
 		preDefined = false;
 		argNum = -1;
 		nestedLevel = -1;
+		intVal = -1;
 	}
 	~StackObject(void){}
 
@@ -29,6 +30,6 @@ public:
 	bool preDefined;
 	int argNum;
 	int nestedLevel;
-
+	int intVal;
 };
 

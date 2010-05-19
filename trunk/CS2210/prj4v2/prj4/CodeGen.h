@@ -19,11 +19,12 @@ public:
 	void setAST(tree pAST);
 	std::string getMIPSCode();
 
+	typedef std::deque<StackObject> PostStack;
+
 private:
 	std::string asmOut;
 	tree tgtAST;
 	//internal stack : post order tree travel
-	typedef std::deque<StackObject> PostStack;
 	PostStack postStack;
 
 private:
