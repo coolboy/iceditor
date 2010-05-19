@@ -5,6 +5,7 @@
 //
 #include <map>
 #include <vector>
+#include <cassert>
 
 #include "RegisterAllocator.h"
 
@@ -97,12 +98,60 @@ public:
 	int initVal;
 };
 
+typedef map<string, VarInfo> VarInfoMap;
+
+/*
+[STNode,6,"x"]
+
+[INTEGERTNode]
+
+[TypeIdOp]
+
+[NUMNode,1] ++
+
+[AddOp] ++
+
+[CommaOp]
+
+[CommaOp]
+
+[DeclOp]
+
+[BodyOp]
+*/
+
+VarInfoMap::value_type getVarInfo(RegisterAllocator& ralloc, CodeGen::PostStack& pStack){
+	VarInfo vi;
+	vector<StackObject> sos;
+	while (true)
+	{
+		auto so = pStack.front();
+		pStack.pop_front();
+		sos.push_back (so);
+		if (so.nodeType == "BodyOp")
+			break;
+	}
+
+	if (sos.size() == 7){//no init
+		;
+	}else if (sos.size() == 9){//init
+		vi.initVal = sos[3].intVal;
+	}else
+		assert (0);
+
+	vi.regName = ralloc.getOne();
+
+	assert (!vi.regName.empty());
+
+	return std::make_pair(sos[0].lexVal, vi);
+}
+
 std::string CodeGen::generateMethodCode()
 {
 	//using r16-r23 for stack val
 	RegisterAllocator ralloc;
 
-	map<string, VarInfo> stackRegs;//name -> reg
+	VarInfoMap stackRegs;//VarName -> reg
 	//using stack for temp val
 	std::string retAsm = "\tla	$28	base		#store global area address into $gp\n"
 		"\tmove	$t1	$28		#init base\n"
@@ -128,19 +177,19 @@ std::string CodeGen::generateMethodCode()
 		auto& so = postStack.front();
 		//encounter the end condition
 		if (so.nodeType == "STNode" && (so.symbolType == "procedure" || so.symbolType == "class")){
-			//if (so.symbolType == "procedure")
-				//retAsm += generateMethodCode();
-			//else if (so.symbolType == "class")
-				//className = so.lexVal;
 			break;//when the method code is done
-		}else{
-
+		}else if (so.nodeType == "STNode" && so.symbolType == "variable"){
+			//fill in stack regs
+			stackRegs.insert(getVarInfo(ralloc, postStack));
+			continue;
 		}
+		//statment
+		//method invoke
 
-		postStack.pop_front();
+		postStack.pop_front();//TODO
 	}
 
-	//generateCode
+	//append end code
 	return retAsm;
 }
 
