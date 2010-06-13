@@ -2,11 +2,15 @@
 <resources>
     <string name="app_name">Updater</string>
     <string name="no_filemanager_installed">No compatible file manager found</string>
-    <string name="file_name">File name</string>
+    
     <string name="open_title">Select file to open</string>
     <string name="open_button">Open</string>
     <string name="save_title">Select file to save</string>
     <string name="save_button">Save</string>
-    <string name="pick_directory_title">Select a folder</string>
+    <string name="diff_button_text">Diff!</string>
     <string name="pick_directory_button">Use this folder</string>
+<string name="apk_file_1">Apk Original File</string>
+<string name="apk_file_2">Apk Updated/Diff File</string>
+<string name="out_file">Diff/Updated File Output Location</string>
+<string name="merge_button_text">Merge!</string>
 </resources>

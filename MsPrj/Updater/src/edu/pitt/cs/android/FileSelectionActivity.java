@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class HelloAndroid extends Activity {
+public class FileSelectionActivity extends Activity {
 	
 	protected static final int REQUEST_CODE_PICK_FILE_OR_DIRECTORY = 1;
 
@@ -28,14 +28,6 @@ public class HelloAndroid extends Activity {
         mFile1 = (EditText) findViewById(R.id.file_path1);
         mFile2 = (EditText) findViewById(R.id.file_path2);
         mFileOut = (EditText) findViewById(R.id.file_path_out);
-
-        Button buttonFileManager = (Button) findViewById(R.id.file_manager);
-        buttonFileManager.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View arg0) {
-				openFile();
-			}
-        });
         
         Button button = (Button) findViewById(R.id.open);
         button.setOnClickListener(new View.OnClickListener() {
@@ -53,11 +45,21 @@ public class HelloAndroid extends Activity {
 			}
         });
 
-        button = (Button) findViewById(R.id.pick_directory);
+        //diff!
+        button = (Button) findViewById(R.id.diff_button);
         button.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View arg0) {
-				pickDirectory();
+//				pickDirectory();
+			}
+        });
+        
+        //merge!
+        button = (Button) findViewById(R.id.merge_button);
+        button.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View arg0) {
+//				pickDirectory();
 			}
         });
     }
@@ -100,31 +102,6 @@ public class HelloAndroid extends Activity {
 		// Set fancy title and button (optional)
 		intent.putExtra("org.openintents.extra.TITLE", getString(R.string.save_title));
 		intent.putExtra("org.openintents.extra.BUTTON_TEXT", getString(R.string.save_button));
-		
-		try {
-			startActivityForResult(intent, REQUEST_CODE_PICK_FILE_OR_DIRECTORY);
-		} catch (ActivityNotFoundException e) {
-			// No compatible file manager was found.
-			Toast.makeText(this, R.string.no_filemanager_installed, 
-					Toast.LENGTH_SHORT).show();
-		}
-	}
-
-    /**
-     * Opens the file manager to pick a directory.
-     */
-    private void pickDirectory() {
-		String fileName = mFile1.getText().toString();
-		
-		// Note the different intent: PICK_DIRECTORY
-		Intent intent = new Intent("org.openintents.action.PICK_DIRECTORY");
-		
-		// Construct URI from file name.
-		intent.setData(Uri.parse("file://" + fileName));
-		
-		// Set fancy title and button (optional)
-		intent.putExtra("org.openintents.extra.TITLE", getString(R.string.pick_directory_title));
-		intent.putExtra("org.openintents.extra.BUTTON_TEXT", getString(R.string.pick_directory_button));
 		
 		try {
 			startActivityForResult(intent, REQUEST_CODE_PICK_FILE_OR_DIRECTORY);
