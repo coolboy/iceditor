@@ -2,14 +2,11 @@ package edu.pitt.cs.android;
 
 import android.app.Activity;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
+import android.content.*;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 
 public class FileSelectionActivity extends Activity {
 	
@@ -131,7 +128,7 @@ public class FileSelectionActivity extends Activity {
 						filename = filename.substring(7);
 					}
 					
-					mFile1.setText(filename);
+					((EditText) this.getCurrentFocus()).setText(filename);
 				}				
 				
 			}
