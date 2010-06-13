@@ -4,13 +4,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/file_name"
-	android:textAppearance="?android:attr/textAppearanceMedium"
-    android:layout_marginTop="10dip"
-    android:layout_marginLeft="10dip"
+	<TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/apk_file_1"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:layout_marginTop="10dip"
+	    android:layout_marginLeft="10dip"
     />
     <LinearLayout android:orientation="horizontal"
 	    android:layout_width="fill_parent"
@@ -20,11 +20,16 @@
 		    android:layout_width="0dip" 
 		    android:layout_height="wrap_content" 
 		    android:layout_weight="1"/>
-		<Button android:id="@+id/file_manager"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" />
 	</LinearLayout>
 	
+	<TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/apk_file_2"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:layout_marginTop="10dip"
+	    android:layout_marginLeft="10dip"
+    />
 	<LinearLayout android:orientation="horizontal"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
@@ -33,11 +38,16 @@
 		    android:layout_width="0dip" 
 		    android:layout_height="wrap_content" 
 		    android:layout_weight="1"/>
-		<Button android:id="@+id/file_manager"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" />
 	</LinearLayout>
 	
+	<TextView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/out_file"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+	    android:layout_marginTop="10dip"
+	    android:layout_marginLeft="10dip"
+    />
     <LinearLayout android:orientation="horizontal"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
@@ -46,9 +56,6 @@
 		    android:layout_width="0dip" 
 		    android:layout_height="wrap_content" 
 		    android:layout_weight="1"/>
-		<Button android:id="@+id/file_manager"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" />
 	</LinearLayout>
 	
 	<Button android:id="@+id/open"
@@ -62,9 +69,14 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
 		
-	<Button android:id="@+id/pick_directory"
-		android:text="@string/pick_directory_title"
+	<Button android:id="@+id/diff_button"
+		android:text="@string/diff_button_text"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
 		
+	<Button android:id="@+id/merge_button"
+		android:text="@string/merge_button_text"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+	
 </LinearLayout>
