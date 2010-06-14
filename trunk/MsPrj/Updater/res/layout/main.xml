@@ -2,8 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     >
+    
+    <ScrollView android:id="@+id/ScrollView01"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	
+	<LinearLayout android:id="@+id/LinearLayout02"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+    
 	<TextView  
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
@@ -12,15 +22,10 @@
 	    android:layout_marginTop="10dip"
 	    android:layout_marginLeft="10dip"
     />
-    <LinearLayout android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    >
-	    <EditText android:id="@+id/file_path1"
-		    android:layout_width="0dip" 
-		    android:layout_height="wrap_content" 
-		    android:layout_weight="1"/>
-	</LinearLayout>
+    
+    <EditText android:id="@+id/file_path1"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content"/>
 	
 	<TextView  
 	    android:layout_width="fill_parent" 
@@ -30,15 +35,10 @@
 	    android:layout_marginTop="10dip"
 	    android:layout_marginLeft="10dip"
     />
-	<LinearLayout android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    >
-	    <EditText android:id="@+id/file_path2"
-		    android:layout_width="0dip" 
-		    android:layout_height="wrap_content" 
-		    android:layout_weight="1"/>
-	</LinearLayout>
+    
+    <EditText android:id="@+id/file_path2"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" />
 	
 	<TextView  
 	    android:layout_width="fill_parent" 
@@ -48,26 +48,16 @@
 	    android:layout_marginTop="10dip"
 	    android:layout_marginLeft="10dip"
     />
-    <LinearLayout android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    >
-	    <EditText android:id="@+id/file_path_out"
-		    android:layout_width="0dip" 
-		    android:layout_height="wrap_content" 
-		    android:layout_weight="1"/>
-	</LinearLayout>
+    
+    <EditText android:id="@+id/file_path_out"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content"/>
 	
 	<Button android:id="@+id/open"
 		android:text="@string/open_button"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dip" />
-		
-	<Button android:id="@+id/save"
-		android:text="@string/save_button"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" />
 		
 	<Button android:id="@+id/diff_button"
 		android:text="@string/diff_button_text"
@@ -78,5 +68,7 @@
 		android:text="@string/merge_button_text"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
-	
+
+</LinearLayout>
+</ScrollView>
 </LinearLayout>

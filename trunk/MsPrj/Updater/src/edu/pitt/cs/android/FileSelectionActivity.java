@@ -34,20 +34,12 @@ public class FileSelectionActivity extends Activity {
 			}
         });
 
-        button = (Button) findViewById(R.id.save);
-        button.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View arg0) {
-				saveFile();
-			}
-        });
-
         //diff!
         button = (Button) findViewById(R.id.diff_button);
         button.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View arg0) {
-//				pickDirectory();
+				generateDiffFile();
 			}
         });
         
@@ -56,9 +48,27 @@ public class FileSelectionActivity extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View arg0) {
-//				pickDirectory();
+				mergeDiffFile();
 			}
         });
+    }
+    
+    /**
+     * 
+     */
+    private void generateDiffFile(){
+		// TODO
+		Toast.makeText(this, R.string.todo_msg, 
+				Toast.LENGTH_SHORT).show();
+    }
+    
+    /**
+     * 
+     */
+    private void mergeDiffFile(){
+		// TODO
+		Toast.makeText(this, R.string.todo_msg, 
+				Toast.LENGTH_SHORT).show();
     }
     
     /**
@@ -88,26 +98,26 @@ public class FileSelectionActivity extends Activity {
     /**
      * Opens the file manager to select a location for saving a file.
      */
-    private void saveFile() {
-		String fileName = mFile1.getText().toString();
-		
-		Intent intent = new Intent("org.openintents.action.PICK_FILE");
-		
-		// Construct URI from file name.
-		intent.setData(Uri.parse("file://" + fileName));
-		
-		// Set fancy title and button (optional)
-		intent.putExtra("org.openintents.extra.TITLE", getString(R.string.save_title));
-		intent.putExtra("org.openintents.extra.BUTTON_TEXT", getString(R.string.save_button));
-		
-		try {
-			startActivityForResult(intent, REQUEST_CODE_PICK_FILE_OR_DIRECTORY);
-		} catch (ActivityNotFoundException e) {
-			// No compatible file manager was found.
-			Toast.makeText(this, R.string.no_filemanager_installed, 
-					Toast.LENGTH_SHORT).show();
-		}
-	}
+//    private void saveFile() {
+//		String fileName = mFile1.getText().toString();
+//		
+//		Intent intent = new Intent("org.openintents.action.PICK_FILE");
+//		
+//		// Construct URI from file name.
+//		intent.setData(Uri.parse("file://" + fileName));
+//		
+//		// Set fancy title and button (optional)
+//		intent.putExtra("org.openintents.extra.TITLE", getString(R.string.save_title));
+//		intent.putExtra("org.openintents.extra.BUTTON_TEXT", getString(R.string.save_button));
+//		
+//		try {
+//			startActivityForResult(intent, REQUEST_CODE_PICK_FILE_OR_DIRECTORY);
+//		} catch (ActivityNotFoundException e) {
+//			// No compatible file manager was found.
+//			Toast.makeText(this, R.string.no_filemanager_installed, 
+//					Toast.LENGTH_SHORT).show();
+//		}
+//	}
     
 
     /**
