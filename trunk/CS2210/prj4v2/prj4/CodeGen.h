@@ -33,4 +33,5 @@ private:
 
 	void generateCode();
 	std::string generateMethodCode();
+	std::string generateStmtCode();
 };

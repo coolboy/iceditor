@@ -146,8 +146,17 @@ VarInfoMap::value_type getVarInfo(RegisterAllocator& ralloc, CodeGen::PostStack&
 	return std::make_pair(sos[0].lexVal, vi);
 }
 
-std::string CodeGen::generateMethodCode()
-{
+std::string CodeGen::generateStmtCode(){
+	//statement //StOP <-> StOP
+	//Assignment
+	//MethodCall
+	//ReturnStatements
+	//IfSt
+	//WhileSt
+	return std::string();
+}
+
+std::string CodeGen::generateMethodCode(){
 	//using r16-r23 for stack val
 	RegisterAllocator ralloc;
 
@@ -165,11 +174,11 @@ std::string CodeGen::generateMethodCode()
 	std::string methodName, className/*Not used by main*/;
 
 	//main...
-	if (so.lexVal == "main"){
-		methodName = so.lexVal;
-	}else{//normal...
-		methodName = so.lexVal;
-	}
+	//if (so.lexVal == "main"){
+	methodName = so.lexVal;
+	//}else{//normal...
+		//methodName = so.lexVal;
+	//}
 
 	postStack.pop_front();
 
@@ -180,12 +189,11 @@ std::string CodeGen::generateMethodCode()
 			break;//when the method code is done
 		}else if (so.nodeType == "STNode" && so.symbolType == "variable"){
 			//fill in stack regs
-			stackRegs.insert(getVarInfo(ralloc, postStack));
-			continue;
+			auto vi = getVarInfo(ralloc, postStack);
+			stackRegs.insert(vi);
+		}else if (so.nodeType == "StmtOp"){
+			retAsm += generateStmtCode();
 		}
-		//statment
-		//method invoke
-
 		postStack.pop_front();//TODO
 	}
 
@@ -196,10 +204,10 @@ std::string CodeGen::generateMethodCode()
 void CodeGen::generateCode()
 {
 	//while (postStack.empty() == false){
-		auto& so = postStack.front();
-		if (so.symbolType == "procedure")
-			asmOut += generateMethodCode();
-		//else if (so.symbolType == "")
+		//auto& so = postStack.front();
+		//if (so.nodeType == "STNode" || so.symbolType == "procedure")
+			//asmOut += generateMethodCode();
+		//else if (so.nodeType == "StmtOp")
 			//;
 	//}
 }
