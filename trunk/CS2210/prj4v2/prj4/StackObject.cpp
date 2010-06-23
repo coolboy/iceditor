@@ -48,6 +48,7 @@ StackObject StackObject::fromNode( tree nd )
 		break;
 
 	case  DUMMYNode:
+		ret.nodeType = "DUMMYNode";
 		break;
 
 	default:	

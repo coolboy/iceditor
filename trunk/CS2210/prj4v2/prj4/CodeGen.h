@@ -24,14 +24,24 @@ public:
 private:
 	std::string asmOut;
 	tree tgtAST;
-	//internal stack : post order tree travel
-	PostStack postStack;
 
 private:
-	void postOrderTravel(tree root);
 	int parseNode(tree node);
 
 	void generateCode();
-	std::string generateMethodCode();
-	std::string generateStmtCode();
+
+private:
+	static void dealProgramOp(tree programRoot);
+	static void dealClassOp(tree classRoot);
+	static void dealClassDefOp(tree classDefRoot);
+	static void dealClassBodyOp(tree classBodyRoot);
+	static void dealDeclsBodyOp(tree declsBodyRoot);
+	static void dealMethodDeclOp(tree methodDeclRoot);
+	static void dealFieldDeclOp( tree fieldDeclRoot );
+	static void dealOneVar( tree oneVarRoot );
+	static void dealVariInit( tree variInitRoot );
+	static void dealType( tree typeRoot );
+	static void dealSimpleExpr( tree simpleExprRoot );
+	static void dealTerm( tree termRoot );
+	static void dealFactor( tree factorRoot );
 };
