@@ -11,6 +11,11 @@
 
 using namespace std;
 
+//////////////////////////////////////////////////////////////////////////
+// For the tree view
+// left is the buttom
+// right is the up
+
 
 //////////////////////////////////////////////////////////////////////////
 bool IsComma(tree node);
@@ -66,6 +71,18 @@ bool IsAddOp(tree node){
 	auto obj = StackObject::fromNode(node);
 
 	return obj.nodeType == "AddOp";
+}
+
+bool IsMethodOp(tree node){
+	auto obj = StackObject::fromNode(node);
+
+	return obj.nodeType == "MethodOp";
+}
+
+bool IsXXXOp(tree node, const char* opstr){
+	auto obj = StackObject::fromNode(node);
+
+	return obj.nodeType == opstr;
 }
 
 bool IsTerm(tree node){
@@ -174,7 +191,7 @@ void CodeGen::dealClassBodyOp( tree classBodyRoot )
 	else if (IsDeclsBody(classBodyRoot->LeftC))
 		dealDeclsBodyOp(classBodyRoot->LeftC);//decls
 	else if (IsDummy(classBodyRoot->LeftC))
-		;//end
+		;//Will be dummy when this class is empty
 	else
 		assert(false);
 
@@ -316,6 +333,38 @@ void CodeGen::dealType( tree typeRoot )
 void CodeGen::dealMethodDeclOp( tree methodDeclRoot )
 {
 	printnode(methodDeclRoot);
+
+	assert (IsMethodOp(methodDeclRoot));
+
+	//left
+	// 1. HeadOp
+	// 1. left IDNode
+	// 1. right Subtree 4 Parameter
+
+	tree leftRoot= methodDeclRoot->LeftC;
+
+	assert (IsXXXOp(leftRoot, "HeadOp"));
+
+	printnode(leftRoot->LeftC);
+
+	//right
+	// 1. Subtree 4 block
+	dealBlock(methodDeclRoot->RightC);
+}
+
+void CodeGen::dealParameter( tree paraRoot )
+{
+	printnode(paraRoot);
+
+	//left
+
+	//right
+
+}
+
+void CodeGen::dealBlock( tree blockRoot )
+{
+	printnode(blockRoot);
 
 	//left
 

@@ -44,4 +44,6 @@ private:
 	static void dealSimpleExpr( tree simpleExprRoot );
 	static void dealTerm( tree termRoot );
 	static void dealFactor( tree factorRoot );
+	static void dealParameter( tree paraRoot );
+	static void dealBlock( tree blockRoot );
 };
