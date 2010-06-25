@@ -35,7 +35,7 @@ private:
 	static void dealClassOp(tree classRoot);
 	static void dealClassDefOp(tree classDefRoot);
 	static void dealClassBodyOp(tree classBodyRoot);
-	static void dealDeclsBodyOp(tree declsBodyRoot);
+	static void dealDecls(tree declsBodyRoot);
 	static void dealMethodDeclOp(tree methodDeclRoot);
 	static void dealFieldDeclOp( tree fieldDeclRoot );
 	static void dealOneVar( tree oneVarRoot );
@@ -44,6 +44,6 @@ private:
 	static void dealSimpleExpr( tree simpleExprRoot );
 	static void dealTerm( tree termRoot );
 	static void dealFactor( tree factorRoot );
-	static void dealParameter( tree paraRoot );
+	static void dealStmtList( tree paraRoot );
 	static void dealBlock( tree blockRoot );
 };

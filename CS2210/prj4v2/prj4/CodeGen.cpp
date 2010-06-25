@@ -189,7 +189,7 @@ void CodeGen::dealClassBodyOp( tree classBodyRoot )
 	if (IsClassBody(classBodyRoot->LeftC))
 		dealClassBodyOp(classBodyRoot->LeftC);//class body
 	else if (IsDeclsBody(classBodyRoot->LeftC))
-		dealDeclsBodyOp(classBodyRoot->LeftC);//decls
+		dealDecls(classBodyRoot->LeftC);//decls
 	else if (IsDummy(classBodyRoot->LeftC))
 		;//Will be dummy when this class is empty
 	else
@@ -200,7 +200,7 @@ void CodeGen::dealClassBodyOp( tree classBodyRoot )
 	dealMethodDeclOp(classBodyRoot->RightC);
 }
 
-void CodeGen::dealDeclsBodyOp( tree declsBodyRoot )
+void CodeGen::dealDecls( tree declsBodyRoot )
 {
 	printnode(declsBodyRoot);
 
@@ -211,7 +211,7 @@ void CodeGen::dealDeclsBodyOp( tree declsBodyRoot )
 	if (IsDummy(declsBodyRoot->LeftC))
 		;
 	else if (IsDeclsBody(declsBodyRoot->LeftC))
-		dealDeclsBodyOp(declsBodyRoot->LeftC);
+		dealDecls(declsBodyRoot->LeftC);
 	else
 		assert (false);
 
@@ -255,8 +255,9 @@ void CodeGen::dealOneVar( tree oneVarRoot )
 	assert (IsComma(oneVarRoot->RightC));
 
 	tree rightRoot = oneVarRoot->RightC;
-	dealVariInit(rightRoot->LeftC);
-	dealType(rightRoot->RightC);
+	dealType(rightRoot->LeftC);
+	if (!IsDummy(rightRoot->RightC))//if there is no init for that var, is dummy node
+		dealVariInit(rightRoot->RightC);
 }
 
 void CodeGen::dealVariInit( tree variInitRoot )
@@ -346,15 +347,16 @@ void CodeGen::dealMethodDeclOp( tree methodDeclRoot )
 	assert (IsXXXOp(leftRoot, "HeadOp"));
 
 	printnode(leftRoot->LeftC);
+	dealStmtList(leftRoot->RightC);
 
 	//right
 	// 1. Subtree 4 block
 	dealBlock(methodDeclRoot->RightC);
 }
 
-void CodeGen::dealParameter( tree paraRoot )
+void CodeGen::dealStmtList( tree stmtLstRoot )
 {
-	printnode(paraRoot);
+	printnode(stmtLstRoot);
 
 	//left
 
@@ -366,8 +368,13 @@ void CodeGen::dealBlock( tree blockRoot )
 {
 	printnode(blockRoot);
 
+	assert (IsXXXOp(blockRoot, "BodyOp"));
+
 	//left
+	// 1. Subtree for Decls
+	dealDecls(blockRoot->LeftC);
 
 	//right
-
+	// 1. Subtree for StmtList
+	dealStmtList(blockRoot->RightC);
 }
