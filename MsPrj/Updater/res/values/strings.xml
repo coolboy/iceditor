@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Updater</string>
-    <string name="no_filemanager_installed">No compatible file manager found</string>
-    
-    <string name="open_title">Select file to open</string>
-    <string name="open_button">Open</string>
-    
-    
-    <string name="diff_button_text">Diff!</string>
-    <string name="pick_directory_button">Use this folder</string>
+<string name="app_name">Updater</string>
+<string name="no_filemanager_installed">No compatible file manager found</string>
+<string name="open_title">Select file to open</string>
+<string name="open_button">Open</string>
+<string name="diff_button_text">Diff!</string>
+<string name="pick_directory_button">Use this folder</string>
 <string name="apk_file_1">Apk Original File</string>
 <string name="apk_file_2">Apk Updated/Diff File</string>
 <string name="out_file">Diff/Updated File Output Location</string>
 <string name="merge_button_text">Merge!</string>
 <string name="todo_msg">To Be Done!</string>
+<string name="error_deleting_child_file">Delete child file error!</string>
+<string name="error_deleting_folder">Delete folder error!</string>
+<string name="folder_deleted">Folder deleted</string>
+<string name="file_deleted">File deleted</string>
+<string name="error_deleting_file">File Delete Error!</string>
 </resources>
