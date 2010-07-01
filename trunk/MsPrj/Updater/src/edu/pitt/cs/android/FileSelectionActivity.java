@@ -1,16 +1,6 @@
 package edu.pitt.cs.android;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 import android.app.Activity;
 
@@ -18,6 +8,7 @@ import android.content.*;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+//import android.os.FileUtils;
 import android.view.View;
 import android.widget.*;
 
@@ -67,41 +58,31 @@ public class FileSelectionActivity extends Activity {
 	}
 
 	/**
-     * 
+     * generate diff update for future use
      */
 	private void generateDiffFile() {
 		// TODO
 		Toast.makeText(this, mFile1.getText(), Toast.LENGTH_SHORT).show();
-		// Toast.makeText(this, mFile2.getText(),
-		// Toast.LENGTH_SHORT).show();
-		// ZipFile zf = null;
-		// try {
-		// zf = new ZipFile(mFile1.getText().toString());
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		//		
-		// Enumeration<? extends ZipEntry> zes = zf.entries();//what this mean?
-		// while (zes.hasMoreElements()){
-		// ZipEntry ze = zes.nextElement();
-		// }
 		
 		File root = Environment.getExternalStorageDirectory();
 		if (!root.canWrite())
 			return;
 		
+		//create updater root in sd card 
 		File updaterFolder = new File(root, "updater");
 		updaterFolder.mkdir();
 		
-		//clean up the old dir
+		String fullPath = mFile1.getText().toString();
 		
-		Unzip.extract(mFile1.getText().toString(), updaterFolder);
-//			File gpxfile = new File(root, "test.txt");
-//			gpxfile.createNewFile();
-		//this will be used to write the downloaded data into the file we created  
-//			FileOutputStream fileOutput = new FileOutputStream(gpxfile);
-
+		//TODO root condition?
+		String apkFileName = fullPath.substring(fullPath.lastIndexOf("/") + 1);;
+		
+		//Create root folder fot this apk
+		File apkFolder = new File(updaterFolder, apkFileName);
+		deleteFileOrFolder(apkFolder);//clean up
+		apkFolder.mkdir();
+		
+		Unzip.extract(mFile1.getText().toString(), apkFolder);
 	}
 
 	/**
@@ -161,6 +142,52 @@ public class FileSelectionActivity extends Activity {
 
 			}
 			break;
+		}
+	}
+	
+	/*! Recursively delete a directory and all of its children.
+	 *  @params toastOnError If set to true, this function will toast if an error occurs.
+	 *  @returns true if successful, false otherwise.
+	 */
+	private boolean recursiveDelete(File file, boolean toastOnError) {
+		// Recursively delete all contents.
+		File[] files = file.listFiles();
+		
+		for (int x=0; x<files.length; x++) {
+			File childFile = files[x];
+			if (childFile.isDirectory()) {
+				if (!recursiveDelete(childFile, toastOnError)) {
+					return false;
+				}
+			} else {
+				if (!childFile.delete()) {
+					Toast.makeText(this, getString(R.string.error_deleting_child_file, childFile.getAbsolutePath()), Toast.LENGTH_LONG);
+					return false;
+				}
+			}
+		}
+		
+		if (!file.delete()) {
+			Toast.makeText(this, getString(R.string.error_deleting_folder, file.getAbsolutePath()), Toast.LENGTH_LONG);
+			return false;
+		}
+		
+		return true;
+	}
+
+	private void deleteFileOrFolder(File file) {
+		
+		if (file.isDirectory()) {
+			if (recursiveDelete(file, true)) {
+				Toast.makeText(this, R.string.folder_deleted, Toast.LENGTH_SHORT).show();
+			}
+		} else {
+			if (file.delete()) {
+				// Delete was successful.
+				Toast.makeText(this, R.string.file_deleted, Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(this, R.string.error_deleting_file, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 }
