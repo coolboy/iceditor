@@ -26,13 +26,10 @@ public class Unzip {
 	}
 
 	public static void extract(String zipFileName, File root) {
-		Enumeration<? extends ZipEntry> entries;
-		ZipFile zipFile;
-
 		try {
-			zipFile = new ZipFile(zipFileName);
+			ZipFile zipFile = new ZipFile(zipFileName);
 
-			entries = zipFile.entries();
+			Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
 			while (entries.hasMoreElements()) {
 				ZipEntry entry = entries.nextElement();
