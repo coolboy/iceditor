@@ -74,10 +74,9 @@ public class FileSelectionActivity extends Activity {
 		
 		String fullPath = mFile1.getText().toString();
 		
-		//TODO root condition?
 		String apkFileName = fullPath.substring(fullPath.lastIndexOf("/") + 1);;
 		
-		//Create root folder fot this apk
+		//Create root folder for this apk
 		File apkFolder = new File(updaterFolder, apkFileName);
 		deleteFileOrFolder(apkFolder);//clean up
 		apkFolder.mkdir();
