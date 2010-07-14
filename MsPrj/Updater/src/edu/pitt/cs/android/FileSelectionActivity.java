@@ -1,6 +1,15 @@
 package edu.pitt.cs.android;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OptionalDataException;
+import java.io.StreamCorruptedException;
+import java.util.zip.ZipFile;
 
 import android.app.Activity;
 
@@ -61,27 +70,42 @@ public class FileSelectionActivity extends Activity {
      * generate diff update for future use
      */
 	private void generateDiffFile() {
-		// TODO
 		Toast.makeText(this, mFile1.getText(), Toast.LENGTH_SHORT).show();
 		
 		File root = Environment.getExternalStorageDirectory();
 		if (!root.canWrite())
 			return;
 		
-		//create updater root in sd card 
-		File updaterFolder = new File(root, "updater");
-		updaterFolder.mkdir();
+//		//Extract the apk file
+//		//create updater root in sd card 
+//		File updaterFolder = new File(root, "updater");
+//		updaterFolder.mkdir();
+//		
+//		String fullPath = mFile1.getText().toString();
+//		
+//		String apkFileName = fullPath.substring(fullPath.lastIndexOf("/") + 1);;
+//		
+//		//Create root folder for this apk
+//		File apkFolder = new File(updaterFolder, apkFileName);
+//		deleteFileOrFolder(apkFolder);//clean up
+//		apkFolder.mkdir();
+//		
+//		Zip.extract(mFile1.getText().toString(), apkFolder);
 		
-		String fullPath = mFile1.getText().toString();
-		
-		String apkFileName = fullPath.substring(fullPath.lastIndexOf("/") + 1);;
-		
-		//Create root folder for this apk
-		File apkFolder = new File(updaterFolder, apkFileName);
-		deleteFileOrFolder(apkFolder);//clean up
-		apkFolder.mkdir();
-		
-		Unzip.extract(mFile1.getText().toString(), apkFolder);
+		try {
+			Object diff = DiffFactory.getDiff(mFile1.getText().toString(), mFile2.getText().toString());
+			
+			File diffFile = new File(mFileOut.getText().toString());
+			diffFile.createNewFile();
+			
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(diffFile));
+			out.writeObject(diff);
+			out.flush();
+
+			Toast.makeText(this, "Diff created: " + diffFile + " Size: " + diffFile.length(), Toast.LENGTH_SHORT).show();	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -90,6 +114,29 @@ public class FileSelectionActivity extends Activity {
 	private void mergeDiffFile() {
 		// TODO
 		Toast.makeText(this, R.string.todo_msg, Toast.LENGTH_SHORT).show();
+		
+		//read the object
+		ObjectInputStream in;
+		try {
+			in = new ObjectInputStream(new FileInputStream(mFile2.getText().toString()));
+			Object diff = in.readObject();
+		} catch (StreamCorruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// copy a
+		
+		// mody a by diff
 	}
 
 	/**

@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.*;
 import java.util.zip.*;
 
-public class Unzip {
+public class Zip {
 
 	public static final void copyInputStream(InputStream in, OutputStream out)
 			throws IOException {
@@ -25,9 +25,13 @@ public class Unzip {
 		out.close();
 	}
 
-	public static void extract(String zipFileName, File root) {
+	/**
+	 * @param zipFilePath
+	 * @param outFolder
+	 */
+	public static void extract(String zipFilePath, File outFolder) {
 		try {
-			ZipFile zipFile = new ZipFile(zipFileName);
+			ZipFile zipFile = new ZipFile(zipFilePath);
 
 			Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
@@ -43,7 +47,7 @@ public class Unzip {
 					System.out.println("File: " + fileName);
 					System.out.println("Folder: " + fullDir);
 					
-					File dir = new File(root, fullDir);
+					File dir = new File(outFolder, fullDir);
 					dir.mkdirs();
 					
 					File file = new File(dir, fileName);
@@ -56,7 +60,7 @@ public class Unzip {
 					
 					System.out.println("File: " + fileName);
 					
-					File file = new File(root, fileName);
+					File file = new File(outFolder, fileName);
 					file.createNewFile();
 					
 					copyInputStream(zipFile.getInputStream(entry),
@@ -70,4 +74,51 @@ public class Unzip {
 			ioe.printStackTrace();
 		}
 	}
+	
+	/**
+	 * @param zipFilePath
+	 * @param entryPath the file path inside the zip file that you want it to be extracted
+	 * @param outPath
+	 */
+	public static void extract(String zipFilePath, String entryPath, File outPath){
+		try {
+			ZipFile zipFile = new ZipFile(zipFilePath);
+
+			Enumeration<? extends ZipEntry> entries = zipFile.entries();
+
+			while (entries.hasMoreElements()) {
+				ZipEntry entry = entries.nextElement();
+
+				String fullPath = entry.getName();
+				if (fullPath != entryPath)
+					continue;
+				
+				System.out.println(fullPath);
+
+				outPath.createNewFile();
+					
+				copyInputStream(zipFile.getInputStream(entry),
+						new BufferedOutputStream(new FileOutputStream(outPath)));
+			}
+
+			zipFile.close();
+		} catch (IOException ioe) {
+			System.out.println("Unhandled exception:");
+			ioe.printStackTrace();
+		}	
+	}
+	
+	
+	/*
+	 * 1. 对比
+	 * 2. 每个不同生成一个对象
+	 * 路径
+	 * 怎么不同  + - m
+	 * 不同的数据
+	 * 
+	 * from 对象
+	 * to 对象
+	 * 
+	 * 3. 压缩
+	 * */
 }
