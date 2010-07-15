@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.pitt.cs.android;
+package edu.pitt.cs.android.utility;
 
 /**
  * @author Cool
@@ -107,6 +107,22 @@ public class Zip {
 			ioe.printStackTrace();
 		}	
 	}
+	
+//	public static void remove(String zipFilePath, String entryPath){
+//		try {
+//			ZipFile zipFile = new ZipFile(zipFilePath);
+//			
+//			Enumeration<? extends ZipEntry> entries = zipFile.entries();
+//
+//			while (entries.hasMoreElements()) {
+//				ZipEntry entry = entries.nextElement();
+//			}
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	
 	
 	/*
