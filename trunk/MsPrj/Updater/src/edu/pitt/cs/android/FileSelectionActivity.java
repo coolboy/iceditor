@@ -1,15 +1,9 @@
 package edu.pitt.cs.android;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
-import java.io.StreamCorruptedException;
-import java.util.zip.ZipFile;
+import java.io.*;
+
+import edu.pitt.cs.android.diff.DiffFactory;
+import edu.pitt.cs.android.utility.FileOperation;
 
 import android.app.Activity;
 
@@ -17,7 +11,6 @@ import android.content.*;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-//import android.os.FileUtils;
 import android.view.View;
 import android.widget.*;
 
@@ -112,31 +105,49 @@ public class FileSelectionActivity extends Activity {
      * 
      */
 	private void mergeDiffFile() {
-		// TODO
-		Toast.makeText(this, R.string.todo_msg, Toast.LENGTH_SHORT).show();
+//		Toast.makeText(this, R.string.todo_msg, Toast.LENGTH_SHORT).show();
+		//mfile1 a file
+		//mfile2 diff file
+		//mfileout b file
 		
-		//read the object
-		ObjectInputStream in;
 		try {
-			in = new ObjectInputStream(new FileInputStream(mFile2.getText().toString()));
-			Object diff = in.readObject();
-		} catch (StreamCorruptedException e1) {
+			DiffFactory.createFromDiff(mFile1.getText().toString(), mFile2.getText().toString(), mFileOut.getText().toString());
+		} catch (Throwable e2) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			e2.printStackTrace();
+		} 
 		
-		// copy a
+//		//read the object
+//		ObjectInputStream in;
+//		try {
+//			in = new ObjectInputStream(new FileInputStream(mFile2.getText().toString()));
+//			Object diff = in.readObject();
+//		} catch (StreamCorruptedException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (FileNotFoundException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		// copy a
+//		File aFile = new File(mFile1.getText().toString());
+//		File bFile = new File(mFileOut.getText().toString());
+//		
+//		try {
+//			FileOperation.copy(aFile, bFile);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
-		// mody a by diff
+		// change b.zip a by diff
 	}
 
 	/**

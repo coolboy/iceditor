@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.pitt.cs.android;
+package edu.pitt.cs.android.diff;
 
 import java.io.Serializable;
 
@@ -18,7 +18,7 @@ public class DiffObject implements Serializable{
 	 */
 	private static final long serialVersionUID = -5218339389948393467L;
 
-	enum State {
+	static public enum State {
 		Add, //this file is new in B 
 		Delete, //this file is missing in B
 		Modify, //this file has been changed
