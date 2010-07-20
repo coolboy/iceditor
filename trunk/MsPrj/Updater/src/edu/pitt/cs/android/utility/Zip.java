@@ -13,6 +13,8 @@ import java.util.zip.*;
 
 public class Zip {
 
+	private static final int BUFFER_SIZE = 2048;
+
 	public static final void copyInputStream(InputStream in, OutputStream out)
 			throws IOException {
 		byte[] buffer = new byte[1024];
@@ -108,33 +110,14 @@ public class Zip {
 		}	
 	}
 	
-//	public static void remove(String zipFilePath, String entryPath){
-//		try {
-//			ZipFile zipFile = new ZipFile(zipFilePath);
-//			
-//			Enumeration<? extends ZipEntry> entries = zipFile.entries();
-//
-//			while (entries.hasMoreElements()) {
-//				ZipEntry entry = entries.nextElement();
-//			}
-//			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-	
-	
-	/*
-	 * 1. 对比
-	 * 2. 每个不同生成一个对象
-	 * 路径
-	 * 怎么不同  + - m
-	 * 不同的数据
-	 * 
-	 * from 对象
-	 * to 对象
-	 * 
-	 * 3. 压缩
-	 * */
+	public static byte[] readAll(ZipFile zFile, String Path) throws IOException{
+		ZipEntry zEntry = zFile.getEntry(Path);
+		
+		byte[] entryBinary = new byte[(int) zEntry.getSize()];
+		
+		BufferedInputStream originIS = new BufferedInputStream(zFile.getInputStream(zEntry), BUFFER_SIZE);
+		originIS.read(entryBinary, 0, entryBinary.length);
+		
+		return entryBinary;
+	}
 }

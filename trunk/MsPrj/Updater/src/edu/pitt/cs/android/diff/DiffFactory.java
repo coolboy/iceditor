@@ -10,6 +10,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
+import edu.pitt.cs.android.utility.Zip;
+
 import android.util.Log;
 
 /**
@@ -80,17 +82,14 @@ public class DiffFactory {
 					obj.path = key;
 					obj.state = DiffObject.State.Modify;
 					
-					//TODO diff data
-					ZipEntry ze = bFile.getEntry(key);
-					int entrySize = (int) ze.getSize();
-					byte[] buff = new byte[entrySize];
-					InputStream in = bFile.getInputStream(ze);
+					Binary binDiff = new Binary();
 					
-					int readed = in.read(buff);
+					byte[] originData = Zip.readAll(aFile, key); 
+					byte[] newData = Zip.readAll(bFile, key); 
 					
-					assert(readed == entrySize);
+					byte[] diffData = binDiff.diff(originData, newData);
 					
-					obj.binary = buff;
+					obj.binary = diffData;
 				
 					ret.put(key, obj); 
 				}
@@ -172,8 +171,19 @@ public class DiffFactory {
 			case Delete:
 				break;
 			case Modify:{
-				//TODO diff data
-				InputStream ai = new ByteArrayInputStream((byte[]) dobj.binary);
+				//get the fidddata
+				byte[] diffData = (byte[]) dobj.binary;
+				
+				//create the bindiff object
+				Binary binDiff = new Binary();
+				
+				//read the originData from A file
+				byte[] originData =	Zip.readAll(aFile, entryPath);
+				
+				//get the new merged data
+				byte[] newData = binDiff.merge(originData, diffData);
+				
+				InputStream ai = new ByteArrayInputStream(newData);
 				origin = new BufferedInputStream(ai, BUFFER_SIZE);
 				
 				ZipEntry newEntry = new ZipEntry(entryPath);
