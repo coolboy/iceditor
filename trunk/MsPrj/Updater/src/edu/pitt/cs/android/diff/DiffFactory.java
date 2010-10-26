@@ -87,7 +87,13 @@ public class DiffFactory {
 					byte[] originData = Zip.readAll(aFile, key); 
 					byte[] newData = Zip.readAll(bFile, key); 
 					
-					byte[] diffData = binDiff.diff(originData, newData);
+					byte[] diffData = null;
+					try {
+						diffData = binDiff.diff(originData, newData);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					obj.binary = diffData;
 				
@@ -181,7 +187,13 @@ public class DiffFactory {
 				byte[] originData =	Zip.readAll(aFile, entryPath);
 				
 				//get the new merged data
-				byte[] newData = binDiff.merge(originData, diffData);
+				byte[] newData = null;
+				try {
+					newData = binDiff.merge(originData, diffData);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				InputStream ai = new ByteArrayInputStream(newData);
 				origin = new BufferedInputStream(ai, BUFFER_SIZE);
