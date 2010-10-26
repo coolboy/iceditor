@@ -69,21 +69,7 @@ public class FileSelectionActivity extends Activity {
 		if (!root.canWrite())
 			return;
 		
-//		//Extract the apk file
-//		//create updater root in sd card 
-//		File updaterFolder = new File(root, "updater");
-//		updaterFolder.mkdir();
-//		
-//		String fullPath = mFile1.getText().toString();
-//		
-//		String apkFileName = fullPath.substring(fullPath.lastIndexOf("/") + 1);;
-//		
-//		//Create root folder for this apk
-//		File apkFolder = new File(updaterFolder, apkFileName);
-//		deleteFileOrFolder(apkFolder);//clean up
-//		apkFolder.mkdir();
-//		
-//		Zip.extract(mFile1.getText().toString(), apkFolder);
+		String toastMsg = null;
 		
 		try {
 			Object diff = DiffFactory.getDiff(mFile1.getText().toString(), mFile2.getText().toString());
@@ -94,60 +80,32 @@ public class FileSelectionActivity extends Activity {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(diffFile));
 			out.writeObject(diff);
 			out.flush();
+			
+			toastMsg = "Diff created: " + diffFile + " Size: " + diffFile.length();
 
-			Toast.makeText(this, "Diff created: " + diffFile + " Size: " + diffFile.length(), Toast.LENGTH_SHORT).show();	
 		} catch (IOException e) {
-			e.printStackTrace();
+			toastMsg = e.getMessage();
 		}
+		
+		Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show();	
 	}
 
 	/**
-     * 
+     *mfile1 src file
+     *mfile2 diff file
+	 *mfileout des file
      */
 	private void mergeDiffFile() {
-//		Toast.makeText(this, R.string.todo_msg, Toast.LENGTH_SHORT).show();
-		//mfile1 a file
-		//mfile2 diff file
-		//mfileout b file
+		String toastMsg = null;
 		
 		try {
-			DiffFactory.createFromDiff(mFile1.getText().toString(), mFile2.getText().toString(), mFileOut.getText().toString());
-		} catch (Throwable e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		} 
-		
-//		//read the object
-//		ObjectInputStream in;
-//		try {
-//			in = new ObjectInputStream(new FileInputStream(mFile2.getText().toString()));
-//			Object diff = in.readObject();
-//		} catch (StreamCorruptedException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} catch (FileNotFoundException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		// copy a
-//		File aFile = new File(mFile1.getText().toString());
-//		File bFile = new File(mFileOut.getText().toString());
-//		
-//		try {
-//			FileOperation.copy(aFile, bFile);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		// change b.zip a by diff
+			File of = DiffFactory.createFromDiff(mFile1.getText().toString(), mFile2.getText().toString(), mFileOut.getText().toString());
+			toastMsg = "Out file: " + of.getName() + "Length: " + of.length();
+		} catch (Throwable e) {
+			toastMsg = "Exception: " + e.getMessage();
+		}
+
+		Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show();
 	}
 
 	/**
