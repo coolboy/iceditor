@@ -1,3 +1,0 @@
-REM Signing %1....
-D:\AppData\Local\Genuitec\Common\binary\com.sun.java.jdk.win32.x86_1.6.0.013\bin\jarsigner.exe -keystore C:\Users\Administrator\.android\debug.keystore -storepass android -keypass android "%1" androiddebugkey
-pause
