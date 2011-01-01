@@ -104,7 +104,7 @@ public class ApkPatcher {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		ApkPatcher.applyDelta("src/main/resources/src.apk",
+		 ApkPatcher.applyDelta("src/main/resources/src.apk",
 				"src/main/resources/delta.apk.zip",
 				"src/main/resources/new.apk");
 	}
