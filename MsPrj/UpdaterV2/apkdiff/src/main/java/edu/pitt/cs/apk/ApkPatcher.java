@@ -25,7 +25,7 @@ import edu.pitt.cs.util.UnZip;
 public class ApkPatcher {
 	private static String DELTA_BASE = "delta/";
 
-	public void applyDelta(String apkFilePath, String deltaPath,
+	static public void applyDelta(String apkFilePath, String deltaPath,
 			String outputPath) throws IOException {
 
 		ZipFile source = new ZipFile(apkFilePath);
@@ -104,7 +104,7 @@ public class ApkPatcher {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		new ApkPatcher().applyDelta("src/main/resources/src.apk",
+		ApkPatcher.applyDelta("src/main/resources/src.apk",
 				"src/main/resources/delta.apk.zip",
 				"src/main/resources/new.apk");
 	}
